@@ -5,7 +5,7 @@ import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
-import TopPropertyCard from './TopProductCard';
+import TopProductCard from './TopProductCard';
 import { ProductsInquiry } from '../../types/product/product.input';
 import { Product } from '../../types/product/product';
 import { useMutation, useQuery } from '@apollo/client';
@@ -15,23 +15,23 @@ import { LIKE_TARGET_PRODUCT } from '../../../apollo/user/mutation';
 import { Message } from '../../enums/common.enum';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 
-interface TopPropertiesProps {
+interface TopProductsProps {
 	initialInput: ProductsInquiry;
 }
 
-const TopProperties = (props: TopPropertiesProps) => {
+const TopProducts = (props: TopProductsProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
-	const [topProperties, setTopProperties] = useState<Product[]>([]);
+	const [topProducts, setTopProducts] = useState<Product[]>([]);
 
 	/** APOLLO REQUESTS **/
-	const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
+	const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
 
 	const {
-		loading: getPropertiesLoading,
-		data: getPropertiesData,
-		error: getPropertiesError,
-		refetch: getPropertiesRefetch,
+		loading: getProductsLoading,
+		data: getProductsData,
+		error: getProductsError,
+		refetch: getProductsRefetch,
 	} = useQuery(GET_PRODUCTS, {
 		fetchPolicy: 'cache-and-network',
 		variables: {
@@ -39,47 +39,47 @@ const TopProperties = (props: TopPropertiesProps) => {
 		},
 		notifyOnNetworkStatusChange: true,
 		onCompleted: (data: T) => {
-			setTopProperties(data?.getProperties?.list);
+			setTopProducts(data?.getProducts?.list);
 		},
 	});
 	/** HANDLERS **/
-	const likePropertyHandler = async (user: T, id: string) => {
+	const likeProductHandler = async (user: T, id: string) => {
 		try {
 			if (!id) return;
 			if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 
-			await likeTargetProperty({
+			await likeTargetProduct({
 				variables: { input: id },
 			});
 
-			await getPropertiesRefetch({ input: initialInput });
+			await getProductsRefetch({ input: initialInput });
 
 			await sweetTopSmallSuccessAlert('success', 800);
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler: ', err.message);
+			console.log('ERROR, likeProductHandler: ', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
 
 	if (device === 'mobile') {
 		return (
-			<Stack className={'top-properties'}>
+			<Stack className={'top-products'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Top properties</span>
+						<span>Top products</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
-							className={'top-property-swiper'}
+							className={'top-product-swiper'}
 							slidesPerView={'auto'}
 							centeredSlides={true}
 							spaceBetween={15}
 							modules={[Autoplay]}
 						>
-							{topProperties.map((property: Product) => {
+							{topProducts.map((product: Product) => {
 								return (
-									<SwiperSlide className={'top-property-slide'} key={property?._id}>
-										<TopPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+									<SwiperSlide className={'top-product-slide'} key={product?._id}>
+										<TopProductCard product={product} likeProductHandler={likeProductHandler} />
 									</SwiperSlide>
 								);
 							})}
@@ -90,12 +90,12 @@ const TopProperties = (props: TopPropertiesProps) => {
 		);
 	} else {
 		return (
-			<Stack className={'top-properties'}>
+			<Stack className={'top-products'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Top properties</span>
-							<p>Check out our Top Properties</p>
+							<span>Top products</span>
+							<p>Check out our Top Products</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'pagination-box'}>
@@ -107,7 +107,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
-							className={'top-property-swiper'}
+							className={'top-product-swiper'}
 							slidesPerView={'auto'}
 							spaceBetween={15}
 							modules={[Autoplay, Navigation, Pagination]}
@@ -119,10 +119,10 @@ const TopProperties = (props: TopPropertiesProps) => {
 								el: '.swiper-top-pagination',
 							}}
 						>
-							{topProperties.map((property: Product) => {
+							{topProducts.map((product: Product) => {
 								return (
-									<SwiperSlide className={'top-property-slide'} key={property?._id}>
-										<TopPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+									<SwiperSlide className={'top-product-slide'} key={product?._id}>
+										<TopProductCard product={product} likeProductHandler={likeProductHandler} />
 									</SwiperSlide>
 								);
 							})}
@@ -134,14 +134,14 @@ const TopProperties = (props: TopPropertiesProps) => {
 	}
 };
 
-TopProperties.defaultProps = {
+TopProducts.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 8,
-		sort: 'propertyRank',
+		sort: 'productRank',
 		direction: 'DESC',
 		search: {},
 	},
 };
 
-export default TopProperties;
+export default TopProducts;
