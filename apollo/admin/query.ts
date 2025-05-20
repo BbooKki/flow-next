@@ -42,7 +42,7 @@ export const GET_ALL_MEMBERS_BY_ADMIN = gql`
  *        PROPERTY        *
  *************************/
 
-export const GET_ALL_PROPERTIES_BY_ADMIN = gql`
+export const GET_ALL_PRODUCTS_BY_ADMIN = gql`
 	query GetAllPropertiesByAdmin($input: AllPropertiesInquiry!) {
 		getAllPropertiesByAdmin(input: $input) {
 			list {
