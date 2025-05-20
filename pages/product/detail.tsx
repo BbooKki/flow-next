@@ -94,7 +94,7 @@ const ProductDetail: NextPage = ({ initialComment, ...props }: any) => {
 				sort: 'createdAt',
 				direction: Direction.DESC,
 				search: {
-					locationList: product?.productGender ? [product?.productGender] : [],
+					genderList: product?.productGender ? [product?.productGender] : [],
 				},
 			},
 		},
@@ -171,7 +171,7 @@ const ProductDetail: NextPage = ({ initialComment, ...props }: any) => {
 					sort: 'createdAt',
 					direction: Direction.DESC,
 					search: {
-						locationList: [product?.productGender],
+						genderList: [product?.productGender],
 					},
 				},
 			});

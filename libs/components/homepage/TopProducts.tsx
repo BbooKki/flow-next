@@ -5,7 +5,7 @@ import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
-import TopPropertyCard from './TopPropertyCard';
+import TopPropertyCard from './TopProductCard';
 import { ProductsInquiry } from '../../types/product/product.input';
 import { Product } from '../../types/product/product';
 import { useMutation, useQuery } from '@apollo/client';

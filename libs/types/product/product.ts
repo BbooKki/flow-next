@@ -36,7 +36,7 @@ export interface Product {
 	memberData?: Member;
 }
 
-export interface Properties {
+export interface Products {
 	list: Product[];
 	metaCounter: TotalCounter[];
 }

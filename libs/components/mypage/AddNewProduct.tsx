@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { ProductType } from '../../enums/product.enum';
+import { ProductType, ProductGender, ProductSize } from '../../enums/product.enum';
 import {
 	REACT_APP_API_URL,
 	// productSquare
@@ -22,7 +22,8 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 	const inputRef = useRef<any>(null); //inputRef is used for file upload
 	const [insertProductData, setInsertProductData] = useState<ProductInput>(initialValues);
 	const [productType, setProductType] = useState<ProductType[]>(Object.values(ProductType));
-	// const [productLocation, setProductLocation] = useState<ProductLocation[]>(Object.values(ProductLocation));
+	const [productGender, setProductGender] = useState<ProductGender[]>(Object.values(ProductGender));
+	const [productSize, setProductSize] = useState<ProductSize[]>(Object.values(ProductSize));
 	const token = getJwtToken();
 	const user = useReactiveVar(userVar);
 
@@ -115,10 +116,8 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 			insertProductData.productTitle === '' ||
 			insertProductData.productPrice === 0 || // @ts-ignore
 			insertProductData.productType === '' || // @ts-ignore
-			// insertProductData.productLocation === '' || // @ts-ignore
-			// insertProductData.productAddress === '' || // @ts-ignore
-			// insertProductData.productBarter === '' || // @ts-ignore
-			// insertProductData.productRent === '' ||
+			insertProductData.productGender === '' || // @ts-ignore
+			insertProductData.productSize === '' || // @ts-ignore
 			insertProductData.productDesc === '' ||
 			insertProductData.productImages.length === 0
 		) {
@@ -236,27 +235,27 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 
 							<Stack className="config-row">
 								<Stack className="price-year-after-price">
-									<Typography className="title">Select Location</Typography>
-									{/* <select
+									<Typography className="title">Select Gender</Typography>
+									<select
 										className={'select-description'}
-										defaultValue={insertProductData.productLocation || 'select'}
-										value={insertProductData.productLocation || 'select'}
+										defaultValue={insertProductData.productGender || 'select'}
+										value={insertProductData.productGender || 'select'}
 										onChange={({ target: { value } }) =>
 											// @ts-ignore
-											setInsertProductData({ ...insertProductData, productLocation: value })
+											setInsertProductData({ ...insertProductData, productGender: value })
 										}
 									>
 										<>
 											<option selected={true} disabled={true} value={'select'}>
 												Select
 											</option>
-											{productLocation.map((location: any) => (
-												<option value={`${location}`} key={location}>
-													{location}
+											{productGender.map((gender: any) => (
+												<option value={`${gender}`} key={gender}>
+													{gender}
 												</option>
 											))}
 										</>
-									</select> */}
+									</select>
 									<div className={'divider'}></div>
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
@@ -508,7 +507,7 @@ AddProduct.defaultProps = {
 		productTitle: '',
 		productPrice: 0,
 		productType: '',
-		productLocation: '',
+		productgender: '',
 		productAddress: '',
 		productBarter: false,
 		productRent: false,

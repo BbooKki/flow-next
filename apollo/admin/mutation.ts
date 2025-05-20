@@ -17,7 +17,7 @@ export const UPDATE_MEMBER_BY_ADMIN = gql`
 			memberImage
 			memberAddress
 			memberDesc
-			memberProperties
+			memberProducts
 			memberRank
 			memberArticles
 			memberPoints
@@ -34,28 +34,24 @@ export const UPDATE_MEMBER_BY_ADMIN = gql`
 `;
 
 /**************************
- *        PROPERTY        *
+ *        PROduct        *
  *************************/
 
 export const UPDATE_PRODUCT_BY_ADMIN = gql`
-	mutation UpdatePropertyByAdmin($input: PropertyUpdate!) {
-		updatePropertyByAdmin(input: $input) {
+	mutation UpdateProductByAdmin($input: ProductUpdate!) {
+		updateProductByAdmin(input: $input) {
 			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
+			productType
+			productStatus
+			productGender
+			productSize
+			productAddress
+			productTitle
+			productPrice
+			productViews
+			productLikes
+			productImages
+			productDesc
 			memberId
 			soldAt
 			deletedAt
@@ -67,24 +63,24 @@ export const UPDATE_PRODUCT_BY_ADMIN = gql`
 `;
 
 export const REMOVE_PRODUCT_BY_ADMIN = gql`
-	mutation RemovePropertyByAdmin($input: String!) {
-		removePropertyByAdmin(input: $input) {
+	mutation RemoveProductByAdmin($input: String!) {
+		removeProductByAdmin(input: $input) {
 			_id
-			propertyType
-			propertyStatus
-			propertyLocation
-			propertyAddress
-			propertyTitle
-			propertyPrice
-			propertySquare
-			propertyBeds
-			propertyRooms
-			propertyViews
-			propertyLikes
-			propertyImages
-			propertyDesc
-			propertyBarter
-			propertyRent
+			productType
+			productStatus
+			productGender
+			productAddress
+			productTitle
+			productPrice
+			productSquare
+			productBeds
+			productRooms
+			productViews
+			productLikes
+			productImages
+			productDesc
+			productBarter
+			productRent
 			memberId
 			soldAt
 			deletedAt

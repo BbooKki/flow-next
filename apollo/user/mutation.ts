@@ -128,19 +128,14 @@ export const CREATE_PRODUCT = gql`
 			_id
 			productType
 			productStatus
-			productLocation
-			productAddress
+			productGender
+			productSize
 			productTitle
 			productPrice
-			productSquare
-			productBeds
-			productRooms
 			productViews
 			productLikes
 			productImages
 			productDesc
-			productBarter
-			productRent
 			memberId
 			soldAt
 			deletedAt
@@ -157,19 +152,15 @@ export const UPDATE_PRODUCT = gql`
 			_id
 			productType
 			productStatus
-			productLocation
+			productGender
+			productSize
 			productAddress
 			productTitle
 			productPrice
-			productSquare
-			productBeds
-			productRooms
 			productViews
 			productLikes
 			productImages
 			productDesc
-			productBarter
-			productRent
 			memberId
 			soldAt
 			deletedAt
@@ -186,19 +177,15 @@ export const LIKE_TARGET_PRODUCT = gql`
 			_id
 			productType
 			productStatus
-			productLocation
+			productGender
+			productSize
 			productAddress
 			productTitle
 			productPrice
-			productSquare
-			productBeds
-			productRooms
 			productViews
 			productLikes
 			productImages
 			productDesc
-			productBarter
-			productRent
 			memberId
 			soldAt
 			deletedAt

@@ -18,7 +18,7 @@ const MyFavorites: NextPage = () => {
 	const [searchFavorites, setSearchFavorites] = useState<T>({ page: 1, limit: 6 });
 
 	/** APOLLO REQUESTS **/
-	const [likeTargetProperty] = useMutation(LIKE_TARGET_PRODUCT);
+	const [likeTargetProduct] = useMutation(LIKE_TARGET_PRODUCT);
 
 	const {
 		loading: getFavoritesLoading,
@@ -42,12 +42,12 @@ const MyFavorites: NextPage = () => {
 		setSearchFavorites({ ...searchFavorites, page: value });
 	};
 
-	const likePropertyHandler = async (user: any, id: string) => {
+	const likeProductHandler = async (user: any, id: string) => {
 		try {
 			if (!id) return;
 			if (!user._id) throw new Error(Messages.error2);
 
-			await likeTargetProperty({
+			await likeTargetProduct({
 				variables: {
 					input: id,
 				},
@@ -55,7 +55,7 @@ const MyFavorites: NextPage = () => {
 
 			await getFavoritesRefetch({ input: searchFavorites });
 		} catch (err: any) {
-			console.log('ERROR, likePropertyHandler: ', err.message);
+			console.log('ERROR, likeProductHandler: ', err.message);
 			sweetMixinErrorAlert(err.message).then();
 		}
 	};
@@ -73,8 +73,8 @@ const MyFavorites: NextPage = () => {
 				</Stack>
 				<Stack className="favorites-list-box">
 					{myFavorites?.length ? (
-						myFavorites?.map((property: Product) => {
-							return <ProductCard property={property} myFavorites={true} likePropertyHandler={likePropertyHandler} />;
+						myFavorites?.map((product: Product) => {
+							return <ProductCard product={product} myFavorites={true} likeProductHandler={likeProductHandler} />;
 						})
 					) : (
 						<div className={'no-data'}>
@@ -96,7 +96,7 @@ const MyFavorites: NextPage = () => {
 						</Stack>
 						<Stack className="total-result">
 							<Typography>
-								Total {total} favorite propert{total > 1 ? 'ies' : 'y'}
+								Total {total} favorite product{total > 1 ? 's' : ''}
 							</Typography>
 						</Stack>
 					</Stack>

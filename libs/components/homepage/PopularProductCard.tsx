@@ -13,7 +13,7 @@ interface PopularPropertyCardProps {
 	property: Product;
 }
 
-const PopularPropertyCard = (props: PopularPropertyCardProps) => {
+const PopularProductCard = (props: PopularPropertyCardProps) => {
 	const { property } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
@@ -136,4 +136,4 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
 	}
 };
 
-export default PopularPropertyCard;
+export default PopularProductCard;

@@ -88,19 +88,15 @@ export const GET_PRODUCT = gql`
 			_id
 			productType
 			productStatus
-			productLocation
+			productGender
+			productSize
 			productAddress
 			productTitle
 			productPrice
-			productSquare
-			productBeds
-			productRooms
 			productViews
 			productLikes
 			productImages
 			productDesc
-			productBarter
-			productRent
 			memberId
 			soldAt
 			deletedAt
@@ -144,20 +140,16 @@ export const GET_PRODUCTS = gql`
 				_id
 				productType
 				productStatus
-				productLocation
+				productGender
+				productSize
 				productAddress
 				productTitle
 				productPrice
-				productSquare
-				productBeds
-				productRooms
 				productViews
 				productLikes
 				productRank
 				productImages
 				productDesc
-				productBarter
-				productRent
 				memberId
 				soldAt
 				deletedAt
@@ -206,19 +198,15 @@ export const GET_AGENT_PRODUCTS = gql`
 				_id
 				productType
 				productStatus
-				productLocation
+				productGender
+				productSize
 				productAddress
 				productTitle
 				productPrice
-				productSquare
-				productBeds
-				productRooms
 				productViews
 				productLikes
 				productImages
 				productDesc
-				productBarter
-				productRent
 				memberId
 				soldAt
 				deletedAt
@@ -240,21 +228,16 @@ export const GET_FAVORITES = gql`
 				_id
 				productType
 				productStatus
-				productLocation
+				productGender
+				productSize
 				productAddress
 				productTitle
-				productPrice
-				productSquare
-				productBeds
-				productRooms
 				productViews
 				productLikes
 				productComments
 				productRank
 				productImages
 				productDesc
-				productBarter
-				productRent
 				memberId
 				soldAt
 				deletedAt
@@ -303,21 +286,17 @@ export const GET_VISITED = gql`
 				_id
 				productType
 				productStatus
-				productLocation
+				productGender
+				productSize
 				productAddress
 				productTitle
 				productPrice
-				productSquare
-				productBeds
-				productRooms
 				productViews
 				productLikes
 				productComments
 				productRank
 				productImages
 				productDesc
-				productBarter
-				productRent
 				memberId
 				soldAt
 				deletedAt

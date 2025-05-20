@@ -49,13 +49,13 @@ const RecentlyVisited: NextPage = () => {
 				</Stack>
 				<Stack className="favorites-list-box">
 					{recentlyVisited?.length ? (
-						recentlyVisited?.map((property: Product) => {
-							return <ProductCard property={property} recentlyVisited={true} />;
+						recentlyVisited?.map((product: Product) => {
+							return <ProductCard product={product} recentlyVisited={true} />;
 						})
 					) : (
 						<div className={'no-data'}>
 							<img src="/img/icons/icoAlert.svg" alt="" />
-							<p>No Recently Visited Properties found!</p>
+							<p>No Recently Visited Products found!</p>
 						</div>
 					)}
 				</Stack>
@@ -72,7 +72,7 @@ const RecentlyVisited: NextPage = () => {
 						</Stack>
 						<Stack className="total-result">
 							<Typography>
-								Total {total} recently visited propert{total > 1 ? 'ies' : 'y'}
+								Total {total} recently visited product{total > 1 ? 's' : ''}
 							</Typography>
 						</Stack>
 					</Stack>

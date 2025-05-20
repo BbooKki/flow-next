@@ -63,11 +63,11 @@ const ProductCard = (props: ProductCardType) => {
 								<Typography>{product.productTitle}</Typography>
 							</Link>
 						</Stack>
-						{/* <Stack className="address">
+						<Stack className="gender">
 							<Typography>
-								{product.productAddress}, {product.productLocation}
+								{product.productSize}, {product.productGender}
 							</Typography>
-						</Stack> */}
+						</Stack>
 					</Stack>
 					<Stack className="options">
 						{/* <Stack className="option">

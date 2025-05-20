@@ -25,7 +25,8 @@ interface Data {
 	title: string;
 	price: string;
 	agent: string;
-	location: string;
+	gender: string;
+	size: string;
 	type: string;
 	status: string;
 }
@@ -65,10 +66,16 @@ const headCells: readonly HeadCell[] = [
 		label: 'AGENT',
 	},
 	{
-		id: 'location',
+		id: 'gender',
 		numeric: false,
 		disablePadding: false,
-		label: 'LOCATION',
+		label: 'GENDER',
+	},
+	{
+		id: 'size',
+		numeric: false,
+		disablePadding: false,
+		label: 'SIZE',
 	},
 	{
 		id: 'type',

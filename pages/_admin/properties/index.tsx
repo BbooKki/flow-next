@@ -201,11 +201,11 @@ const AdminProducts: NextPage = ({ initialInquiry, ...props }: any) => {
 									<MenuItem value={'ALL'} onClick={() => searchTypeHandler('ALL')}>
 										ALL
 									</MenuItem>
-									{/* {Object.values(ProductLocation).map((location: string) => (
-										<MenuItem value={location} onClick={() => searchTypeHandler(location)} key={location}>
-											{location}
+									{Object.values(ProductGender).map((gender: string) => (
+										<MenuItem value={gender} onClick={() => searchTypeHandler(gender)} key={gender}>
+											{gender}
 										</MenuItem>
-									))} */}
+									))}
 								</Select>
 							</Stack>
 							<Divider />
