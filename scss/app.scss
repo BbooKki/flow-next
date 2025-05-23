@@ -23,7 +23,7 @@ p {
 	line-height: 1.2;
 }
 body {
-	font-family: $font;
+	font-family: $font, sans-serif;
 	&::-webkit-scrollbar {
 		width: 9px;
 	}

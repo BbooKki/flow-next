@@ -154,7 +154,6 @@ export const UPDATE_PRODUCT = gql`
 			productStatus
 			productGender
 			productSize
-			productAddress
 			productTitle
 			productPrice
 			productViews
@@ -179,7 +178,6 @@ export const LIKE_TARGET_PRODUCT = gql`
 			productStatus
 			productGender
 			productSize
-			productAddress
 			productTitle
 			productPrice
 			productViews

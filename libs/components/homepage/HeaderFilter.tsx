@@ -43,30 +43,30 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	const device = useDeviceDetect();
 	const { t, i18n } = useTranslation('common');
 	const [searchFilter, setSearchFilter] = useState<ProductsInquiry>(initialInput);
-	const genderRef: any = useRef();
-	const typeRef: any = useRef();
+	// const genderRef: any = useRef();
+	// const typeRef: any = useRef();
 	const roomsRef: any = useRef();
 	const router = useRouter();
 	const [openAdvancedFilter, setOpenAdvancedFilter] = useState(false);
-	const [openGender, setOpenGender] = useState(false);
-	const [openType, setOpenType] = useState(false);
+	// const [openGender, setOpenGender] = useState(false);
+	// const [openType, setOpenType] = useState(false);
 	const [openRooms, setOpenRooms] = useState(false);
 	// Here implement the productSize filter
-	const [productGender, setProductGender] = useState<ProductGender[]>(Object.values(ProductGender));
-	const [productType, setProductType] = useState<ProductType[]>(Object.values(ProductType));
+	// const [productGender, setProductGender] = useState<ProductGender[]>(Object.values(ProductGender));
+	// const [productType, setProductType] = useState<ProductType[]>(Object.values(ProductType));
 	const [yearCheck, setYearCheck] = useState({ start: 1970, end: thisYear });
 	const [optionCheck, setOptionCheck] = useState('all');
 
 	/** LIFECYCLES **/
 	useEffect(() => {
 		const clickHandler = (event: MouseEvent) => {
-			if (!genderRef?.current?.contains(event.target)) {
-				setOpenGender(false);
-			}
+			// if (!genderRef?.current?.contains(event.target)) {
+			// 	setOpenGender(false);
+			// }
 
-			if (!typeRef?.current?.contains(event.target)) {
-				setOpenType(false);
-			}
+			// if (!typeRef?.current?.contains(event.target)) {
+			// 	setOpenType(false);
+			// }
 
 			if (!roomsRef?.current?.contains(event.target)) {
 				setOpenRooms(false);
@@ -82,71 +82,69 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 
 	/** HANDLERS **/
 	const advancedFilterHandler = (status: boolean) => {
-		setOpenGender(false);
-		setOpenRooms(false);
-		setOpenType(false);
+		// setOpenGender(false);
+		// setOpenType(false);
 		setOpenAdvancedFilter(status);
 	};
 
-	const genderStateChangeHandler = () => {
-		setOpenGender((prev) => !prev);
-		setOpenRooms(false);
-		setOpenType(false);
-	};
+	// const genderStateChangeHandler = () => {
+	// 	setOpenGender((prev) => !prev);
+	// 	setOpenType(false);
+	// };
 
-	const typeStateChangeHandler = () => {
-		setOpenType((prev) => !prev);
-		setOpenGender(false);
-		setOpenRooms(false);
-	};
+	// const typeStateChangeHandler = () => {
+	// 	setOpenType((prev) => !prev);
+	// 	setOpenGender(false);
+	// 	setOpenRooms(false);
+	// };
 
 	const roomStateChangeHandler = () => {
 		setOpenRooms((prev) => !prev);
-		setOpenType(false);
-		setOpenGender(false);
+		// setOpenType(false);
+		// setOpenGender(false);
 	};
 
 	const disableAllStateHandler = () => {
 		setOpenRooms(false);
-		setOpenType(false);
-		setOpenGender(false);
+		// setOpenType(false);
+		// setOpenGender(false);
 	};
 
-	const productGenderSelectHandler = useCallback(
-		async (value: any) => {
-			try {
-				setSearchFilter({
-					...searchFilter,
-					search: {
-						...searchFilter.search,
-						genderList: [value],
-					},
-				});
-				typeStateChangeHandler();
-			} catch (err: any) {
-				console.log('ERROR, productGenderSelectHandler:', err);
-			}
-		},
-		[searchFilter],
-	);
+	// const productGenderSelectHandler = useCallback(
+	// 	async (value: any) => {
+	// 		try {
+	// 			setSearchFilter({
+	// 				...searchFilter,
+	// 				search: {
+	// 					...searchFilter.search,
+	// 					genderList: [value],
+	// 				},
+	// 			});
+	// 			typeStateChangeHandler();
+	// 		} catch (err: any) {
+	// 			console.log('ERROR, productGenderSelectHandler:', err);
+	// 		}
+	// 	},
+	// 	[searchFilter],
+	// );
 
-	const productTypeSelectHandler = useCallback(
-		async (value: any) => {
-			try {
-				setSearchFilter({
-					...searchFilter,
-					search: {
-						...searchFilter.search,
-						typeList: [value],
-					},
-				});
-				roomStateChangeHandler();
-			} catch (err: any) {
-				console.log('ERROR, productTypeSelectHandler:', err);
-			}
-		},
-		[searchFilter],
-	);
+	// const productTypeSelectHandler = useCallback(
+	// 	async (value: any) => {
+	// 		try {
+	// 			setSearchFilter({
+	// 				...searchFilter,
+	// 				search: {
+	// 					...searchFilter.search,
+	// 					typeList: [value],
+	// 				},
+	// 			});
+	// 			roomStateChangeHandler();
+	// 		} catch (err: any) {
+	// 			console.log('ERROR, productTypeSelectHandler:', err);
+	// 		}
+	// 	},
+	// 	[searchFilter],
+	// );
 
 	// const productOptionSelectHandler = useCallback(
 	// 	async (e: any) => {
@@ -233,28 +231,20 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 		return (
 			<>
 				<Stack className={'search-box'}>
-					<Stack className={'select-box'}>
-						<Box component={'div'} className={`box ${openGender ? 'on' : ''}`} onClick={genderStateChangeHandler}>
-							<span>{searchFilter?.search?.genderList ? searchFilter?.search?.genderList[0] : t('Gender')} </span>
-							<ExpandMoreIcon />
-						</Box>
-						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
-							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Product type')} </span>
-							<ExpandMoreIcon />
-						</Box>
+					<Stack>
+						<span>{t('MEN')}</span>
+						<span>{t('WOMEN')}</span>
+						<span>{t('KIDS')}</span>
 					</Stack>
 					<Stack className={'search-box-other'}>
-						<Box className={'advanced-filter'} onClick={() => advancedFilterHandler(true)}>
-							<img src="/img/icons/tune.svg" alt="" />
-							<span>{t('Advanced')}</span>
-						</Box>
+						<input type="text" />
 						<Box className={'search-btn'} onClick={pushSearchHandler}>
 							<img src="/img/icons/search_white.svg" alt="" />
 						</Box>
 					</Stack>
 
 					{/*MENU */}
-					<div className={`filter-gender ${openGender ? 'on' : ''}`} ref={genderRef}>
+					{/* <div className={`filter-gender ${openGender ? 'on' : ''}`} ref={genderRef}>
 						{productGender.map((gender: string) => {
 							return (
 								<div onClick={() => productGenderSelectHandler(gender)} key={gender}>
@@ -277,7 +267,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 								</div>
 							);
 						})}
-					</div>
+					</div> */}
 				</Stack>
 
 				{/* ADVANCED FILTER MODAL */}

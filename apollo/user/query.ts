@@ -90,7 +90,6 @@ export const GET_PRODUCT = gql`
 			productStatus
 			productGender
 			productSize
-			productAddress
 			productTitle
 			productPrice
 			productViews
@@ -142,7 +141,6 @@ export const GET_PRODUCTS = gql`
 				productStatus
 				productGender
 				productSize
-				productAddress
 				productTitle
 				productPrice
 				productViews
@@ -200,7 +198,6 @@ export const GET_AGENT_PRODUCTS = gql`
 				productStatus
 				productGender
 				productSize
-				productAddress
 				productTitle
 				productPrice
 				productViews
@@ -230,7 +227,6 @@ export const GET_FAVORITES = gql`
 				productStatus
 				productGender
 				productSize
-				productAddress
 				productTitle
 				productViews
 				productLikes
@@ -288,7 +284,6 @@ export const GET_VISITED = gql`
 				productStatus
 				productGender
 				productSize
-				productAddress
 				productTitle
 				productPrice
 				productViews

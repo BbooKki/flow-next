@@ -27,56 +27,56 @@ const withLayoutBasic = (Component: any) => {
 				desc = '',
 				bgImage = '';
 
-			switch (router.pathname) {
-				case '/product':
-					title = 'Product Search';
-					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/products.png';
-					break;
-				case '/agent':
-					title = 'Agents';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/agents.webp';
-					break;
-				case '/agent/detail':
-					title = 'Agent Page';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header2.svg';
-					break;
-				case '/mypage':
-					title = 'my page';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header1.svg';
-					break;
-				case '/community':
-					title = 'Community';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header2.svg';
-					break;
-				case '/community/detail':
-					title = 'Community Detail';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header2.svg';
-					break;
-				case '/cs':
-					title = 'CS';
-					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/header2.svg';
-					break;
-				case '/account/join':
-					title = 'Login/Signup';
-					desc = 'Authentication Process';
-					bgImage = '/img/banner/header2.svg';
-					setAuthHeader(true);
-					break;
-				case '/member':
-					title = 'Member Page';
-					desc = 'Home / For Rent';
-					bgImage = '/img/banner/header1.svg';
-					break;
-				default:
-					break;
-			}
+			// switch (router.pathname) {
+			// 	case '/product':
+			// 		title = 'Product Search';
+			// 		desc = 'We are glad to see you again!';
+			// 		bgImage = '/img/banner/products.png';
+			// 		break;
+			// 	case '/agent':
+			// 		title = 'Agents';
+			// 		desc = 'Home / For Rent';
+			// 		bgImage = '/img/banner/agents.webp';
+			// 		break;
+			// 	case '/agent/detail':
+			// 		title = 'Agent Page';
+			// 		desc = 'Home / For Rent';
+			// 		bgImage = '/img/banner/header2.svg';
+			// 		break;
+			// 	case '/mypage':
+			// 		title = 'my page';
+			// 		desc = 'Home / For Rent';
+			// 		bgImage = '/img/banner/header1.svg';
+			// 		break;
+			// 	case '/community':
+			// 		title = 'Community';
+			// 		desc = 'Home / For Rent';
+			// 		bgImage = '/img/banner/header2.svg';
+			// 		break;
+			// 	case '/community/detail':
+			// 		title = 'Community Detail';
+			// 		desc = 'Home / For Rent';
+			// 		bgImage = '/img/banner/header2.svg';
+			// 		break;
+			// 	case '/cs':
+			// 		title = 'CS';
+			// 		desc = 'We are glad to see you again!';
+			// 		bgImage = '/img/banner/header2.svg';
+			// 		break;
+			// 	case '/account/join':
+			// 		title = 'Login/Signup';
+			// 		desc = 'Authentication Process';
+			// 		bgImage = '/img/banner/header2.svg';
+			// 		setAuthHeader(true);
+			// 		break;
+			// 	case '/member':
+			// 		title = 'Member Page';
+			// 		desc = 'Home / For Rent';
+			// 		bgImage = '/img/banner/header1.svg';
+			// 		break;
+			// 	default:
+			// 		break;
+			// }
 
 			return { title, desc, bgImage };
 		}, [router.pathname]);
