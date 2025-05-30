@@ -2,11 +2,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { ProductType, ProductGender, ProductSize } from '../../enums/product.enum';
-import {
-	REACT_APP_API_URL,
-	// productSquare
-} from '../../config';
+import { ProductGender, ProductSize, ProductType } from '../../enums/product.enum';
+import { REACT_APP_API_URL } from '../../config';
 import { ProductInput } from '../../types/product/product.input';
 import axios from 'axios';
 import { getJwtToken } from '../../auth';
@@ -15,6 +12,7 @@ import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { CREATE_PRODUCT, UPDATE_PRODUCT } from '../../../apollo/user/mutation';
 import { GET_PRODUCT } from '../../../apollo/user/query';
+import product from '../../../pages/product';
 
 const AddProduct = ({ initialValues, ...props }: any) => {
 	const device = useDeviceDetect();
@@ -39,6 +37,7 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 	} = useQuery(GET_PRODUCT, {
 		fetchPolicy: 'network-only',
 		variables: { input: router.query.productId },
+		skip: !router.query.productId,
 	});
 
 	/** LIFECYCLES **/
@@ -59,55 +58,86 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 	async function uploadImages() {
 		try {
 			const formData = new FormData();
-			const selectedFiles = inputRef.current.files; //Html mizdan filerimizni qabul qilamiz
+			const selectedFiles = inputRef.current.files;
+			console.log('Selected files:', selectedFiles);
 
 			//File validation
-			if (selectedFiles.length == 0) return false;
-			if (selectedFiles.length > 5) throw new Error('Cannot upload more than 5 images!');
-
-			//formData axios orqali amlaga oshirilmoqda
-			formData.append(
-				'operations',
-				JSON.stringify({
-					query: `mutation ImagesUploader($files: [Upload!]!, $target: String!) { 
-						imagesUploader(files: $files, target: $target)
-				  }`,
-					variables: {
-						files: [null, null, null, null, null],
-						target: 'product',
-					},
-				}),
-			);
-			formData.append(
-				'map',
-				JSON.stringify({
-					'0': ['variables.files.0'],
-					'1': ['variables.files.1'],
-					'2': ['variables.files.2'],
-					'3': ['variables.files.3'],
-					'4': ['variables.files.4'],
-				}),
-			);
-			for (const key in selectedFiles) {
-				if (/^\d+$/.test(key)) formData.append(`${key}`, selectedFiles[key]);
+			if (selectedFiles.length == 0) {
+				console.log('No files selected');
+				return false;
 			}
+			if (selectedFiles.length > 5) {
+				console.log('Too many files selected');
+				throw new Error('Cannot upload more than 5 images!');
+			}
+
+			// Create the operations object with the correct number of nulls based on selected files
+			const operations = {
+				query: `mutation ImagesUploader($files: [Upload!]!, $target: String!) { 
+					imagesUploader(files: $files, target: $target)
+				}`,
+				variables: {
+					files: Array(selectedFiles.length).fill(null),
+					target: 'product',
+				},
+			};
+
+			// Create the map object dynamically based on selected files
+			const map: Record<string, string[]> = {};
+			for (let i = 0; i < selectedFiles.length; i++) {
+				map[i.toString()] = [`variables.files.${i}`];
+			}
+
+			// Log the request data for debugging
+			console.log('Operations:', operations);
+			console.log('Map:', map);
+
+			formData.append('operations', JSON.stringify(operations));
+			formData.append('map', JSON.stringify(map));
+
+			// Append each file with its index
+			for (let i = 0; i < selectedFiles.length; i++) {
+				formData.append(i.toString(), selectedFiles[i]);
+			}
+
+			// Log the FormData contents for debugging
+			console.log('FormData operations:', formData.get('operations'));
+			console.log('FormData map:', formData.get('map'));
+			console.log('FormData files:', selectedFiles);
 
 			//serverga post qilish
 			const response = await axios.post(`${process.env.REACT_APP_API_GRAPHQL_URL}`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					'apollo-require-preflight': true,
-					Authorization: `Bearer ${token}`, //bearer tokenimizni qo'shmoqdamiz
+					Authorization: `Bearer ${token}`,
 				},
 			});
 
-			const responseImages = response.data.data.imagesUploader;
+			console.log('Full response:', response);
+			console.log('Response data:', response.data);
+			console.log('Response data.data:', response.data.data);
 
+			if (!response.data.data || !response.data.data.imagesUploader) {
+				throw new Error('Invalid response from server');
+			}
+
+			const responseImages = response.data.data.imagesUploader;
 			console.log('+responseImages: ', responseImages);
+
+			if (!Array.isArray(responseImages) || responseImages.length === 0) {
+				throw new Error('No images were uploaded successfully');
+			}
+
 			setInsertProductData({ ...insertProductData, productImages: responseImages });
 		} catch (err: any) {
-			console.log('err: ', err.message);
-			await sweetMixinErrorAlert(err.message);
+			console.log('Upload error:', err);
+			if (err.response) {
+				console.log('Error response:', err.response.data);
+				console.log('Error status:', err.response.status);
+				console.log('Error headers:', err.response.headers);
+			}
+			await sweetMixinErrorAlert(err.message || 'Failed to upload images');
 		}
 	}
 
@@ -116,8 +146,8 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 			insertProductData.productTitle === '' ||
 			insertProductData.productPrice === 0 || // @ts-ignore
 			insertProductData.productType === '' || // @ts-ignore
-			insertProductData.productGender === '' || // @ts-ignore
 			insertProductData.productSize === '' || // @ts-ignore
+			insertProductData.productGender === '' || // @ts-ignore
 			insertProductData.productDesc === '' ||
 			insertProductData.productImages.length === 0
 		) {
@@ -260,120 +290,27 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
 								<Stack className="price-year-after-price">
-									<Typography className="title">Address</Typography>
-									{/* <input
-										type="text"
-										className="description-input"
-										placeholder={'Address'}
-										value={insertProductData.productAddress}
-										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productAddress: value })
-										}
-									/> */}
-								</Stack>
-							</Stack>
-
-							<Stack className="config-row">
-								<Stack className="price-year-after-price">
-									<Typography className="title">Barter</Typography>
-									{/* <select
+									<Typography className="title">Select Size</Typography>
+									<select
 										className={'select-description'}
-										value={insertProductData.productBarter ? 'yes' : 'no'}
-										defaultValue={insertProductData.productBarter ? 'yes' : 'no'}
+										defaultValue={insertProductData.productSize || 'select'}
+										value={insertProductData.productSize || 'select'}
 										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productBarter: value === 'yes' })
+											// @ts-ignore
+											setInsertProductData({ ...insertProductData, productSize: value })
 										}
 									>
-										<option disabled={true} selected={true}>
-											Select
-										</option>
-										<option value={'yes'}>Yes</option>
-										<option value={'no'}>No</option>
+										<>
+											<option selected={true} disabled={true} value={'select'}>
+												Select
+											</option>
+											{productSize.map((size: any) => (
+												<option value={`${size}`} key={size}>
+													{size}
+												</option>
+											))}
+										</>
 									</select>
-									<div className={'divider'}></div> */}
-									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
-								</Stack>
-								<Stack className="price-year-after-price">
-									<Typography className="title">Rent</Typography>
-									{/* <select
-										className={'select-description'}
-										value={insertProductData.productRent ? 'yes' : 'no'}
-										defaultValue={insertProductData.productRent ? 'yes' : 'no'}
-										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productRent: value === 'yes' })
-										}
-									>
-										<option disabled={true} selected={true}>
-											Select
-										</option>
-										<option value={'yes'}>Yes</option>
-										<option value={'no'}>No</option>
-									</select> */}
-									<div className={'divider'}></div>
-									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
-								</Stack>
-							</Stack>
-
-							<Stack className="config-row">
-								<Stack className="price-year-after-price">
-									<Typography className="title">Rooms</Typography>
-									{/* <select
-										className={'select-description'}
-										value={insertProductData.productRooms || 'select'}
-										defaultValue={insertProductData.productRooms || 'select'}
-										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productRooms: parseInt(value) })
-										}
-									>
-										<option disabled={true} selected={true} value={'select'}>
-											Select
-										</option>
-										{[1, 2, 3, 4, 5].map((room: number) => (
-											<option value={`${room}`}>{room}</option>
-										))}
-									</select> */}
-									<div className={'divider'}></div>
-									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
-								</Stack>
-								<Stack className="price-year-after-price">
-									<Typography className="title">Bed</Typography>
-									{/* <select
-										className={'select-description'}
-										value={insertProductData.productBeds || 'select'}
-										defaultValue={insertProductData.productBeds || 'select'}
-										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productBeds: parseInt(value) })
-										}
-									>
-										<option disabled={true} selected={true} value={'select'}>
-											Select
-										</option>
-										{[1, 2, 3, 4, 5].map((bed: number) => (
-											<option value={`${bed}`}>{bed}</option>
-										))}
-									</select> */}
-									<div className={'divider'}></div>
-									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
-								</Stack>
-								<Stack className="price-year-after-price">
-									<Typography className="title">Square</Typography>
-									{/* <select
-										className={'select-description'}
-										value={insertProductData.productSquare || 'select'}
-										defaultValue={insertProductData.productSquare || 'select'}
-										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productSquare: parseInt(value) })
-										}
-									>
-										<option disabled={true} selected={true} value={'select'}>
-											Select
-										</option>
-										{productSquare.map((square: number) => {
-											if (square !== 0) {
-												return <option value={`${square}`}>{square}</option>;
-											}
-										})}
-									</select> */}
 									<div className={'divider'}></div>
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
@@ -445,6 +382,7 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 								<Button
 									className="browse-button"
 									onClick={() => {
+										console.log('Browse button clicked');
 										inputRef.current.click();
 									}}
 								>
@@ -506,9 +444,9 @@ AddProduct.defaultProps = {
 	initialValues: {
 		productTitle: '',
 		productPrice: 0,
+		productType: '',
 		productGender: '',
 		productSize: '',
-		productType: '',
 		productDesc: '',
 		productImages: [],
 	},

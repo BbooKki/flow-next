@@ -10,30 +10,32 @@ interface EventData {
 }
 const eventsData: EventData[] = [
 	{
-		eventTitle: 'Paradise City Theme Park',
+		eventTitle: 'Busan Grand Sale',
 		city: 'Incheon',
 		description:
-			'Experience magic and wonder in Incheon with a visit to the night-themed indoor theme park Wonderbox at Paradise City!',
-		imageSrc: '/img/events/INCHEON.webp',
+			'Don’t miss Busan’s biggest shopping extravaganza! The Busan Grand Sale features major discounts across top brands, local shops, and department stores citywide.',
+		imageSrc: '/img/events/sale.webp',
 	},
 	{
-		eventTitle: 'Taebaeksan Snow Festival',
+		eventTitle: 'Haeundae Summer Shopping Week',
 		city: 'Seoul',
-		description: 'If you have the opportunity to travel to South Korea, do not miss the Taebaeksan Snow Festival!',
-		imageSrc: '/img/events/SEOUL.webp',
+		description:
+			'Enjoy a week of unbeatable summer deals near Haeundae Beach! From fashion to souvenirs, shop your favorites while soaking in the sun and sea breeze.',
+		imageSrc: '/img/events/sale.avif',
 	},
 	{
-		eventTitle: 'Suseong Lake Event',
-		city: 'Daegu',
-		description: 'The Suseong Lake Festival is a culture and arts festival held alongside Suseongmot Lake!',
-		imageSrc: '/img/events/DAEGU.webp',
-	},
-	{
-		eventTitle: 'Sand Festival',
+		eventTitle: 'Seomyeon Style Festival',
 		city: 'Busan',
 		description:
-			'Haeundae Sand Festival, the nation’s largest eco-friendly exhibition on sand, is held at Haeundae Beach!',
-		imageSrc: '/img/events/BUSAN.webp',
+			'Head to Seomyeon for massive fashion discounts, beauty giveaways, and limited-time brand pop-ups. Your ultimate destination for trendy shopping in Busan!',
+		imageSrc: '/img/events/sale2.jpg',
+	},
+	{
+		eventTitle: 'Busan Night Market Sale',
+		city: 'Busan',
+		description:
+			'Experience the charm of Busan’s night markets with exclusive evening discounts, street food, and live performances. A perfect blend of shopping and culture!',
+		imageSrc: '/img/events/sale.avif',
 	},
 ];
 

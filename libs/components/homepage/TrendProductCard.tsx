@@ -53,26 +53,8 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 						{product.productTitle}
 					</strong>
 					<p className={'desc'}>{product.productDesc ?? 'no description'}</p>
-					<div className={'options'}>
-						{/* <div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{product.productBeds} bed</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{product.productRooms} rooms</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{product.productSquare} m2</span>
-						</div> */}
-					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						<p>
-							{/* {product.productRent ? 'Rent' : ''} {product.productRent && product.productBarter && '/'}{' '}
-							{product.productBarter ? 'Barter' : ''} */}
-						</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
@@ -114,13 +96,8 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 						{product.productTitle}{' '}
 					</strong>
 					<p className={'desc'}>{product.productDesc ?? 'no description'}</p>
-					<div className={'options'}>{/* here write the options for  */}</div>
-					<Divider sx={{ mt: '15px', mb: '17px' }} />
+					<Divider sx={{ mt: '5px', mb: '5px' }} />
 					<div className={'bott'}>
-						<p>
-							{/* {product.productRent ? 'Rent' : ''} {product.productRent && product.productBarter && '/'}{' '}
-							{product.productBarter ? 'Barter' : ''} */}
-						</p>
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />

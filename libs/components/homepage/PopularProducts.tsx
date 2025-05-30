@@ -47,7 +47,9 @@ const PopularProducts = (props: PopularProductsProps) => {
 			<Stack className={'popular-products'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Popular products</span>
+						<span>POPULAR</span>
+						<span>COLLECTIONS</span>
+						<span>24-25</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
@@ -75,8 +77,9 @@ const PopularProducts = (props: PopularProductsProps) => {
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Popular products</span>
-							<p>Popularity is based on views</p>
+							<span>POPULAR</span>
+							<span>COLLECTIONS</span>
+							<span>24-25</span>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'more-box'}>
@@ -91,7 +94,7 @@ const PopularProducts = (props: PopularProductsProps) => {
 						<Swiper
 							className={'popular-product-swiper'}
 							slidesPerView={'auto'}
-							spaceBetween={25}
+							spaceBetween={9}
 							modules={[Autoplay, Navigation, Pagination]}
 							navigation={{
 								nextEl: '.swiper-popular-next',
