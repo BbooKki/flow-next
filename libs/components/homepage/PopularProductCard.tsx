@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stack, Box, Divider, Typography } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Product } from '../../types/product/product';
@@ -8,16 +9,21 @@ import { REACT_APP_API_URL, topProductRank } from '../../config';
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
+import { useTranslation } from 'react-i18next';
 
 interface PopularProductCardProps {
 	product: Product;
+	likeProductHandler: any;
+	buyProductHandler: any;
 }
 
 const PopularProductCard = (props: PopularProductCardProps) => {
-	const { product } = props;
+	const { product, likeProductHandler, buyProductHandler } = props;
 	const device = useDeviceDetect();
+	const { t } = useTranslation('common');
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
+	const [isAddingToCart, setIsAddingToCart] = useState(false);
 
 	/** HANDLERS **/
 	const pushDetailHandler = async (productId: string) => {
@@ -28,25 +34,32 @@ const PopularProductCard = (props: PopularProductCardProps) => {
 		});
 	};
 
+	const handleBuyClick = async (e: React.MouseEvent) => {
+		e.stopPropagation();
+		setIsAddingToCart(true);
+
+		try {
+			await buyProductHandler(product);
+		} finally {
+			setIsAddingToCart(false);
+		}
+	};
+
+	const imagePath = product?.productImages?.[0]
+		? `${REACT_APP_API_URL}/${product.productImages[0]}`
+		: '/img/product/default.svg';
+
 	if (device === 'mobile') {
 		return (
 			<Stack className="popular-card-box">
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${product?.productImages[0]})` }}
-					onClick={() => pushDetailHandler(product._id)}
+					onClick={pushDetailHandler}
+					sx={{ cursor: 'pointer', position: 'relative' }}
 				>
-					{product && product?.productRank >= topProductRank ? (
-						<div className={'status'}>
-							<img src="/img/icons/electricity.svg" alt="" />
-							<span>top</span>
-						</div>
-					) : (
-						''
-					)}
-
-					<div className={'price'}>${product.productPrice}</div>
+					<img src={imagePath} alt={product.productTitle} />
+					<div>${product?.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(product._id)}>
@@ -59,6 +72,14 @@ const PopularProductCard = (props: PopularProductCardProps) => {
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{product?.productViews}</Typography>
+							<IconButton color={'default'} onClick={() => likeProductHandler(user, product?._id)}>
+								{product?.meLiked && product?.meLiked[0]?.myFavorite ? (
+									<FavoriteIcon style={{ color: 'red' }} />
+								) : (
+									<FavoriteIcon />
+								)}
+							</IconButton>
+							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
 					</div>
 				</Box>
@@ -73,45 +94,31 @@ const PopularProductCard = (props: PopularProductCardProps) => {
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${product?.productImages[0]})` }}
 					onClick={() => pushDetailHandler(product._id)}
 				>
-					{product && product?.productRank >= topProductRank ? (
-						<div className={'status'}>
-							<img src="/img/icons/electricity.svg" alt="" />
-							<span>top</span>
-						</div>
-					) : (
-						''
-					)}
-
-					<div className={'price'}>${product.productPrice}</div>
+					<div>${product?.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(product._id)}>
 						{product.productTitle}
 					</strong>
-					{/* <p className={'desc'}>{product.productAddress}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{product?.productBeds} bed</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{product?.productRooms} rooms</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{product?.productSquare} m2</span>
-						</div>
-					</div> */}
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						{/* <p>{product?.productRent ? 'rent' : 'sale'}</p> */}
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{product?.productViews}</Typography>
+							<IconButton color={'default'} onClick={() => likeProductHandler(user, product?._id)}>
+								{product?.meLiked && product?.meLiked[0]?.myFavorite ? (
+									<FavoriteIcon style={{ color: 'red' }} />
+								) : (
+									<FavoriteIcon />
+								)}
+							</IconButton>
+							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
+						<Box className={'buy-btn'} color={'default'} onClick={handleBuyClick} disabled={isAddingToCart}>
+							Buy
+						</Box>
 					</div>
 				</Box>
 			</Stack>

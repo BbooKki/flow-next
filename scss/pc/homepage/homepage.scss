@@ -327,13 +327,13 @@
 					.popular-card-box {
 						position: relative;
 						width: 300px;
-						height: 425px;
+						height: 500px;
 						display: flex;
 						flex-direction: column;
 						transition: transform 0.3s, opacity 0.3s;
 						&:hover {
 							opacity: 1;
-							transform: scale(1.05);
+							transform: scale(1.03);
 						}
 						.card-img {
 							position: relative;
@@ -343,35 +343,11 @@
 							background-size: cover;
 							background-position: center;
 							cursor: pointer;
-							div.status {
-								position: absolute;
-								padding: 6px 34px;
-								left: 20px;
-								top: 20px;
-								display: flex;
-								align-items: center;
-								border-radius: 6px;
-								background: #eb6753;
-								img {
-									width: 14px;
-									height: 14px;
-								}
-								span {
-									margin-left: 5px;
-									color: #fff;
-									font-family: $font;
-									font-size: 12px;
-									font-style: normal;
-									font-weight: 600;
-									line-height: normal;
-									text-transform: uppercase;
-								}
-							}
-							div.price {
+							div {
 								position: absolute;
 								padding: 8px 12px;
-								left: 20px;
-								bottom: 20px;
+								left: 12px;
+								bottom: 12px;
 								border-radius: 6px;
 								background: #fff;
 								color: #181a20;
@@ -474,6 +450,23 @@
 										line-height: normal;
 										text-overflow: ellipsis;
 									}
+								}
+								.buy-btn {
+									background-color: rgb(211, 209, 209);
+									font-family: $font;
+									border-radius: 20px;
+									width: 60px;
+									height: 25px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									color: rgb(68, 68, 68);
+									cursor: pointer;
+									font-size: 13px;
+								}
+								.buy-btn:hover {
+									background-color: rgb(145, 144, 144);
+									color: white;
 								}
 							}
 						}
@@ -599,13 +592,13 @@
 					.top-card-box {
 						position: relative;
 						width: 300px;
-						height: 425px;
+						height: 500px;
 						display: flex;
 						flex-direction: column;
-						transition: transform 0.3s;
+						transition: transform 0.3s, opacity 0.3s;
 						&:hover {
 							opacity: 1;
-							transform: scale(1.05);
+							transform: scale(1.03);
 						}
 						.card-img {
 							position: relative;
@@ -722,6 +715,23 @@
 										line-height: normal;
 										text-overflow: ellipsis;
 									}
+								}
+								.buy-btn {
+									background-color: rgb(211, 209, 209);
+									font-family: $font;
+									border-radius: 20px;
+									width: 60px;
+									height: 25px;
+									display: flex;
+									justify-content: center;
+									align-items: center;
+									color: rgb(68, 68, 68);
+									cursor: pointer;
+									font-size: 13px;
+								}
+								.buy-btn:hover {
+									background-color: rgb(145, 144, 144);
+									color: white;
 								}
 							}
 						}

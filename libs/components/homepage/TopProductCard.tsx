@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stack, Box, Divider, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
@@ -13,13 +13,15 @@ import { userVar } from '../../../apollo/store';
 interface TopProductCardProps {
 	product: Product;
 	likeProductHandler: any;
+	buyProductHandler: any;
 }
 
 const TopProductCard = (props: TopProductCardProps) => {
-	const { product, likeProductHandler } = props;
+	const { product, likeProductHandler, buyProductHandler } = props;
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
+	const [isAddingToCart, setIsAddingToCart] = useState(false);
 
 	/** HANDLERS **/
 
@@ -31,43 +33,40 @@ const TopProductCard = (props: TopProductCardProps) => {
 		});
 	};
 
+	const handleBuyClick = async (e: React.MouseEvent) => {
+		e.stopPropagation();
+		setIsAddingToCart(true);
+
+		try {
+			await buyProductHandler(product);
+		} finally {
+			setIsAddingToCart(false);
+		}
+	};
+
+	const imagePath = product?.productImages?.[0]
+		? `${REACT_APP_API_URL}/${product.productImages[0]}`
+		: '/img/product/default.svg';
+
 	if (device === 'mobile') {
 		return (
 			<Stack className="top-card-box">
 				<Box
 					component={'div'}
 					className={'card-img'}
-					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${product?.productImages[0]})` }}
-					onClick={() => pushDetailHandler(product._id)}
+					onClick={pushDetailHandler}
+					sx={{ cursor: 'pointer', position: 'relative' }}
 				>
-					<div>${product?.productPrice}</div>
+					<img src={imagePath} alt={product.productTitle} />
+					<div>${product.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(product._id)}>
-						{product?.productTitle}
+						{product.productTitle}
 					</strong>
-					{/* <p className={'desc'}>{product?.productAddress}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{product?.productBeds} bed</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{product?.productRooms} rooms</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{product?.productSquare} m2</span>
-						</div>
-					</div> */}
+					<p className={'desc'}>{product.productDesc ?? 'no description'}</p>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						{/* <p>
-							{' '}
-							{product.productRent ? 'Rent' : ''} {product.productRent && product.productBarter && '/'}{' '}
-							{product.productBarter ? 'Barter' : ''}
-						</p> */}
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
@@ -99,30 +98,10 @@ const TopProductCard = (props: TopProductCardProps) => {
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(product._id)}>
-						{product?.productTitle}
+						{product.productTitle}
 					</strong>
-					{/* <p className={'desc'}>{product?.productAddress}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{product?.productBeds} bed</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{product?.productRooms} rooms</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{product?.productSquare} m2</span>
-						</div>
-					</div> */}
 					<Divider sx={{ mt: '15px', mb: '17px' }} />
 					<div className={'bott'}>
-						{/* <p>
-							{' '}
-							{product.productRent ? 'Rent' : ''} {product.productRent && product.productBarter && '/'}{' '}
-							{product.productBarter ? 'Barter' : ''}
-						</p> */}
 						<div className="view-like-box">
 							<IconButton color={'default'}>
 								<RemoveRedEyeIcon />
@@ -137,6 +116,9 @@ const TopProductCard = (props: TopProductCardProps) => {
 							</IconButton>
 							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
+						<Box className={'buy-btn'} color={'default'} onClick={handleBuyClick} disabled={isAddingToCart}>
+							Buy
+						</Box>
 					</div>
 				</Box>
 			</Stack>

@@ -14,6 +14,8 @@ import { T } from '../../types/common';
 import { LIKE_TARGET_PRODUCT } from '../../../apollo/user/mutation';
 import { Message } from '../../enums/common.enum';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
+import { useTranslation } from 'react-i18next';
+import { addToBasket } from '../../utils/basket';
 
 interface TopProductsProps {
 	initialInput: ProductsInquiry;
@@ -22,6 +24,7 @@ interface TopProductsProps {
 const TopProducts = (props: TopProductsProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
+	const { t } = useTranslation('common');
 	const [topProducts, setTopProducts] = useState<Product[]>([]);
 
 	/** APOLLO REQUESTS **/
@@ -42,6 +45,7 @@ const TopProducts = (props: TopProductsProps) => {
 			setTopProducts(data?.getProducts?.list);
 		},
 	});
+
 	/** HANDLERS **/
 	const likeProductHandler = async (user: T, id: string) => {
 		try {
@@ -61,6 +65,24 @@ const TopProducts = (props: TopProductsProps) => {
 		}
 	};
 
+	const buyProductHandler = async (product: Product) => {
+		try {
+			if (!product) return;
+
+			addToBasket({
+				_id: product._id,
+				productTitle: product.productTitle,
+				productPrice: product.productPrice,
+				productImage: product.productImages?.[0],
+			});
+
+			await sweetTopSmallSuccessAlert(t('Product added to cart!'), 1500);
+		} catch (err: any) {
+			console.log('ERROR, buyProductHandler: ', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
+	};
+
 	if (device === 'mobile') {
 		return (
 			<Stack className={'top-products'}>
@@ -70,21 +92,31 @@ const TopProducts = (props: TopProductsProps) => {
 						<span>PRODUCTS</span>
 					</Stack>
 					<Stack className={'card-box'}>
-						<Swiper
-							className={'top-product-swiper'}
-							slidesPerView={'auto'}
-							centeredSlides={true}
-							spaceBetween={15}
-							modules={[Autoplay]}
-						>
-							{topProducts.map((product: Product) => {
-								return (
-									<SwiperSlide className={'top-product-slide'} key={product?._id}>
-										<TopProductCard product={product} likeProductHandler={likeProductHandler} />
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
+						{topProducts.length === 0 ? (
+							<Box component={'div'} className={'empty-list'}>
+								Trends Empty
+							</Box>
+						) : (
+							<Swiper
+								className={'top-product-swiper'}
+								slidesPerView={'auto'}
+								centeredSlides={true}
+								spaceBetween={15}
+								modules={[Autoplay]}
+							>
+								{topProducts.map((product: Product) => {
+									return (
+										<SwiperSlide className={'top-product-slide'} key={product?._id}>
+											<TopProductCard
+												product={product}
+												likeProductHandler={likeProductHandler}
+												buyProductHandler={buyProductHandler}
+											/>
+										</SwiperSlide>
+									);
+								})}
+							</Swiper>
+						)}
 					</Stack>
 				</Stack>
 			</Stack>
@@ -108,27 +140,37 @@ const TopProducts = (props: TopProductsProps) => {
 						</Box>
 					</Stack>
 					<Stack className={'card-box'}>
-						<Swiper
-							className={'top-product-swiper'}
-							slidesPerView={'auto'}
-							spaceBetween={15}
-							modules={[Autoplay, Navigation, Pagination]}
-							navigation={{
-								nextEl: '.swiper-top-next',
-								prevEl: '.swiper-top-prev',
-							}}
-							pagination={{
-								el: '.swiper-top-pagination',
-							}}
-						>
-							{topProducts.map((product: Product) => {
-								return (
-									<SwiperSlide className={'top-product-slide'} key={product?._id}>
-										<TopProductCard product={product} likeProductHandler={likeProductHandler} />
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
+						{topProducts.length === 0 ? (
+							<Box component={'div'} className={'empty-list'}>
+								Trends Empty
+							</Box>
+						) : (
+							<Swiper
+								className={'top-product-swiper'}
+								slidesPerView={'auto'}
+								spaceBetween={15}
+								modules={[Autoplay, Navigation, Pagination]}
+								navigation={{
+									nextEl: '.swiper-top-next',
+									prevEl: '.swiper-top-prev',
+								}}
+								pagination={{
+									el: '.swiper-top-pagination',
+								}}
+							>
+								{topProducts.map((product: Product) => {
+									return (
+										<SwiperSlide className={'top-product-slide'} key={product?._id}>
+											<TopProductCard
+												product={product}
+												buyProductHandler={buyProductHandler}
+												likeProductHandler={likeProductHandler}
+											/>
+										</SwiperSlide>
+									);
+								})}
+							</Swiper>
+						)}
 					</Stack>
 				</Stack>
 			</Stack>

@@ -184,7 +184,7 @@ TrendProducts.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 8,
-		sort: 'productLikes',
+		sort: 'productRank',
 		direction: 'DESC',
 		search: {},
 	},

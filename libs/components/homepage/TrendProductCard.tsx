@@ -111,7 +111,7 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 							pushDetailHandler(product._id);
 						}}
 					>
-						{product.productTitle}{' '}
+						{product.productTitle}
 					</strong>
 					<p className={'desc'}>{product.productDesc ?? 'no description'}</p>
 					<Divider sx={{ mt: '5px', mb: '5px' }} />

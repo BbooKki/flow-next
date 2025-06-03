@@ -415,7 +415,7 @@ const Top = () => {
 																size="small"
 																onClick={() => {
 																	handleBasketClose();
-																	router.push('/checkout');
+																	router.push('');
 																}}
 																fullWidth
 															>
