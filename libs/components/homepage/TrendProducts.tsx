@@ -14,6 +14,8 @@ import { T } from '../../types/common';
 import { LIKE_TARGET_PRODUCT } from '../../../apollo/user/mutation';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 import { Message } from '../../enums/common.enum';
+import { addToBasket } from '../../utils/basket';
+import { useTranslation } from 'next-i18next';
 
 interface TrendProductsProps {
 	initialInput: ProductsInquiry;
@@ -22,6 +24,7 @@ interface TrendProductsProps {
 const TrendProducts = (props: TrendProductsProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
+	const { t } = useTranslation('common');
 	const [trendProducts, setTrendProducts] = useState<Product[]>([]);
 
 	/** APOLLO REQUESTS **/
@@ -62,6 +65,24 @@ const TrendProducts = (props: TrendProductsProps) => {
 		}
 	};
 
+	const buyProductHandler = async (product: Product) => {
+		try {
+			if (!product) return;
+
+			addToBasket({
+				_id: product._id,
+				productTitle: product.productTitle,
+				productPrice: product.productPrice,
+				productImage: product.productImages?.[0],
+			});
+
+			await sweetTopSmallSuccessAlert(t('Product added to cart!'), 1500);
+		} catch (err: any) {
+			console.log('ERROR, buyProductHandler: ', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
+	};
+
 	if (trendProducts) console.log('trendProducts: +++', trendProducts);
 	if (!trendProducts) return null;
 
@@ -89,7 +110,11 @@ const TrendProducts = (props: TrendProductsProps) => {
 								{trendProducts.map((product: Product) => {
 									return (
 										<SwiperSlide key={product._id} className={'trend-product-slide'}>
-											<TrendProductCard product={product} likeProductHandler={likeProductHandler} />
+											<TrendProductCard
+												product={product}
+												likeProductHandler={likeProductHandler}
+												buyProductHandler={buyProductHandler}
+											/>
 										</SwiperSlide>
 									);
 								})}
@@ -138,7 +163,11 @@ const TrendProducts = (props: TrendProductsProps) => {
 								{trendProducts.map((product: Product) => {
 									return (
 										<SwiperSlide key={product._id} className={'trend-product-slide'}>
-											<TrendProductCard product={product} likeProductHandler={likeProductHandler} />
+											<TrendProductCard
+												product={product}
+												likeProductHandler={likeProductHandler}
+												buyProductHandler={buyProductHandler}
+											/>
 										</SwiperSlide>
 									);
 								})}

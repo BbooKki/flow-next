@@ -166,7 +166,7 @@ body::-webkit-scrollbar {
 							}
 						}
 					}
-					.lan-box {
+					.top-box {
 						margin-left: 28px;
 						display: flex;
 						align-items: center;
@@ -178,6 +178,14 @@ body::-webkit-scrollbar {
 							padding: 12px;
 							background-color: #000;
 							border-radius: 50%;
+						}
+
+						.shopping_cart {
+							margin-right: 20px;
+							background-color: #000;
+							color: white;
+							width: 42px;
+							height: 42px;
 						}
 
 						.btn-lang {

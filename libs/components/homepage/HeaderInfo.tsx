@@ -33,9 +33,9 @@ const HeaderInfo = () => {
 										<path
 											d="M1 7H48.5M48.5 7L42.5 1M48.5 7L42.5 13"
 											stroke="black"
-											stroke-width="1.5"
-											stroke-linecap="round"
-											stroke-linejoin="round"
+											strokeWidth="1.5"
+											strokeLinecap="round"
+											strokeLinejoin="round"
 										/>
 									</svg>
 								</div>

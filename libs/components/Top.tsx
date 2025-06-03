@@ -3,7 +3,19 @@ import { useState } from 'react';
 import { useRouter, withRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { getJwtToken, logOut, updateUserInfo } from '../auth';
-import { Stack, Box } from '@mui/material';
+import {
+	Stack,
+	Box,
+	Badge,
+	Typography,
+	IconButton,
+	Divider,
+	List,
+	ListItem,
+	ListItemText,
+	ListItemAvatar,
+	Avatar,
+} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import { alpha, styled } from '@mui/material/styles';
@@ -14,8 +26,11 @@ import useDeviceDetect from '../hooks/useDeviceDetect';
 import Link from 'next/link';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import { useReactiveVar } from '@apollo/client';
-import { userVar } from '../../apollo/store';
+import { userVar, basketVar, BasketItem } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
 import { REACT_APP_API_URL } from '../config';
 import { MemberType } from '../enums/member.enum';
@@ -23,6 +38,7 @@ import { MemberType } from '../enums/member.enum';
 const Top = () => {
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
+	const basketItems = useReactiveVar(basketVar);
 	const { t, i18n } = useTranslation('common');
 	const router = useRouter();
 	const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
@@ -34,6 +50,10 @@ const Top = () => {
 	const [bgColor, setBgColor] = useState<boolean>(false);
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
+
+	// Basket dropdown state
+	const [basketAnchor, setBasketAnchor] = useState<null | HTMLElement>(null);
+	const basketOpen = Boolean(basketAnchor);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -59,6 +79,11 @@ const Top = () => {
 		const jwt = getJwtToken();
 		if (jwt) updateUserInfo(jwt);
 	}, []);
+
+	// Save basket to localStorage whenever it changes
+	useEffect(() => {
+		localStorage.setItem('basket', JSON.stringify(basketItems));
+	}, [basketItems]);
 
 	/** HANDLERS **/
 	const langClick = (e: any) => {
@@ -99,6 +124,41 @@ const Top = () => {
 		}
 	};
 
+	// Basket handlers
+	const handleBasketClick = (event: React.MouseEvent<HTMLElement>) => {
+		setBasketAnchor(event.currentTarget);
+	};
+
+	const handleBasketClose = () => {
+		setBasketAnchor(null);
+	};
+
+	const updateItemQuantity = (itemId: string, newQuantity: number) => {
+		const currentBasket = basketVar();
+		if (newQuantity <= 0) {
+			basketVar(currentBasket.filter((item) => item._id !== itemId));
+		} else {
+			basketVar(currentBasket.map((item) => (item._id === itemId ? { ...item, quantity: newQuantity } : item)));
+		}
+	};
+
+	const removeItem = (itemId: string) => {
+		const currentBasket = basketVar();
+		basketVar(currentBasket.filter((item) => item._id !== itemId));
+	};
+
+	const getTotalPrice = () => {
+		return basketItems.reduce((total, item) => total + item.productPrice * item.quantity, 0);
+	};
+
+	const getTotalItems = () => {
+		return basketItems.reduce((total, item) => total + item.quantity, 0);
+	};
+
+	const clearBasket = () => {
+		basketVar([]);
+	};
+
 	const StyledMenu = styled((props: MenuProps) => (
 		<Menu
 			elevation={0}
@@ -133,6 +193,36 @@ const Top = () => {
 				'&:active': {
 					backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
 				},
+			},
+		},
+	}));
+
+	// Basket dropdown menu
+	const BasketMenu = styled((props: MenuProps) => (
+		<Menu
+			elevation={0}
+			anchorOrigin={{
+				vertical: 'bottom',
+				horizontal: 'right',
+			}}
+			transformOrigin={{
+				vertical: 'top',
+				horizontal: 'right',
+			}}
+			{...props}
+		/>
+	))(({ theme }) => ({
+		'& .MuiPaper-root': {
+			borderRadius: 6,
+			marginTop: theme.spacing(1),
+			minWidth: 350,
+			maxWidth: 400,
+			maxHeight: 500,
+			color: theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+			boxShadow:
+				'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+			'& .MuiMenu-list': {
+				padding: '0',
 			},
 		},
 	}));
@@ -231,9 +321,114 @@ const Top = () => {
 								</Link>
 							)}
 
-							<div className={'lan-box'}>
+							<div className={'top-box'}>
 								{user?._id && <NotificationsOutlinedIcon className={'notification-icon'} />}
-								{user?.memberType === MemberType.USER && <ShoppingCartIcon className={'shopping_card-icon'} />}
+								{user?.memberType === MemberType.USER && (
+									<>
+										<IconButton onClick={handleBasketClick} className={'shopping_cart'}>
+											<Badge badgeContent={getTotalItems()} color="error">
+												<ShoppingCartIcon sx={{ width: '18px', height: '18px' }} />
+											</Badge>
+										</IconButton>
+
+										<BasketMenu anchorEl={basketAnchor} open={basketOpen} onClose={handleBasketClose}>
+											<Box sx={{ p: 2 }}>
+												<Typography variant="h6" sx={{ mb: 1 }}>
+													{t('Shopping Cart')} ({getTotalItems()} {t('items')})
+												</Typography>
+												<Divider />
+											</Box>
+
+											{basketItems.length === 0 ? (
+												<Box sx={{ p: 3, textAlign: 'center' }}>
+													<Typography variant="body2" color="text.secondary">
+														{t('Your cart is empty')}
+													</Typography>
+												</Box>
+											) : (
+												<>
+													<List sx={{ maxHeight: 300, overflow: 'auto' }}>
+														{basketItems.map((item) => (
+															<ListItem key={item._id} sx={{ py: 1 }}>
+																<ListItemAvatar>
+																	<Avatar
+																		src={
+																			item.productImage
+																				? `${REACT_APP_API_URL}/${item.productImage}`
+																				: '/img/product/default.svg'
+																		}
+																		alt={item.productTitle}
+																		variant="rounded"
+																	/>
+																</ListItemAvatar>
+																<ListItemText
+																	primary={
+																		<Typography variant="body2" noWrap>
+																			{item.productTitle}
+																		</Typography>
+																	}
+																	secondary={
+																		<Typography variant="caption" color="primary">
+																			${item.productPrice}
+																		</Typography>
+																	}
+																/>
+																<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+																	<IconButton
+																		size="small"
+																		onClick={() => updateItemQuantity(item._id, item.quantity - 1)}
+																	>
+																		<RemoveIcon fontSize="small" />
+																	</IconButton>
+																	<Typography variant="body2" sx={{ minWidth: 20, textAlign: 'center' }}>
+																		{item.quantity}
+																	</Typography>
+																	<IconButton
+																		size="small"
+																		onClick={() => updateItemQuantity(item._id, item.quantity + 1)}
+																	>
+																		<AddIcon fontSize="small" />
+																	</IconButton>
+																	<IconButton size="small" onClick={() => removeItem(item._id)} color="error">
+																		<DeleteIcon fontSize="small" />
+																	</IconButton>
+																</Box>
+															</ListItem>
+														))}
+													</List>
+
+													<Divider />
+
+													<Box sx={{ p: 2 }}>
+														<Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+															<Typography variant="subtitle1" fontWeight="bold">
+																{t('Total')}: ${getTotalPrice().toFixed(2)}
+															</Typography>
+														</Box>
+
+														<Box sx={{ display: 'flex', gap: 1 }}>
+															<Button variant="outlined" size="small" onClick={clearBasket} fullWidth>
+																{t('Clear Cart')}
+															</Button>
+															<Button
+																variant="contained"
+																size="small"
+																onClick={() => {
+																	handleBasketClose();
+																	router.push('/checkout');
+																}}
+																fullWidth
+															>
+																{t('Checkout')}
+															</Button>
+														</Box>
+													</Box>
+												</>
+											)}
+										</BasketMenu>
+									</>
+								)}
+
 								<Button
 									disableRipple
 									className="btn-lang"
