@@ -141,7 +141,7 @@ const MobileTop = () => {
 					<Box component={Link} href="/">
 						<img src="/img/logo/logo-70.svg" alt="Flow" style={{ width: '40px', height: '40px' }} />
 					</Box>
-					<Typography variant="h6" color="primary" fontWeight="bold">
+					<Typography variant="h6" color="default" fontWeight="bold">
 						FLOW
 					</Typography>
 				</Stack>
@@ -159,7 +159,7 @@ const MobileTop = () => {
 							<Typography variant="body1" fontWeight="medium">
 								{user?.memberNick || 'User'}
 							</Typography>
-							<Typography variant="caption" color="text.secondary">
+							<Typography variant="caption" color="default">
 								{user?.memberType}
 							</Typography>
 						</Box>
@@ -191,7 +191,7 @@ const MobileTop = () => {
 							'&:hover': { backgroundColor: '#f5f5f5' },
 						}}
 					>
-						<ListItemIcon sx={{ color: 'primary.main', minWidth: 40 }}>{item.icon}</ListItemIcon>
+						<ListItemIcon sx={{ color: 'default', minWidth: 40 }}>{item.icon}</ListItemIcon>
 						<ListItemText primary={item.text} primaryTypographyProps={{ fontWeight: 'medium' }} />
 					</ListItem>
 				))}
@@ -219,7 +219,6 @@ const MobileTop = () => {
 					<Button
 						fullWidth
 						variant="outlined"
-						color="error"
 						startIcon={<Logout />}
 						onClick={handleLogout}
 						sx={{ justifyContent: 'flex-start' }}

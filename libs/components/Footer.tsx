@@ -36,34 +36,9 @@ const Footer = () => {
 							</div>
 						</Box>
 					</Stack>
-					<Stack className={'right'}>
-						<Box component={'div'} className={'bottom'}>
-							<div>
-								<strong>Popular Search</strong>
-								<span>Product for Rent</span>
-								<span>Product Low to hide</span>
-							</div>
-							<div>
-								<strong>Quick Links</strong>
-								<span>Terms of Use</span>
-								<span>Privacy Policy</span>
-								<span>Pricing Plans</span>
-								<span>Our Services</span>
-								<span>Contact Support</span>
-								<span>FAQs</span>
-							</div>
-							<div>
-								<strong>Discover</strong>
-								<span>Seoul</span>
-								<span>Gyeongido</span>
-								<span>Busan</span>
-								<span>Jejudo</span>
-							</div>
-						</Box>
-					</Stack>
 				</Stack>
 				<Stack className={'second'}>
-					<span>© Nestar - All rights reserved. Nestar {moment().year()}</span>
+					<span>© Flow - All rights reserved. Flow {moment().year()}</span>
 				</Stack>
 			</Stack>
 		);
@@ -94,41 +69,9 @@ const Footer = () => {
 							</div>
 						</Box>
 					</Stack>
-					<Stack className={'right'}>
-						<Box component={'div'} className={'top'}>
-							<strong>keep yourself up to date</strong>
-							<div>
-								<input type="text" placeholder={'Your Email'} />
-								<span>Subscribe</span>
-							</div>
-						</Box>
-						<Box component={'div'} className={'bottom'}>
-							<div>
-								<strong>Popular Search</strong>
-								<span>Product for Rent</span>
-								<span>Product Low to hide</span>
-							</div>
-							<div>
-								<strong>Quick Links</strong>
-								<span>Terms of Use</span>
-								<span>Privacy Policy</span>
-								<span>Pricing Plans</span>
-								<span>Our Services</span>
-								<span>Contact Support</span>
-								<span>FAQs</span>
-							</div>
-							<div>
-								<strong>Discover</strong>
-								<span>Seoul</span>
-								<span>Gyeongido</span>
-								<span>Busan</span>
-								<span>Jejudo</span>
-							</div>
-						</Box>
-					</Stack>
 				</Stack>
 				<Stack className={'second'}>
-					<span>© Nestar - All rights reserved. Nestar {moment().year()}</span>
+					<span>© Flow - All rights reserved. Flow {moment().year()}</span>
 					<span>Privacy · Terms · Sitemap</span>
 				</Stack>
 			</Stack>

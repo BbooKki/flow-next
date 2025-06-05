@@ -32,7 +32,7 @@ const withLayoutMain = (Component: any) => {
 				<>
 					<Head>
 						<title>FLOW</title>
-						<meta name={'title'} content={`Nestar`} />
+						<meta name={'title'} content={`Flow`} />
 					</Head>
 
 					<Stack id="mobile-wrap">
