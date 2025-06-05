@@ -785,7 +785,11 @@
 					.footer-box {
 						display: flex;
 						flex-direction: column;
+						align-items: center;
 						.logo {
+							background-color: white;
+							border-radius: 30px;
+							padding: 0px 10px;
 							width: 100px;
 							height: 52px;
 							cursor: pointer;
