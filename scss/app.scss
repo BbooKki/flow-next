@@ -2,6 +2,30 @@
 @import 'variables.scss';
 @import 'reset.scss';
 
+html,
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	overflow-x: hidden;
+	font-family: $font, sans-serif;
+	&::-webkit-scrollbar {
+		width: 9px;
+	}
+	&::-webkit-scrollbar-thumb {
+		height: 30%;
+		background: #bdbdbd;
+		border-radius: 10px;
+	}
+	&::-webkit-scrollbar-track {
+		background: #eee;
+	}
+
+	.MuiPopover-paper {
+		box-shadow: none;
+	}
+}
+
 a {
 	white-space: nowrap;
 	text-decoration: none;
@@ -22,24 +46,7 @@ span,
 p {
 	line-height: 1.2;
 }
-body {
-	font-family: $font, sans-serif;
-	&::-webkit-scrollbar {
-		width: 9px;
-	}
-	&::-webkit-scrollbar-thumb {
-		height: 30%;
-		background: #bdbdbd;
-		border-radius: 10px;
-	}
-	&::-webkit-scrollbar-track {
-		background: #eee;
-	}
 
-	.MuiPopover-paper {
-		box-shadow: none;
-	}
-}
 hr {
 	border-width: 0;
 	border-bottom-width: thin;
@@ -57,4 +64,9 @@ hr {
 		margin: 0 auto;
 		display: flex;
 	}
+}
+
+/** VERSION: MOBILE **/
+#mobile-wrap {
+	width: 100%;
 }

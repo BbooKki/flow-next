@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { useTranslation } from 'react-i18next';
+import { Widgets } from '@mui/icons-material';
 
 interface TrendProductCardProps {
 	product: Product;
@@ -55,10 +56,11 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 				<Box
 					component={'div'}
 					className={'card-img'}
-					onClick={pushDetailHandler}
-					sx={{ cursor: 'pointer', position: 'relative' }}
+					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${product?.productImages[0]})` }}
+					onClick={() => {
+						pushDetailHandler(product._id);
+					}}
 				>
-					<img src={imagePath} alt={product.productTitle} />
 					<div>${product.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
@@ -71,22 +73,25 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 						{product.productTitle}
 					</strong>
 					<p className={'desc'}>{product.productDesc ?? 'no description'}</p>
-					<Divider sx={{ mt: '15px', mb: '17px' }} />
+					<Divider sx={{ mt: '10px', mb: '10px' }} />
 					<div className={'bott'}>
 						<div className="view-like-box">
-							<IconButton color={'default'}>
+							<IconButton color={'default'} style={{ width: '25px', height: '25px' }}>
 								<RemoveRedEyeIcon />
 							</IconButton>
 							<Typography className="view-cnt">{product?.productViews}</Typography>
 							<IconButton color={'default'} onClick={() => likeProductHandler(user, product?._id)}>
 								{product?.meLiked && product?.meLiked[0]?.myFavorite ? (
-									<FavoriteIcon style={{ color: 'red' }} />
+									<FavoriteIcon style={{ color: 'red', width: '25px', height: '25px' }} />
 								) : (
 									<FavoriteIcon />
 								)}
 							</IconButton>
 							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
+						<Box className={'buy-btn'} color={'default'} onClick={handleBuyClick} disabled={isAddingToCart}>
+							Buy
+						</Box>
 					</div>
 				</Box>
 			</Stack>

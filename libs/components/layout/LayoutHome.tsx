@@ -34,9 +34,14 @@ const withLayoutMain = (Component: any) => {
 						<title>FLOW</title>
 						<meta name={'title'} content={`Nestar`} />
 					</Head>
+
 					<Stack id="mobile-wrap">
 						<Stack id={'top'}>
 							<Top />
+						</Stack>
+
+						<Stack className={'mobile-main'}>
+							<HeaderInfo />
 						</Stack>
 
 						<Stack id={'main'}>

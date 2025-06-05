@@ -99,7 +99,7 @@ const PopularProducts = (props: PopularProductsProps) => {
 					<Stack className={'card-box'}>
 						{popularProducts.length === 0 ? (
 							<Box component={'div'} className={'empty-list'}>
-								Trends Empty
+								Popular Empty
 							</Box>
 						) : (
 							<Swiper
