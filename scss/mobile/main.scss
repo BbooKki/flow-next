@@ -447,151 +447,169 @@
 	}
 
 	.top-products {
-		padding: 0px 10px;
+		margin-top: 40px;
 		width: 100%;
-		height: auto;
+		height: 800px;
 		display: flex;
 		flex-direction: row;
+		flex-direction: column;
+		overflow: hidden;
 		.container {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
+			padding: 0 10px;
+			.info-box {
+				width: 100%;
+				display: flex;
+				span {
+					color: #000;
+					font-family: $font;
+					font-size: 38px;
+					font-style: normal;
+					font-weight: 800;
+					line-height: 30px; /* 83.333% */
+					letter-spacing: 2px;
+					text-transform: uppercase;
+					&.white {
+						color: #ffffff;
+					}
+				}
+			}
 			.card-box {
 				position: relative;
-				margin-top: 25px;
+				margin-top: 64px;
 				display: flex;
 				flex-direction: row;
+				.empty-list {
+					width: 100%;
+					height: 280px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
 				.top-product-swiper {
 					width: 100%;
-					height: 400px;
+					height: auto;
 					display: flex;
 					flex-direction: row;
-					.top-product-slide {
-						width: 98%;
+					.trend-product-slide {
 						height: auto;
 						display: flex;
-						.top-card-box {
-							position: relative;
-							width: 100%;
-							height: 375px;
+					}
+				}
+				.top-card-box {
+					position: relative;
+					width: 100%;
+					height: 600px;
+					display: flex;
+					flex-direction: column;
+					.card-img {
+						position: relative;
+						width: 100%;
+						height: 550px;
+						background-size: cover;
+						border-radius: 12px 12px 0px 0px;
+						background-size: cover;
+						background-position: center;
+						cursor: pointer;
+						div {
+							position: absolute;
+							padding: 8px 12px;
+							left: 12px;
+							bottom: 12px;
+							border-radius: 6px;
+							background: #fff;
+							color: #181a20;
+							font-family: $font;
+							font-size: 18px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+						}
+					}
+					.info {
+						height: auto;
+						padding: 10px 22px 17px;
+						display: flex;
+						flex-direction: column;
+						box-sizing: border-box;
+						border-radius: 0px 0px 12px 12px;
+						border: 1px solid rgba(196, 196, 196, 0.71);
+						border-top: none;
+						background: #fff;
+						box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+						.title {
+							overflow: hidden;
+							color: #181a20;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							font-family: $font;
+							font-size: 24px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+							text-transform: capitalize;
+							cursor: pointer;
+						}
+						.desc {
+							margin-top: 10px;
+							overflow: hidden;
+							color: #717171;
+							font-family: $font;
+							font-size: 20px;
+							font-style: normal;
+							font-weight: 400;
+							line-height: normal;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+						}
+
+						.bott {
 							display: flex;
-							flex-direction: column;
-							.card-img {
-								position: relative;
-								width: 100%;
-								height: 203px;
-								background-size: cover;
-								border-radius: 12px 12px 0px 0px;
-								cursor: pointer;
-								div {
-									position: absolute;
-									padding: 8px 12px;
-									left: 12px;
-									bottom: 12px;
-									border-radius: 6px;
-									background: #fff;
-									color: #181a20;
-									font-family: $font;
-									font-size: 15px;
-									font-style: normal;
-									font-weight: 600;
-									line-height: normal;
-								}
+							flex-direction: row;
+							justify-content: space-between;
+							align-items: center;
+							p {
+								color: #181a20;
+								font-family: $font;
+								font-size: 13px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: normal;
+								text-transform: capitalize;
 							}
-							.info {
-								padding: 20px 22px 17px;
-								display: flex;
-								flex-direction: column;
+							button {
+								width: 16px;
+								height: 16px;
 								box-sizing: border-box;
-								border-radius: 0px 0px 12px 12px;
-								border: 1px solid rgba(196, 196, 196, 0.71);
-								border-top: none;
-								background: #fff;
-								box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
-								.title {
-									overflow: hidden;
-									color: #181a20;
-									text-overflow: ellipsis;
-									white-space: nowrap;
-									font-family: $font;
-									font-size: 15px;
-									font-style: normal;
-									font-weight: 600;
-									line-height: normal;
-									text-transform: capitalize;
-									cursor: pointer;
-								}
-								.desc {
-									margin-top: 5px;
-									overflow: hidden;
+							}
+							.view-like-box {
+								display: flex;
+								flex-direction: row;
+								gap: 7px;
+								align-items: center;
+								.view-cnt {
+									margin-right: 5px;
 									color: #717171;
 									font-family: $font;
-									font-size: 13px;
+									font-size: 18px;
 									font-style: normal;
 									font-weight: 400;
 									line-height: normal;
 									text-overflow: ellipsis;
-									white-space: nowrap;
 								}
-								.options {
-									margin-top: 15px;
-									display: flex;
-									flex-direction: row;
-									justify-content: space-between;
-									div {
-										display: flex;
-										flex-direction: row;
-										img {
-											margin-right: 5px;
-											width: 17px;
-											height: 17px;
-										}
-										span {
-											color: #181a20;
-											font-family: $font;
-											font-size: 13px;
-											font-style: normal;
-											font-weight: 400;
-											line-height: normal;
-										}
-									}
-								}
-								.bott {
-									display: flex;
-									flex-direction: row;
-									justify-content: space-between;
-									align-items: center;
-									p {
-										color: #181a20;
-										font-family: $font;
-										font-size: 13px;
-										font-style: normal;
-										font-weight: 400;
-										line-height: normal;
-										text-transform: capitalize;
-									}
-									button {
-										margin-left: 7px;
-										width: 16px;
-										height: 16px;
-										box-sizing: border-box;
-									}
-									.view-like-box {
-										display: flex;
-										flex-direction: row;
-										gap: 7px;
-										align-items: center;
-										.view-cnt {
-											color: #717171;
-											font-family: $font;
-											font-size: 13px;
-											font-style: normal;
-											font-weight: 400;
-											line-height: normal;
-											text-overflow: ellipsis;
-										}
-									}
-								}
+							}
+
+							.buy-btn {
+								background-color: rgb(211, 209, 209);
+								font-family: $font;
+								border-radius: 20px;
+								width: 70px;
+								height: 30px;
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								color: rgb(68, 68, 68);
+								cursor: pointer;
+								font-size: 18px;
 							}
 						}
 					}
@@ -602,7 +620,7 @@
 
 	.top-agents {
 		position: relative;
-		padding: 20px 10px;
+		padding: 10px 10px;
 		width: 100%;
 		height: auto;
 		display: flex;

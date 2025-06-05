@@ -94,7 +94,7 @@ const TopProducts = (props: TopProductsProps) => {
 					<Stack className={'card-box'}>
 						{topProducts.length === 0 ? (
 							<Box component={'div'} className={'empty-list'}>
-								Trends Empty
+								Top Empty
 							</Box>
 						) : (
 							<Swiper
@@ -106,7 +106,7 @@ const TopProducts = (props: TopProductsProps) => {
 							>
 								{topProducts.map((product: Product) => {
 									return (
-										<SwiperSlide className={'top-product-slide'} key={product?._id}>
+										<SwiperSlide key={product._id} className={'trend-product-slide'}>
 											<TopProductCard
 												product={product}
 												likeProductHandler={likeProductHandler}
