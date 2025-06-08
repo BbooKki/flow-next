@@ -12,6 +12,7 @@ import {
 	Tooltip,
 	IconButton,
 	Menu,
+	Collapse,
 } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { ProductType, ProductSize, ProductGender } from '../../enums/product.enum';
@@ -19,6 +20,8 @@ import { ProductsInquiry } from '../../types/product/product.input';
 import { useRouter } from 'next/router';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
 interface FilterType {
 	searchFilter: ProductsInquiry;
@@ -35,6 +38,9 @@ const Filter = (props: FilterType) => {
 	const [searchText, setSearchText] = useState<string>('');
 	const [genderMenuAnchor, setGenderMenuAnchor] = useState<null | HTMLElement>(null);
 
+	//FOR COLLAPSING SECTION
+	const [genderExpanded, setGenderExpanded] = useState<boolean>(false);
+	const [typeExpanded, setTypeExpanded] = useState<boolean>(false);
 	/** LIFECYCLES **/
 	// useEffect(() => {
 	// 	if (searchFilter?.search?.genderList?.length == 0) {
@@ -107,6 +113,23 @@ const Filter = (props: FilterType) => {
 	// }, [searchFilter]);
 
 	/** HANDLERS **/
+	const handleGenderMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+		setGenderMenuAnchor(event.currentTarget);
+	};
+
+	const handleGenderMenuClose = () => {
+		setGenderMenuAnchor(null);
+	};
+
+	//handlers for expand/collapse
+	const handleGenderToggle = () => {
+		setGenderExpanded(!genderExpanded);
+	};
+
+	const handleTypeToggle = () => {
+		setTypeExpanded(!typeExpanded);
+	};
+
 	const productGenderSelectHandler = useCallback(
 		async (e: any) => {
 			try {
@@ -304,49 +327,87 @@ const Filter = (props: FilterType) => {
 					</Stack>
 				</Stack>
 				<Stack className={'find-gender-type'}>
-					<Stack className={'find-gender-mobile'} mb={'30px'}>
-						<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
-							Gender
-						</p>
-						<Stack className={`product-gender`}>
-							{productGender.map((gender: string) => {
-								return (
-									<Stack className={'input-box'} key={gender}>
+					<Stack className={'find-gender'} mb={'30px'} onClick={handleGenderToggle}>
+						<Button
+							// onClick={handleGenderToggle}
+							endIcon={genderExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+							sx={{
+								justifyContent: 'space-between',
+								textTransform: 'none',
+								color: 'inherit',
+								fontSize: 'inherit',
+								fontWeight: 'inherit',
+								padding: '8px 0',
+								'&:hover': {
+									backgroundColor: 'transparent',
+								},
+							}}
+						>
+							<Typography className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
+								Gender
+							</Typography>
+						</Button>
+						<Collapse in={genderExpanded}>
+							<Stack className={`product-gender`}>
+								{productGender.map((gender: string) => {
+									return (
+										<Stack className={'input-box'} key={gender}>
+											<Checkbox
+												id={gender}
+												className="product-checkbox"
+												color="default"
+												size="small"
+												value={gender}
+												checked={(searchFilter?.search?.genderList || []).includes(gender as ProductGender)}
+												onChange={productGenderSelectHandler}
+											/>
+											<label htmlFor={gender} style={{ cursor: 'pointer' }}>
+												<Typography className="product-type">{gender}</Typography>
+											</label>
+										</Stack>
+									);
+								})}
+							</Stack>
+						</Collapse>
+					</Stack>
+					<Stack className={'find-type'} mb={'30px'} onClick={handleTypeToggle}>
+						<Button
+							// onClick={handleTypeToggle}
+							endIcon={typeExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+							sx={{
+								justifyContent: 'space-between',
+								textTransform: 'none',
+								color: 'inherit',
+								fontSize: 'inherit',
+								fontWeight: 'inherit',
+								padding: '8px 0',
+								'&:hover': {
+									backgroundColor: 'transparent',
+								},
+							}}
+						>
+							<Typography className={'title'}>Product Type</Typography>
+						</Button>
+						<Collapse in={typeExpanded}>
+							<Stack>
+								{productType.map((type: string) => (
+									<Stack className={'input-box'} key={type}>
 										<Checkbox
-											id={gender}
+											id={type}
 											className="product-checkbox"
 											color="default"
 											size="small"
-											value={gender}
-											checked={(searchFilter?.search?.genderList || []).includes(gender as ProductGender)}
-											onChange={productGenderSelectHandler}
+											value={type}
+											onChange={productTypeSelectHandler}
+											checked={(searchFilter?.search?.typeList || []).includes(type as ProductType)}
 										/>
-										<label htmlFor={gender} style={{ cursor: 'pointer' }}>
-											<Typography className="product-type">{gender}</Typography>
+										<label htmlFor={type} style={{ cursor: 'pointer' }}>
+											<Typography className="product_type">{type}</Typography>
 										</label>
 									</Stack>
-								);
-							})}
-						</Stack>
-					</Stack>
-					<Stack className={'find-type-mobile'} mb={'30px'}>
-						<Typography className={'title'}>Product Type</Typography>
-						{productType.map((type: string) => (
-							<Stack className={'input-box'} key={type}>
-								<Checkbox
-									id={type}
-									className="product-checkbox"
-									color="default"
-									size="small"
-									value={type}
-									onChange={productTypeSelectHandler}
-									checked={(searchFilter?.search?.typeList || []).includes(type as ProductType)}
-								/>
-								<label style={{ cursor: 'pointer' }}>
-									<Typography className="product_type">{type}</Typography>
-								</label>
+								))}
 							</Stack>
-						))}
+						</Collapse>
 					</Stack>
 				</Stack>
 			</Stack>

@@ -452,15 +452,15 @@
 
 		.find-gender-type {
 			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-			.find-gender-mobile {
+			flex-direction: column;
+			.find-gender {
 				position: relative;
-				align-self: flex-start;
+				justify-content: flex-start;
 				align-items: flex-start;
-				width: 200px;
+				width: 100%;
 				padding-left: 10px;
 				gap: 10px;
+				padding-top: 10px;
 				border: 1px solid black;
 				.title {
 					width: auto;
@@ -482,7 +482,6 @@
 						flex-direction: row;
 						display: flex;
 						justify-content: flex-start;
-
 						.product-checkbox {
 							width: 16px;
 							height: 15px;
@@ -502,11 +501,12 @@
 					}
 				}
 			}
-			.find-type-mobile {
+			.find-type {
+				padding-top: 10px;
 				position: relative;
-				align-self: flex-end;
+				align-self: flex-start;
 				align-items: flex-start;
-				width: 200px;
+				width: 100%;
 				padding-left: 10px;
 				gap: 10px;
 				border: 1px solid black;
