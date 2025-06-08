@@ -11,22 +11,14 @@ import {
 	MenuItem,
 	Tooltip,
 	IconButton,
+	Menu,
 } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { ProductType, ProductSize, ProductGender } from '../../enums/product.enum';
 import { ProductsInquiry } from '../../types/product/product.input';
 import { useRouter } from 'next/router';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-// import { productSquare } from '../../config';
 import RefreshIcon from '@mui/icons-material/Refresh';
-
-const MenuProps = {
-	PaperProps: {
-		style: {
-			maxHeight: '200px',
-		},
-	},
-};
 
 interface FilterType {
 	searchFilter: ProductsInquiry;
@@ -41,78 +33,78 @@ const Filter = (props: FilterType) => {
 	const [productGender, setProductGender] = useState<ProductGender[]>(Object.values(ProductGender));
 	const [productType, setProductType] = useState<ProductType[]>(Object.values(ProductType));
 	const [searchText, setSearchText] = useState<string>('');
-	const [showMore, setShowMore] = useState<boolean>(false);
+	const [genderMenuAnchor, setGenderMenuAnchor] = useState<null | HTMLElement>(null);
 
 	/** LIFECYCLES **/
-	useEffect(() => {
-		if (searchFilter?.search?.genderList?.length == 0) {
-			delete searchFilter.search.genderList;
-			setShowMore(false);
-			router
-				.push(
-					`/product?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-						},
-					})}`,
-					`/product?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-						},
-					})}`,
-					{ scroll: false },
-				)
-				.then();
-		}
+	// useEffect(() => {
+	// 	if (searchFilter?.search?.genderList?.length == 0) {
+	// 		delete searchFilter.search.genderList;
+	// 		setShowMore(false);
+	// 		router
+	// 			.push(
+	// 				`/product?input=${JSON.stringify({
+	// 					...searchFilter,
+	// 					search: {
+	// 						...searchFilter.search,
+	// 					},
+	// 				})}`,
+	// 				`/product?input=${JSON.stringify({
+	// 					...searchFilter,
+	// 					search: {
+	// 						...searchFilter.search,
+	// 					},
+	// 				})}`,
+	// 				{ scroll: false },
+	// 			)
+	// 			.then();
+	// 	}
 
-		if (searchFilter?.search?.typeList?.length == 0) {
-			delete searchFilter.search.typeList;
-			router
-				.push(
-					`/product?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-						},
-					})}`,
-					`/product?input=${JSON.stringify({
-						...searchFilter,
-						search: {
-							...searchFilter.search,
-						},
-					})}`,
-					{ scroll: false },
-				)
-				.then();
-		}
+	// 	if (searchFilter?.search?.typeList?.length == 0) {
+	// 		delete searchFilter.search.typeList;
+	// 		router
+	// 			.push(
+	// 				`/product?input=${JSON.stringify({
+	// 					...searchFilter,
+	// 					search: {
+	// 						...searchFilter.search,
+	// 					},
+	// 				})}`,
+	// 				`/product?input=${JSON.stringify({
+	// 					...searchFilter,
+	// 					search: {
+	// 						...searchFilter.search,
+	// 					},
+	// 				})}`,
+	// 				{ scroll: false },
+	// 			)
+	// 			.then();
+	// 	}
 
-		// HERE IMPLEMENT THE PRODUCT SIZE RANGE FILTER
+	// 	// HERE IMPLEMENT THE PRODUCT SIZE RANGE FILTER
 
-		// if (searchFilter?.search?.options?.length == 0) {
-		// 	delete searchFilter.search.options;
-		// 	router
-		// 		.push(
-		// 			`/product?input=${JSON.stringify({
-		// 				...searchFilter,
-		// 				search: {
-		// 					...searchFilter.search,
-		// 				},
-		// 			})}`,
-		// 			`/product?input=${JSON.stringify({
-		// 				...searchFilter,
-		// 				search: {
-		// 					...searchFilter.search,
-		// 				},
-		// 			})}`,
-		// 			{ scroll: false },
-		// 		)
-		// 		.then();
-		// }
+	// 	// if (searchFilter?.search?.options?.length == 0) {
+	// 	// 	delete searchFilter.search.options;
+	// 	// 	router
+	// 	// 		.push(
+	// 	// 			`/product?input=${JSON.stringify({
+	// 	// 				...searchFilter,
+	// 	// 				search: {
+	// 	// 					...searchFilter.search,
+	// 	// 				},
+	// 	// 			})}`,
+	// 	// 			`/product?input=${JSON.stringify({
+	// 	// 				...searchFilter,
+	// 	// 				search: {
+	// 	// 					...searchFilter.search,
+	// 	// 				},
+	// 	// 			})}`,
+	// 	// 			{ scroll: false },
+	// 	// 		)
+	// 	// 		.then();
+	// 	// }
 
-		if (searchFilter?.search?.genderList) setShowMore(true);
-	}, [searchFilter]);
+	// 	if (searchFilter?.search?.genderList) setShowMore(true);
+	// }, [searchFilter]);
 
 	/** HANDLERS **/
 	const productGenderSelectHandler = useCallback(
@@ -270,18 +262,16 @@ const Filter = (props: FilterType) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>PRODUCT FILTER</div>;
-	} else {
 		return (
-			<Stack className={'filter-main'}>
-				<Stack className={'find-your-home'} mb={'40px'}>
-					<Typography className={'title-main'}>Find Your Home</Typography>
+			<Stack className={'container'}>
+				<Stack className={'find-your-product-mobile'} mb={'40px'}>
+					<Typography className={'title-main'}>Find Your Product</Typography>
 					<Stack className={'input-box'}>
 						<OutlinedInput
 							value={searchText}
 							type={'text'}
 							className={'search-input'}
-							placeholder={'What are you looking for?'}
+							placeholder={'Search...'}
 							onChange={(e: any) => setSearchText(e.target.value)}
 							onKeyDown={(event: any) => {
 								if (event.key == 'Enter') {
@@ -313,20 +303,101 @@ const Filter = (props: FilterType) => {
 						</Tooltip>
 					</Stack>
 				</Stack>
-				<Stack className={'find-your-home'} mb={'30px'}>
+				<Stack className={'find-gender-type'}>
+					<Stack className={'find-gender-mobile'} mb={'30px'}>
+						<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
+							Gender
+						</p>
+						<Stack className={`product-gender`}>
+							{productGender.map((gender: string) => {
+								return (
+									<Stack className={'input-box'} key={gender}>
+										<Checkbox
+											id={gender}
+											className="product-checkbox"
+											color="default"
+											size="small"
+											value={gender}
+											checked={(searchFilter?.search?.genderList || []).includes(gender as ProductGender)}
+											onChange={productGenderSelectHandler}
+										/>
+										<label htmlFor={gender} style={{ cursor: 'pointer' }}>
+											<Typography className="product-type">{gender}</Typography>
+										</label>
+									</Stack>
+								);
+							})}
+						</Stack>
+					</Stack>
+					<Stack className={'find-type-mobile'} mb={'30px'}>
+						<Typography className={'title'}>Product Type</Typography>
+						{productType.map((type: string) => (
+							<Stack className={'input-box'} key={type}>
+								<Checkbox
+									id={type}
+									className="product-checkbox"
+									color="default"
+									size="small"
+									value={type}
+									onChange={productTypeSelectHandler}
+									checked={(searchFilter?.search?.typeList || []).includes(type as ProductType)}
+								/>
+								<label style={{ cursor: 'pointer' }}>
+									<Typography className="product_type">{type}</Typography>
+								</label>
+							</Stack>
+						))}
+					</Stack>
+				</Stack>
+			</Stack>
+		);
+	} else {
+		return (
+			<Stack className={'filter-main'}>
+				<Stack className={'find-your-product'} mb={'40px'}>
+					<Typography className={'title-main'}>Find Your Product</Typography>
+					<Stack className={'input-box'}>
+						<OutlinedInput
+							value={searchText}
+							type={'text'}
+							className={'search-input'}
+							placeholder={'Search...'}
+							onChange={(e: any) => setSearchText(e.target.value)}
+							onKeyDown={(event: any) => {
+								if (event.key == 'Enter') {
+									setSearchFilter({
+										...searchFilter,
+										search: { ...searchFilter.search, text: searchText },
+									});
+								}
+							}}
+							endAdornment={
+								<>
+									<CancelRoundedIcon
+										onClick={() => {
+											setSearchText('');
+											setSearchFilter({
+												...searchFilter,
+												search: { ...searchFilter.search, text: '' },
+											});
+										}}
+									/>
+								</>
+							}
+						/>
+						<img src={'/img/icons/search_icon.png'} alt={''} />
+						<Tooltip title="Reset">
+							<IconButton onClick={refreshHandler}>
+								<RefreshIcon />
+							</IconButton>
+						</Tooltip>
+					</Stack>
+				</Stack>
+				<Stack className={'find-your-product'} mb={'30px'}>
 					<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
 						Gender
 					</p>
-					<Stack
-						className={`product-gender`}
-						style={{ height: showMore ? '253px' : '115px' }}
-						onMouseEnter={() => setShowMore(true)}
-						onMouseLeave={() => {
-							if (!searchFilter?.search?.genderList) {
-								setShowMore(false);
-							}
-						}}
-					>
+					<Stack className={`product-gender`}>
 						{productGender.map((gender: string) => {
 							return (
 								<Stack className={'input-box'} key={gender}>
@@ -347,7 +418,7 @@ const Filter = (props: FilterType) => {
 						})}
 					</Stack>
 				</Stack>
-				<Stack className={'find-your-home'} mb={'30px'}>
+				<Stack className={'find-your-product'} mb={'30px'}>
 					<Typography className={'title'}>Product Type</Typography>
 					{productType.map((type: string) => (
 						<Stack className={'input-box'} key={type}>
@@ -366,215 +437,7 @@ const Filter = (props: FilterType) => {
 						</Stack>
 					))}
 				</Stack>
-				{/* <Stack className={'find-your-home'} mb={'30px'}>
-					<Typography className={'title'}>Rooms</Typography>
-					<Stack className="button-group">
-						<Button
-							sx={{
-								borderRadius: '12px 0 0 12px',
-								border: !searchFilter?.search?.roomsList ? '2px solid #181A20' : '1px solid #b9b9b9',
-							}}
-							onClick={() => productRoomSelectHandler(0)}
-						>
-							Any
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.roomsList?.includes(1) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.roomsList?.includes(1) ? undefined : 'none',
-							}}
-							onClick={() => productRoomSelectHandler(1)}
-						>
-							1
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.roomsList?.includes(2) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.roomsList?.includes(2) ? undefined : 'none',
-							}}
-							onClick={() => productRoomSelectHandler(2)}
-						>
-							2
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.roomsList?.includes(3) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.roomsList?.includes(3) ? undefined : 'none',
-							}}
-							onClick={() => productRoomSelectHandler(3)}
-						>
-							3
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.roomsList?.includes(4) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.roomsList?.includes(4) ? undefined : 'none',
-								borderRight: searchFilter?.search?.roomsList?.includes(4) ? undefined : 'none',
-							}}
-							onClick={() => productRoomSelectHandler(4)}
-						>
-							4
-						</Button>
-						<Button
-							sx={{
-								borderRadius: '0 12px 12px 0',
-								border: searchFilter?.search?.roomsList?.includes(5) ? '2px solid #181A20' : '1px solid #b9b9b9',
-							}}
-							onClick={() => productRoomSelectHandler(5)}
-						>
-							5+
-						</Button>
-					</Stack>
-				</Stack> */}
-				{/* <Stack className={'find-your-home'} mb={'30px'}>
-					<Typography className={'title'}>Bedrooms</Typography>
-					<Stack className="button-group">
-						<Button
-							sx={{
-								borderRadius: '12px 0 0 12px',
-								border: !searchFilter?.search?.bedsList ? '2px solid #181A20' : '1px solid #b9b9b9',
-							}}
-							onClick={() => productBedSelectHandler(0)}
-						>
-							Any
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.bedsList?.includes(1) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(1) ? undefined : 'none',
-							}}
-							onClick={() => productBedSelectHandler(1)}
-						>
-							1
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.bedsList?.includes(2) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(2) ? undefined : 'none',
-							}}
-							onClick={() => productBedSelectHandler(2)}
-						>
-							2
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.bedsList?.includes(3) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(3) ? undefined : 'none',
-							}}
-							onClick={() => productBedSelectHandler(3)}
-						>
-							3
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.bedsList?.includes(4) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(4) ? undefined : 'none',
-								// borderRight: false ? undefined : 'none',
-							}}
-							onClick={() => productBedSelectHandler(4)}
-						>
-							4
-						</Button>
-						<Button
-							sx={{
-								borderRadius: '0 12px 12px 0',
-								border: searchFilter?.search?.bedsList?.includes(5) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(5) ? undefined : 'none',
-							}}
-							onClick={() => productBedSelectHandler(5)}
-						>
-							5+
-						</Button>
-					</Stack>
-				</Stack> */}
-				{/* <Stack className={'find-your-home'} mb={'30px'}>
-					<Typography className={'title'}>Options</Typography>
-					<Stack className={'input-box'}>
-						<Checkbox
-							id={'Barter'}
-							className="product-checkbox"
-							color="default"
-							size="small"
-							value={'productBarter'}
-							checked={(searchFilter?.search?.options || []).includes('productBarter')}
-							onChange={productOptionSelectHandler}
-						/>
-						<label htmlFor={'Barter'} style={{ cursor: 'pointer' }}>
-							<Typography className="product-type">Barter</Typography>
-						</label>
-					</Stack>
-					<Stack className={'input-box'}>
-						<Checkbox
-							id={'Rent'}
-							className="product-checkbox"
-							color="default"
-							size="small"
-							value={'productRent'}
-							checked={(searchFilter?.search?.options || []).includes('productRent')}
-							onChange={productOptionSelectHandler}
-						/>
-						<label htmlFor={'Rent'} style={{ cursor: 'pointer' }}>
-							<Typography className="product-type">Rent</Typography>
-						</label>
-					</Stack>
-				</Stack> */}
-				{/* <Stack className={'find-your-home'} mb={'30px'}>
-					<Typography className={'title'}>Square meter</Typography>
-					<Stack className="square-year-input">
-						<FormControl>
-							<InputLabel id="demo-simple-select-label">Min</InputLabel>
-							<Select
-								labelId="demo-simple-select-label"
-								id="demo-simple-select"
-								value={searchFilter?.search?.squaresRange?.start ?? 0}
-								label="Min"
-								onChange={(e: any) => productSquareHandler(e, 'start')}
-								MenuProps={MenuProps}
-							>
-								{productSquare.map((square: number) => (
-									<MenuItem
-										value={square}
-										disabled={(searchFilter?.search?.squaresRange?.end || 0) < square}
-										key={square}
-									>
-										{square}
-									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
-						<div className="central-divider"></div>
-						<FormControl>
-							<InputLabel id="demo-simple-select-label">Max</InputLabel>
-							<Select
-								labelId="demo-simple-select-label"
-								id="demo-simple-select"
-								value={searchFilter?.search?.squaresRange?.end ?? 500}
-								label="Max"
-								onChange={(e: any) => productSquareHandler(e, 'end')}
-								MenuProps={MenuProps}
-							>
-								{productSquare.map((square: number) => (
-									<MenuItem
-										value={square}
-										disabled={(searchFilter?.search?.squaresRange?.start || 0) > square}
-										key={square}
-									>
-										{square}
-									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
-					</Stack>
-				</Stack> */}
-				<Stack className={'find-your-home'}>
+				<Stack className={'find-your-product'}>
 					<Typography className={'title'}>Price Range</Typography>
 					<Stack className="square-year-input">
 						<input
