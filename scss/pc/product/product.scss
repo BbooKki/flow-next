@@ -449,7 +449,6 @@
 				}
 			}
 		}
-
 		.find-gender-type {
 			display: flex;
 			flex-direction: column;
@@ -544,6 +543,213 @@
 						font-size: 14px;
 						font-weight: 500;
 						line-height: normal;
+					}
+				}
+			}
+		}
+		.right {
+			padding-left: 10px;
+			padding-bottom: 20px;
+			font-family: $font;
+			font-weight: 600;
+			font-size: 20px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			Button {
+				font-size: 20px;
+			}
+		}
+
+		.main-config {
+			width: 100%;
+			margin-bottom: 20px;
+			.list-config {
+				display: flex;
+				width: 100%;
+				height: auto;
+				flex-direction: row;
+				flex-wrap: wrap;
+				gap: 23px;
+				.card-config {
+					width: 190px;
+					height: auto;
+
+					background: #fff;
+					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+					.top {
+						position: relative;
+						width: 100%;
+						height: 200px;
+						a {
+							height: 100%;
+						}
+						img {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+							// border-radius: 12px 12px 0 0;
+						}
+						.top-badge {
+							position: absolute;
+							top: 20px;
+							left: 16px;
+							display: flex;
+							width: 80px;
+							height: 30px;
+							justify-content: center;
+							align-items: center;
+							border-radius: 6px;
+							padding: 6px 20px;
+							background: #eb6753;
+							color: #fff;
+							text-align: center;
+							text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+							font-family: $font;
+							font-size: 12px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+							img {
+								height: 16px;
+							}
+						}
+						.price-box {
+							position: absolute;
+							bottom: 10px;
+							left: 15px;
+							padding: 8px 15px;
+							align-items: center;
+							border-radius: 6px;
+							border: 1px solid rgba(255, 255, 255, 0.5);
+							background: #fff;
+							p {
+								color: #181a20;
+								font-family: $font;
+								font-size: 15px;
+								font-style: normal;
+								font-weight: 600;
+								line-height: normal;
+							}
+						}
+					}
+					.bottom {
+						width: 100%;
+						height: auto;
+						padding: 10px 5px 0px 5px;
+						.name-address {
+							width: 100%;
+							height: 48px;
+							gap: 5px;
+							.name {
+								width: 100%;
+								height: 23px;
+								overflow: hidden;
+								font-size: 15px;
+								p {
+									color: #181a20;
+									font-family: $font;
+									font-size: 15px;
+									font-style: normal;
+									font-weight: 600;
+									line-height: normal;
+									text-transform: capitalize;
+								}
+							}
+							.gender {
+								width: 100%;
+								overflow: hidden;
+								p {
+									color: #717171;
+									font-family: $font;
+									font-size: 10px;
+									font-style: normal;
+									font-weight: 400;
+									line-height: normal;
+								}
+							}
+						}
+						.divider {
+							width: 100%;
+							height: 2px;
+							border: 1px solid #ddd;
+						}
+						.type-buttons {
+							flex-direction: row;
+							justify-content: space-between;
+							align-items: center;
+							.type {
+								flex-direction: row;
+								align-items: center;
+								gap: 7px;
+								p {
+									color: #181a20;
+									font-family: $font;
+									font-style: normal;
+									line-height: normal;
+								}
+								.disabled-type {
+									color: rgba(143, 143, 143, 0.54);
+									font-family: $font;
+									font-style: normal;
+									line-height: normal;
+								}
+							}
+							.buttons {
+								flex-direction: row;
+								width: auto;
+								justify-content: center;
+								align-items: center;
+								svg {
+									width: 20px;
+									height: 20px;
+									cursor: pointer;
+								}
+								.view-cnt {
+									font-size: 13px;
+								}
+							}
+
+							.buy-btn {
+								background-color: rgb(211, 209, 209);
+								font-family: $font;
+								border-radius: 20px;
+								width: 60px;
+								height: 25px;
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								color: rgb(68, 68, 68);
+								cursor: pointer;
+								font-size: 13px;
+							}
+							.buy-btn:hover {
+								background-color: rgb(145, 144, 144);
+								color: white;
+							}
+						}
+					}
+				}
+			}
+			.pagination-config {
+				margin-top: 40px;
+				width: 442px;
+				height: 86px;
+				align-items: center;
+				gap: 20px;
+				.pagination-box {
+					width: 100%;
+					align-items: center;
+				}
+				.total-result {
+					p {
+						color: #181a20;
+						text-align: center;
+						font-family: $font;
+						font-size: 24px;
+						font-style: normal;
+						font-weight: 275;
+						line-height: 26px;
 					}
 				}
 			}

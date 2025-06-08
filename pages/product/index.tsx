@@ -26,10 +26,27 @@ export const getStaticProps = async ({ locale }: any) => ({
 	},
 });
 
-const ProductList: NextPage = ({ initialInput, ...props }: any) => {
+const getInitialInput = (device: string): ProductsInquiry => ({
+	page: 1,
+	limit: device === 'mobile' ? 10 : 9,
+	sort: 'createdAt',
+	direction: Direction.DESC,
+	search: {
+		pricesRange: {
+			start: 0,
+			end: 200000,
+		},
+	},
+});
+
+const ProductList: NextPage = ({ ...props }: any) => {
 	const device = useDeviceDetect();
 	const { t } = useTranslation('common');
 	const router = useRouter();
+
+	// Use the device state to set initial input
+	const initialInput = getInitialInput(device);
+
 	const [searchFilter, setSearchFilter] = useState<ProductsInquiry>(
 		router?.query?.input ? JSON.parse(router?.query?.input as string) : initialInput,
 	);
@@ -63,8 +80,7 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
 	/** LIFECYCLES **/
 	useEffect(() => {
 		if (router.query.input) {
-			//agar router query bo'lsa (filterlar belgilangan bo'lsa)...
-			const inputObj = JSON.parse(router?.query?.input as string); // bu browserdagi query bilan ishlash uchun
+			const inputObj = JSON.parse(router?.query?.input as string);
 			setSearchFilter(inputObj);
 		}
 
@@ -155,14 +171,13 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
 
 	if (device === 'mobile') {
 		return (
-			<div id="product-list-page" style={{ position: 'relative' }}>
+			<div id="product-list-page-mobile" style={{ position: 'relative' }}>
 				<div className="container">
 					<Stack className={'filter-config'}>
-						{/* @ts-ignore */}
 						<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
 					</Stack>
 					<Box component={'div'} className={'right'}>
-						<span>Sort by</span>
+						<span>Sort by: </span>
 						<div>
 							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
 								{filterSortName}
@@ -280,7 +295,6 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
 					</Box>
 					<Stack className={'product-page'}>
 						<Stack className={'filter-config'}>
-							{/* @ts-ignore */}
 							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
 						</Stack>
 						<Stack className="main-config" mb={'76px'}>
@@ -330,25 +344,6 @@ const ProductList: NextPage = ({ initialInput, ...props }: any) => {
 			</div>
 		);
 	}
-};
-
-ProductList.defaultProps = {
-	initialInput: {
-		page: 1,
-		limit: 9,
-		sort: 'createdAt',
-		direction: 'DESC',
-		search: {
-			// squaresRange: {
-			// 	start: 0,
-			// 	end: 500,
-			// },
-			pricesRange: {
-				start: 0,
-				end: 2000000,
-			},
-		},
-	},
 };
 
 export default withLayoutBasic(ProductList);
