@@ -59,7 +59,7 @@ const withLayoutMain = (Component: any) => {
 				<>
 					<Head>
 						<title>FLOW</title>
-						<meta name={'title'} content={`Nestar`} />
+						<meta name={'title'} content={`Flow`} />
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>
@@ -68,8 +68,6 @@ const withLayoutMain = (Component: any) => {
 
 						<Stack className={'header-main'}>
 							<Stack className={'container'}>
-								{/* <HeaderFilter /> */}
-
 								<HeaderInfo />
 							</Stack>
 						</Stack>

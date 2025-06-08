@@ -40,6 +40,7 @@ import { userVar, basketVar } from '../../../apollo/store';
 import { getJwtToken, updateUserInfo, logOut } from '../../auth';
 import { REACT_APP_API_URL } from '../../config';
 import { MemberType } from '../../enums/member.enum';
+import BasketDropdown from '../BasketDropdown';
 
 const MobileTop = () => {
 	const { t, i18n } = useTranslation('common');
@@ -231,13 +232,13 @@ const MobileTop = () => {
 	);
 
 	return (
-		<>
+		<div className="mobile-top">
 			<AppBar
 				position="fixed"
 				sx={{
 					background: 'transparent',
 					boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-					color: '#333',
+					color: '#000',
 				}}
 			>
 				<Toolbar sx={{ justifyContent: 'space-between', px: 2 }}>
@@ -261,13 +262,7 @@ const MobileTop = () => {
 						)}
 
 						{/* Shopping Cart */}
-						{user?.memberType === MemberType.USER && (
-							<IconButton color="inherit" size="small" onClick={() => router.push('/basket')}>
-								<Badge badgeContent={getTotalItems()} color="error">
-									<ShoppingCartIcon />
-								</Badge>
-							</IconButton>
-						)}
+						{user?.memberType === MemberType.USER && <BasketDropdown user={user} />}
 
 						{/* User Menu */}
 						{user?._id && (
@@ -328,14 +323,14 @@ const MobileTop = () => {
 					{t('My Page')}
 				</MenuItem>
 				<MenuItem onClick={handleLogout}>
-					<Logout sx={{ mr: 1, color: 'error.main' }} />
+					<Logout sx={{ mr: 1, color: 'default' }} />
 					{t('Logout')}
 				</MenuItem>
 			</Menu>
 
 			{/* Spacer for fixed AppBar */}
 			<Toolbar />
-		</>
+		</div>
 	);
 };
 
