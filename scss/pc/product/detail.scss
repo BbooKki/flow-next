@@ -73,26 +73,6 @@
 								line-height: 28px;
 							}
 						}
-						.bottom-box {
-							width: auto;
-							height: auto;
-							flex-direction: row;
-							gap: 15px;
-							.option {
-								width: auto;
-								height: auto;
-								flex-direction: row;
-								gap: 8px;
-								p {
-									color: #181a20;
-									font-family: $font;
-									font-size: 15px;
-									font-style: normal;
-									font-weight: 400;
-									line-height: normal;
-								}
-							}
-						}
 					}
 					.right-box {
 						width: auto;
@@ -160,11 +140,12 @@
 					height: auto;
 					gap: 10px;
 					.main-image {
-						width: 100%;
+						width: 500px;
 						height: 600px;
 						img {
 							width: 100%;
 							height: 100%;
+							object-position: center;
 							object-fit: cover;
 							border-radius: 12px;
 						}
@@ -183,6 +164,83 @@
 								height: 100%;
 								object-fit: cover;
 								border-radius: 12px;
+							}
+						}
+					}
+				}
+				.prop-desc-config {
+					width: 100%;
+					height: auto;
+					gap: 50px;
+					padding: 29px 38px 50px 38px;
+					border-radius: 12px;
+					border: 1px solid #c4c4c4;
+					.top {
+						width: 100%;
+						height: auto;
+						gap: 30px;
+						.title {
+							color: #181a20;
+							font-family: $font;
+							font-size: 17px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+						}
+						.desc {
+							color: #181a20;
+							font-family: $font;
+							font-size: 14px;
+							font-style: normal;
+							font-weight: 400;
+							line-height: 26px;
+							max-height: 104px;
+						}
+					}
+					.bottom {
+						width: 100%;
+						height: auto;
+						gap: 30px;
+						.title {
+							color: #181a20;
+							font-family: $font;
+							font-size: 17px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+						}
+						.info-box {
+							width: 100%;
+							height: auto;
+							flex-direction: row;
+							gap: 230px;
+							.left,
+							.right {
+								.info {
+									width: auto;
+									height: auto;
+									display: flex;
+									flex-direction: row;
+									gap: 38px;
+									.title {
+										width: 121px;
+										color: #181a20;
+										font-family: $font;
+										font-size: 14px;
+										font-style: normal;
+										font-weight: 600;
+										line-height: 35px;
+									}
+									.data {
+										width: 88px;
+										color: #181a20;
+										font-family: $font;
+										font-size: 14px;
+										font-style: normal;
+										font-weight: 400;
+										line-height: 35px;
+									}
+								}
 							}
 						}
 					}
@@ -241,132 +299,7 @@
 							}
 						}
 					}
-					.prop-desc-config {
-						width: 100%;
-						height: auto;
-						gap: 50px;
-						padding: 29px 38px 50px 38px;
-						border-radius: 12px;
-						border: 1px solid #c4c4c4;
-						.top {
-							width: 100%;
-							height: auto;
-							gap: 30px;
-							.title {
-								color: #181a20;
-								font-family: $font;
-								font-size: 17px;
-								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-							}
-							.desc {
-								color: #181a20;
-								font-family: $font;
-								font-size: 14px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-								max-height: 104px;
-							}
-						}
-						.bottom {
-							width: 100%;
-							height: auto;
-							gap: 30px;
-							.title {
-								color: #181a20;
-								font-family: $font;
-								font-size: 17px;
-								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-							}
-							.info-box {
-								width: 100%;
-								height: auto;
-								flex-direction: row;
-								gap: 230px;
-								.left,
-								.right {
-									.info {
-										width: auto;
-										height: auto;
-										display: flex;
-										flex-direction: row;
-										gap: 38px;
-										.title {
-											width: 121px;
-											color: #181a20;
-											font-family: $font;
-											font-size: 14px;
-											font-style: normal;
-											font-weight: 600;
-											line-height: 35px;
-										}
-										.data {
-											width: 88px;
-											color: #181a20;
-											font-family: $font;
-											font-size: 14px;
-											font-style: normal;
-											font-weight: 400;
-											line-height: 35px;
-										}
-									}
-								}
-							}
-						}
-					}
-					.floor-plans-config {
-						width: 100%;
-						height: auto;
-						gap: 30px;
-						padding: 30px 38px;
-						border-radius: 12px;
-						border: 1px solid #c4c4c4;
-						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 17px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-						}
-						.image-box {
-							width: 100%;
-							height: 510px;
-							border: 1px solid #c4c4c4;
-							img {
-								width: 100%;
-								height: 100%;
-								object-fit: cover;
-							}
-						}
-					}
-					.address-config {
-						width: 100%;
-						height: auto;
-						gap: 30px;
-						padding: 30px 38px;
-						border-radius: 12px;
-						border: 1px solid #c4c4c4;
-						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 17px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-						}
-						.map-box {
-							width: 100%;
-							height: 400px;
-							iframe {
-								border-radius: 12px;
-							}
-						}
-					}
+
 					.reviews-config {
 						width: 100%;
 						height: auto;
@@ -690,7 +623,7 @@
 							align-items: center;
 							gap: 10px;
 							border-radius: 12px;
-							background: #eb6753;
+							background: grey;
 							.title {
 								color: #fff;
 								font-family: $font;
@@ -747,6 +680,769 @@
 						width: 100%;
 						.similar-homes-slide {
 							width: 411px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#mobile-wrap {
+	#product-detail-page-mobile {
+		position: relative;
+		background: #fff;
+		padding-top: 60px;
+		padding-bottom: 60px;
+
+		.product-detail-config {
+			width: 100%;
+			height: auto;
+			padding: 5px 5px;
+			gap: 24px;
+
+			.product-info-config {
+				width: 100%;
+				height: auto;
+				gap: 20px;
+
+				.info {
+					width: 100%;
+					height: auto;
+					flex-direction: column;
+					gap: 16px;
+
+					.left-box {
+						width: 100%;
+						height: auto;
+
+						.title-main {
+							color: #181a20;
+							font-family: $font;
+							font-size: 24px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: 1.2;
+							letter-spacing: 0.48px;
+							text-transform: capitalize;
+							margin-bottom: 12px;
+						}
+
+						.top-box {
+							width: 100%;
+							height: auto;
+							flex-direction: column;
+							gap: 8px;
+							margin-bottom: 16px;
+
+							.city {
+								color: #717171;
+								font-family: $font;
+								font-size: 12px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: normal;
+							}
+
+							.buy-rent-box {
+								flex-direction: row;
+								align-items: center;
+								gap: 6px;
+								margin-top: 4px;
+
+								.buy-rent {
+									color: #eb6753;
+									font-family: $font;
+									font-size: 14px;
+									font-style: normal;
+									font-weight: 600;
+									line-height: normal;
+								}
+							}
+
+							.date {
+								color: #181a20;
+								font-family: $font;
+								font-size: 13px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: 1.4;
+								margin-top: 4px;
+							}
+						}
+					}
+
+					.right-box {
+						width: 100%;
+						height: auto;
+						align-items: flex-start;
+
+						.buttons {
+							width: 100%;
+							height: auto;
+							flex-direction: row;
+							justify-content: space-between;
+							align-items: center;
+							margin-bottom: 16px;
+
+							p {
+								color: #181a20;
+								font-family: $font;
+								font-size: 16px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: normal;
+								letter-spacing: 0.32px;
+								text-transform: capitalize;
+							}
+
+							.button-box {
+								flex-direction: row;
+								gap: 8px;
+								align-items: center;
+							}
+						}
+
+						img,
+						svg {
+							width: 24px;
+							height: 24px;
+							cursor: pointer;
+						}
+
+						p {
+							color: #181a20;
+							font-family: $font;
+							font-size: 22px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+							letter-spacing: 0.44px;
+							text-transform: capitalize;
+						}
+
+						span {
+							color: #181a20;
+							font-family: $font;
+							font-size: 14px;
+							font-style: normal;
+							font-weight: 400;
+							line-height: normal;
+							letter-spacing: 0.28px;
+							text-transform: capitalize;
+						}
+					}
+				}
+				.images-and-description {
+					width: 100%;
+					height: auto;
+					flex-direction: row;
+					.images {
+						width: 100%;
+						height: auto;
+						gap: 12px;
+
+						.main-image {
+							width: 200px;
+							height: 280px;
+
+							img {
+								width: 100%;
+								height: 100%;
+								object-position: center;
+								object-fit: cover;
+								border-radius: 8px;
+							}
+						}
+
+						.sub-images {
+							width: 100%;
+							height: auto;
+							flex-direction: row;
+							gap: 8px;
+							overflow-x: auto;
+							padding-bottom: 4px;
+
+							.sub-img-box {
+								width: 80px;
+								height: 80px;
+								flex-shrink: 0;
+								cursor: pointer;
+
+								img {
+									width: 100%;
+									height: 100%;
+									object-fit: cover;
+									border-radius: 8px;
+								}
+							}
+						}
+					}
+					.prop-desc-config {
+						width: 100%;
+						height: auto;
+						gap: 10px;
+						padding: 40px 0px 5px 5px;
+						border-radius: 8px;
+						border: 1px solid #c4c4c4;
+						margin-left: 10px;
+						.top {
+							width: 100%;
+							height: auto;
+							gap: 16px;
+
+							.title {
+								color: #181a20;
+								font-family: $font;
+								font-size: 16px;
+								font-style: normal;
+								font-weight: 600;
+								line-height: normal;
+							}
+
+							.desc {
+								color: #181a20;
+								font-family: $font;
+								font-size: 14px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: 1.6;
+								max-height: none;
+							}
+						}
+
+						.bottom {
+							width: 100%;
+							height: auto;
+							gap: 20px;
+
+							.title {
+								color: #181a20;
+								font-family: $font;
+								font-size: 16px;
+								font-style: normal;
+								font-weight: 600;
+								line-height: normal;
+							}
+
+							.info-box {
+								width: 100%;
+								height: auto;
+								gap: 16px;
+
+								.right {
+									width: 100%;
+									display: flex;
+									flex-direction: column;
+									.info {
+										width: 100%;
+										height: auto;
+										display: flex;
+
+										justify-content: space-between;
+										gap: 16px;
+										margin-bottom: 12px;
+										.title {
+											width: auto;
+											color: #181a20;
+											font-family: $font;
+											font-size: 14px;
+											font-style: normal;
+											font-weight: 600;
+											line-height: 1.4;
+										}
+
+										.data {
+											width: auto;
+											color: #181a20;
+											font-family: $font;
+											font-size: 14px;
+											font-style: normal;
+											font-weight: 400;
+											line-height: 1.4;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.product-desc-config {
+				width: 100%;
+				height: auto;
+				flex-direction: column;
+				gap: 24px;
+
+				.left-config {
+					width: 100%;
+					height: auto;
+					gap: 32px;
+
+					.options-config {
+						width: 100%;
+						height: auto;
+						flex-direction: column;
+						gap: 20px;
+
+						.option {
+							width: 100%;
+							height: auto;
+							flex-direction: row;
+							gap: 12px;
+
+							.svg-box {
+								width: 48px;
+								height: 44px;
+								align-items: center;
+								justify-content: center;
+								border-radius: 8px;
+								border: 1px solid #ddd;
+								flex-shrink: 0;
+
+								img {
+									width: 28px;
+									height: auto;
+								}
+							}
+
+							.option-includes {
+								width: 100%;
+								height: auto;
+
+								.title {
+									color: #181a20;
+									font-family: $font;
+									font-size: 14px;
+									font-style: normal;
+									font-weight: 600;
+									line-height: normal;
+									margin-bottom: 4px;
+								}
+
+								.option-data {
+									color: #181a20;
+									font-family: $font;
+									font-size: 14px;
+									font-style: normal;
+									font-weight: 400;
+									line-height: normal;
+								}
+							}
+						}
+					}
+
+					.reviews-config {
+						width: 100%;
+						height: auto;
+						padding: 20px 16px 32px 16px;
+						border-radius: 8px;
+						border: 1px solid #c4c4c4;
+
+						.filter-box {
+							width: 100%;
+							height: auto;
+							flex-direction: column;
+							gap: 16px;
+							margin-bottom: 24px;
+
+							.review-cnt {
+								width: 100%;
+								height: auto;
+								flex-direction: row;
+								align-items: center;
+								gap: 8px;
+
+								.reviews {
+									width: auto;
+									color: #181a20;
+									font-family: $font;
+									font-size: 16px;
+									font-style: normal;
+									font-weight: 600;
+									line-height: normal;
+								}
+							}
+
+							.select-box {
+								width: 100%;
+								height: auto;
+								flex-direction: row;
+								justify-content: space-between;
+								align-items: center;
+								gap: 8px;
+
+								.sort-title {
+									color: #717171;
+									font-family: $font;
+									font-size: 13px;
+									font-style: normal;
+									font-weight: 400;
+									line-height: 1.4;
+								}
+
+								.select-main {
+									width: 120px;
+									border: none;
+									outline: none;
+									color: #181a20;
+									font-family: $font;
+									font-size: 13px;
+									font-style: normal;
+									font-weight: 400;
+									line-height: 1.4;
+								}
+							}
+						}
+
+						.review-list {
+							width: 100%;
+							height: auto;
+							gap: 16px;
+
+							.review-config {
+								width: 100%;
+								height: auto;
+								padding-bottom: 16px;
+								border-bottom: 1px solid #c4c4c4;
+
+								.review-mb-info {
+									width: 100%;
+									height: auto;
+									flex-direction: column;
+									gap: 12px;
+
+									.img-name-box {
+										width: 100%;
+										flex-direction: row;
+										align-items: center;
+										gap: 12px;
+
+										.img-box {
+											width: 48px;
+											height: 48px;
+											align-items: center;
+											justify-content: center;
+											border-radius: 50%;
+											background: #f6f6f6;
+											border: 1px solid #b9b9b9;
+											object-fit: cover;
+											flex-shrink: 0;
+										}
+
+										.name {
+											color: #181a20;
+											font-family: $font;
+											font-size: 14px;
+											font-style: normal;
+											font-weight: 600;
+											line-height: normal;
+											cursor: pointer;
+										}
+
+										.date {
+											color: #181a20;
+											font-family: $font;
+											font-size: 12px;
+											font-style: normal;
+											font-weight: 400;
+											line-height: normal;
+											margin-left: auto;
+										}
+									}
+
+									.review-stars {
+										padding-left: 60px;
+									}
+								}
+
+								.desc-box {
+									width: 100%;
+									height: auto;
+									margin-top: 12px;
+
+									.description {
+										color: #181a20;
+										font-family: $font;
+										font-size: 14px;
+										font-style: normal;
+										font-weight: 400;
+										line-height: 1.6;
+									}
+								}
+							}
+
+							.pagination-box {
+								margin-top: 20px;
+								width: 100%;
+								height: auto;
+								display: flex;
+								justify-content: center;
+							}
+						}
+					}
+
+					.leave-review-config {
+						border-radius: 8px;
+						border: 1px solid #c4c4c4;
+						background: #fff;
+						box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+						padding: 20px 16px;
+
+						.main-title {
+							color: #181a20;
+							font-family: $font;
+							font-size: 16px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+						}
+
+						.review-title {
+							margin-top: 16px;
+							color: #181a20;
+							font-family: $font;
+							font-size: 14px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+						}
+
+						textarea {
+							width: 100%;
+							height: 100px;
+							margin-top: 8px;
+							padding: 16px;
+							border-radius: 6px;
+							border: 1px solid #ddd;
+							color: #717171;
+							font-family: $font;
+							font-size: 14px;
+							font-style: normal;
+							font-weight: 400;
+							line-height: 1.6;
+							resize: vertical;
+						}
+
+						.submit-btn {
+							width: 100%;
+							display: flex;
+							justify-content: center;
+							margin-top: 20px;
+
+							button:disabled {
+								background: #dfdfdf;
+							}
+
+							.submit-review {
+								display: flex;
+								width: 100%;
+								max-width: 280px;
+								padding: 14px 24px;
+								justify-content: center;
+								align-items: center;
+								gap: 8px;
+								border-radius: 8px;
+								border: 1px solid #c4c4c4;
+								cursor: pointer;
+
+								.title {
+									color: #181a20;
+									font-family: $font;
+									font-size: 14px;
+									font-style: normal;
+									font-weight: 600;
+									line-height: normal;
+								}
+							}
+						}
+					}
+				}
+
+				.right-config {
+					width: 100%;
+					height: fit-content;
+					padding: 30px 25px;
+					gap: 20px;
+					border-radius: 12px;
+					border: 1px solid rgba(196, 196, 196, 0.79);
+					background: #fff;
+					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+					.info-box {
+						position: relative;
+						width: 100%;
+						gap: 8px;
+						.main-title {
+							color: #181a20;
+							font-family: $font;
+							font-size: 17px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+							margin-bottom: 17px;
+						}
+						.image-info {
+							width: 100%;
+							flex-direction: row;
+							gap: 18px;
+							img {
+								width: 95px;
+								height: 95px;
+								border-radius: 50%;
+								object-fit: cover;
+							}
+							.name-phone-listings {
+								gap: 5px;
+								.name {
+									color: #181a20;
+									font-family: $font;
+									font-size: 15px;
+									font-style: normal;
+									font-weight: 600;
+									line-height: normal;
+								}
+								.phone-number {
+									width: 100%;
+									flex-direction: row;
+									align-items: center;
+									gap: 10px;
+									.number {
+										color: #181a20;
+										font-family: $font;
+										font-size: 15px;
+										font-style: normal;
+										font-weight: 400;
+										line-height: 28px;
+									}
+								}
+								.listings {
+									color: #181a20;
+									font-family: $font;
+									font-size: 14px;
+									font-style: normal;
+									font-weight: 600;
+									line-height: normal;
+									text-decoration-line: underline;
+								}
+							}
+						}
+						.sub-title {
+							color: #181a20;
+							font-family: $font;
+							font-size: 14px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+						}
+						input {
+							width: 100%;
+							height: 55px;
+							padding: 15px;
+							border-radius: 8px;
+							border: 1px solid #ddd;
+							background: #fff;
+							outline: none;
+							&::placeholder {
+								color: #717171;
+								font-family: $font;
+								font-size: 14px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: 26px;
+							}
+							&:focus {
+								border: 1px solid black;
+							}
+						}
+						textarea {
+							width: 100%;
+							height: 120px;
+							padding: 20px;
+							border-radius: 8px;
+							border: 1px solid #ddd;
+							font-family: $font;
+							font-size: 14px;
+							font-style: normal;
+							font-weight: 400;
+							line-height: 26px;
+							&::placeholder {
+								color: #717171;
+								font-family: $font;
+								font-size: 14px;
+								font-style: normal;
+								font-weight: 400;
+								line-height: 26px;
+							}
+							&:focus {
+								border: 1px solid black;
+							}
+						}
+						.send-message {
+							display: flex;
+							width: 100%;
+							padding: 16px 30px;
+							justify-content: center;
+							align-items: center;
+							gap: 10px;
+							border-radius: 12px;
+							background: grey;
+							.title {
+								color: #fff;
+								font-family: $font;
+								font-size: 15px;
+								font-style: normal;
+								font-weight: 600;
+								line-height: normal;
+							}
+						}
+					}
+				}
+			}
+			.similar-products-config {
+				width: 100%;
+				margin-top: 45px;
+				gap: 66px;
+				.title-pagination-box {
+					width: 100%;
+					height: auto;
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: flex-end;
+					.title-box {
+						width: 30%;
+						.main-title {
+							color: #181a20;
+							font-family: $font;
+							font-size: 30px;
+							font-style: normal;
+							font-weight: 600;
+							line-height: normal;
+							letter-spacing: 0.6px;
+							text-transform: capitalize;
+						}
+						.sub-title {
+							color: #181a20;
+							font-family: $font;
+							font-size: 14px;
+							font-style: normal;
+							font-weight: 400;
+							line-height: 26px;
+						}
+					}
+					.pagination-box {
+						flex-direction: row;
+						align-items: center;
+						gap: 22px;
+					}
+				}
+				.cards-box {
+					width: 100%;
+					padding-bottom: 10px;
+					.similar-homes-swiper {
+						width: 100%;
+						.similar-homes-slide {
+							// width: 500px;
 						}
 					}
 				}

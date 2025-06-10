@@ -243,7 +243,7 @@ const AgentDetail: NextPage = ({ initialInput, initialComment, ...props }: any) 
 					<Stack className={'review-box'}>
 						<Stack className={'main-intro'}>
 							<span>Reviews</span>
-							<p>we are glad to see you again</p>
+							<p>We are glad to see you again</p>
 						</Stack>
 						{commentTotal !== 0 && (
 							<Stack className={'review-wrap'}>
