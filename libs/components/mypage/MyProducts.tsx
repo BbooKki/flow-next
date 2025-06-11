@@ -92,7 +92,75 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
 	}
 
 	if (device === 'mobile') {
-		return <div>NESTAR PROducts MOBILE</div>;
+		return (
+			<div id="my-product-page-mobile">
+				<Stack className="main-title-box">
+					<Stack className="right-box">
+						<Typography className="main-title">My Products</Typography>
+						<Typography className="sub-title">We are glad to see you again!</Typography>
+					</Stack>
+				</Stack>
+				<Stack className="product-list-box">
+					<Stack className="tab-name-box">
+						<Typography
+							onClick={() => changeStatusHandler(ProductStatus.ACTIVE)}
+							className={searchFilter.search.productStatus === 'ACTIVE' ? 'active-tab-name' : 'tab-name'}
+						>
+							On Sale
+						</Typography>
+						<Typography
+							onClick={() => changeStatusHandler(ProductStatus.SOLD)}
+							className={searchFilter.search.productStatus === 'SOLD' ? 'active-tab-name' : 'tab-name'}
+						>
+							On Sold
+						</Typography>
+					</Stack>
+					<Stack className="list-box">
+						<Stack className="listing-title-box">
+							<Typography className="title-text">Listing title</Typography>
+							<Typography className="title-text">Date Published</Typography>
+							<Typography className="title-text">Status</Typography>
+							<Typography className="title-text">View</Typography>
+							{searchFilter.search.productStatus === 'ACTIVE' && <Typography className="title-text">Action</Typography>}
+						</Stack>
+
+						{agentProducts?.length === 0 ? (
+							<div className={'no-data'}>
+								<img src="/img/icons/icoAlert.svg" alt="" />
+								<p>No Product found!</p>
+							</div>
+						) : (
+							agentProducts.map((product: Product) => {
+								return (
+									<ProductCard
+										product={product}
+										deleteProductHandler={deleteProductHandler}
+										updateProductHandler={updateProductHandler}
+									/>
+								);
+							})
+						)}
+
+						{agentProducts.length !== 0 && (
+							<Stack className="pagination-config">
+								<Stack className="pagination-box">
+									<Pagination
+										count={Math.ceil(total / searchFilter.limit)}
+										page={searchFilter.page}
+										shape="circular"
+										color="primary"
+										onChange={paginationHandler}
+									/>
+								</Stack>
+								<Stack className="total-result">
+									<Typography>{total} product available</Typography>
+								</Stack>
+							</Stack>
+						)}
+					</Stack>
+				</Stack>
+			</div>
+		);
 	} else {
 		return (
 			<div id="my-product-page">
