@@ -81,7 +81,7 @@ const BasketDropdown: React.FC<BasketDropdownProps> = ({ user }) => {
 		<>
 			<IconButton onClick={handleBasketClick} className={'shopping_cart'}>
 				<Badge badgeContent={getTotalItems()} color="error">
-					<ShoppingCartIcon sx={{ width: '24px', height: '24px', color: '#000' }} />
+					<ShoppingCartIcon />
 				</Badge>
 			</IconButton>
 
