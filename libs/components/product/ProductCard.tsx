@@ -58,6 +58,7 @@ const ProductCard = (props: ProductCardType) => {
 							<Typography>TOP</Typography>
 						</Box>
 					)}
+
 					<Box component={'div'} className={'price-box'}>
 						<Typography>${formatterStr(product?.productPrice)}</Typography>
 					</Box>
@@ -126,7 +127,10 @@ const ProductCard = (props: ProductCardType) => {
 						</Box>
 					)}
 					<Box component={'div'} className={'price-box'}>
-						<Typography>${formatterStr(product?.productPrice)}</Typography>
+						<Typography>
+							${formatterStr(product?.productPrice)}
+							{console.log('Product price:', product?.productPrice)}
+						</Typography>
 					</Box>
 				</Stack>
 				<Stack className="bottom">

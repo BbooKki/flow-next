@@ -92,6 +92,7 @@
 							border-radius: 6px;
 							border: 1px solid rgba(255, 255, 255, 0.5);
 							background: #fff;
+
 							p {
 								color: #181a20;
 								font-family: $font;
@@ -224,7 +225,7 @@
 }
 
 #mobile-wrap {
-	#my-favorites-page-mobile {
+	#my-favorites-page {
 		width: 100%;
 		height: auto;
 		display: flex;
@@ -318,6 +319,7 @@
 						border-radius: 6px;
 						border: 1px solid rgba(255, 255, 255, 0.5);
 						background: #fff;
+						z-index: 10;
 						p {
 							color: #181a20;
 							font-family: $font;

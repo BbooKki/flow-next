@@ -121,12 +121,12 @@ const TuiEditor = () => {
 
 	return (
 		<Stack>
-			<Stack direction="row" style={{ margin: '40px' }} justifyContent="space-evenly">
+			<Stack direction="row" style={{ marginRight: '10px', marginBottom: '10px' }} justifyContent="space-evenly">
 				<Box component={'div'} className={'form_row'} style={{ width: '300px' }}>
-					<Typography style={{ color: '#7f838d', margin: '10px' }} variant="h3">
+					<Typography style={{ color: '#000', margin: '10px' }} variant="h4">
 						Category
 					</Typography>
-					<FormControl sx={{ width: '100%', background: 'white' }}>
+					<FormControl sx={{ width: '100%', background: 'white', marginRight: '10px' }}>
 						<Select
 							value={articleCategory}
 							onChange={changeCategoryHandler}
@@ -142,15 +142,15 @@ const TuiEditor = () => {
 						</Select>
 					</FormControl>
 				</Box>
-				<Box component={'div'} style={{ width: '300px', flexDirection: 'column' }}>
-					<Typography style={{ color: '#7f838d', margin: '10px' }} variant="h3">
+				<Box component={'div'} style={{ width: '300px', flexDirection: 'column', marginLeft: '10px' }}>
+					<Typography style={{ color: '#000', margin: '10px' }} variant="h4">
 						Title
 					</Typography>
 					<TextField
 						onChange={articleTitleHandler}
 						id="filled-basic"
 						label="Type Title"
-						style={{ width: '300px', background: 'white' }}
+						style={{ width: '100%', background: 'white' }}
 					/>
 				</Box>
 			</Stack>

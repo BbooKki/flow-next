@@ -38,7 +38,7 @@ const RecentlyVisited: NextPage = () => {
 
 	if (device === 'mobile') {
 		return (
-			<div id="my-favorites-page-mobile">
+			<div id="my-favorites-page">
 				<Stack className="main-title-box">
 					<Stack className="right-box">
 						<Typography className="main-title">Recently Visited</Typography>

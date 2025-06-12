@@ -228,6 +228,7 @@ export const GET_FAVORITES = gql`
 				productGender
 				productSize
 				productTitle
+				productPrice
 				productViews
 				productLikes
 				productComments
