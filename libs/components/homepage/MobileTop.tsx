@@ -122,7 +122,7 @@ const MobileTop = () => {
 	const navigationItems = [
 		{ text: t('Home'), icon: <HomeIcon />, path: '/' },
 		{ text: t('Products'), icon: <ProductsIcon />, path: '/product' },
-		{ text: t('Brands'), icon: <BrandsIcon />, path: '/agent' },
+		{ text: t('Vendors'), icon: <BrandsIcon />, path: '/agent' },
 		{ text: t('Community'), icon: <CommunityIcon />, path: '/community?articleCategory=FREE' },
 		...(user?._id ? [{ text: t('My Page'), icon: <MyPageIcon />, path: '/mypage' }] : []),
 		{ text: t('CS'), icon: <CSIcon />, path: '/cs' },

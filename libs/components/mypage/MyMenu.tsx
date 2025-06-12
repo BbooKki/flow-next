@@ -48,7 +48,10 @@ const MyMenu = () => {
 								<Typography className={'view-list'}>{user?.memberType}</Typography>
 							</a>
 						) : (
-							<Typography className={'view-list'}>{user?.memberType}</Typography>
+							<Typography className={'view-list'}>
+								{/* {user?.memberType} */}
+								VENDOR
+							</Typography>
 						)}
 					</Stack>
 				</Stack>

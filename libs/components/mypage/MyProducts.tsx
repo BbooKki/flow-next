@@ -116,13 +116,13 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
 						</Typography>
 					</Stack>
 					<Stack className="list-box">
-						<Stack className="listing-title-box">
+						{/* <Stack className="listing-title-box">
 							<Typography className="title-text">Listing title</Typography>
 							<Typography className="title-text">Date Published</Typography>
 							<Typography className="title-text">Status</Typography>
 							<Typography className="title-text">View</Typography>
 							{searchFilter.search.productStatus === 'ACTIVE' && <Typography className="title-text">Action</Typography>}
-						</Stack>
+						</Stack> */}
 
 						{agentProducts?.length === 0 ? (
 							<div className={'no-data'}>
