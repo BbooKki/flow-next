@@ -72,7 +72,49 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>MEMBER ARTICLES MOBILE</div>;
+		return (
+			<div id="member-articles-page">
+				<Stack className="main-title-box">
+					<Stack className="right-box">
+						<Typography className="main-title">Articles</Typography>
+					</Stack>
+				</Stack>
+				<Stack className="articles-list-box">
+					{memberBoArticles?.length === 0 && (
+						<div className={'no-data'}>
+							<img src="/img/icons/icoAlert.svg" alt="" />
+							<p>No Articles found!</p>
+						</div>
+					)}
+					{memberBoArticles?.map((boardArticle: BoardArticle) => {
+						return (
+							<CommunityCard
+								likeArticleHandler={likeArticleHandler}
+								boardArticle={boardArticle}
+								key={boardArticle?._id}
+								size={'small'}
+							/>
+						);
+					})}
+				</Stack>
+				{memberBoArticles?.length !== 0 && (
+					<Stack className="pagination-config">
+						<Stack className="pagination-box">
+							<Pagination
+								count={Math.ceil(total / searchFilter.limit) || 1}
+								page={searchFilter.page}
+								shape="circular"
+								color="primary"
+								onChange={paginationHandler}
+							/>
+						</Stack>
+						<Stack className="total-result">
+							<Typography>{total} product available</Typography>
+						</Stack>
+					</Stack>
+				)}
+			</div>
+		);
 	} else {
 		return (
 			<div id="member-articles-page">

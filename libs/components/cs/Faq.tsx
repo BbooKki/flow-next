@@ -106,7 +106,7 @@ const Faq = () => {
 			{
 				id: '00f5a45ed8897f8090116a02',
 				subject: 'How can I make the payment?',
-				content: 'you make the payment through an agent!',
+				content: 'you make the payment through an vendor!',
 			},
 			{
 				id: '00f5a45ed8897f8090116a91',
@@ -169,7 +169,7 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a85',
 				subject: 'How can I determine if a product is within my budget?',
 				content:
-					'Calculate your budget by considering your income, down payment, and potential mortgage payments. Our agents can assist you within your budget.',
+					'Calculate your budget by considering your income, down payment, and potential mortgage payments. Our vendors can assist you within your budget.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a84',
@@ -205,13 +205,13 @@ const Faq = () => {
 				id: '00f5a45ed8897f8090116a79',
 				subject: 'How long does it typically take to find the right product?',
 				content:
-					'The timeframe varies depending on your preferences and market conditions. Our agents will work diligently to find the right product as quickly as possible.',
+					'The timeframe varies depending on your preferences and market conditions. Our vendors will work diligently to find the right product as quickly as possible.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a78',
-				subject: 'What are the advantages of using a real estate agent when buying a product?',
+				subject: 'What are the advantages of using a real estate vendor when buying a product?',
 				content:
-					'Real estate agents provide expertise, negotiation skills, and guidance throughout the buying process, ultimately saving you time and hassle.',
+					'Real estate vendors provide expertise, negotiation skills, and guidance throughout the buying process, ultimately saving you time and hassle.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a77',
@@ -224,18 +224,18 @@ const Faq = () => {
 		agents: [
 			{
 				id: '00f5a45ed8897f8090116a04',
-				subject: 'What do I need to do if I want to become an agent?',
+				subject: 'What do I need to do if I want to become an vendor?',
 				content:
-					'If you really decide to become an agent, you should read our terms and conditions and contact the admin!',
+					'If you really decide to become an vendor, you should read our terms and conditions and contact the admin!',
 			},
 			{
 				id: '00f5a45ed8897f8090116a62',
-				subject: 'What qualifications do I need to become a real estate agent?',
+				subject: 'What qualifications do I need to become a real estate vendor?',
 				content: 'Complete pre-licensing course, pass licensing exam, meet state requirements.',
 			},
 			{
 				id: '00f5a45ed8897f8090116a63',
-				subject: 'How do I find clients as a new real estate agent?',
+				subject: 'How do I find clients as a new real estate vendor?',
 				content: 'Build network, use online/offline marketing, join reputable brokerage.',
 			},
 			{
@@ -261,7 +261,7 @@ const Faq = () => {
 			},
 			{
 				id: '00f5a45ed8897f8090116a68',
-				subject: 'What tools and technologies should I utilize as a real estate agent?',
+				subject: 'What tools and technologies should I utilize as a real estate vendor?',
 				content: 'Use CRM software, virtual tours, digital marketing tools, and mobile apps.',
 			},
 			{
@@ -435,7 +435,89 @@ const Faq = () => {
 	};
 
 	if (device === 'mobile') {
-		return <div>FAQ MOBILE</div>;
+		return (
+			<Stack className={'faq-content-mobile'}>
+				<Box className={'categories'} component={'div'}>
+					<div
+						className={category === 'product' ? 'active' : ''}
+						onClick={() => {
+							changeCategoryHandler('product');
+						}}
+					>
+						Productproduct
+					</div>
+					<div
+						className={category === 'payment' ? 'active' : ''}
+						onClick={() => {
+							changeCategoryHandler('payment');
+						}}
+					>
+						Payment
+					</div>
+					<div
+						className={category === 'buyers' ? 'active' : ''}
+						onClick={() => {
+							changeCategoryHandler('buyers');
+						}}
+					>
+						Foy Buyers
+					</div>
+					<div
+						className={category === 'agents' ? 'active' : ''}
+						onClick={() => {
+							changeCategoryHandler('agents');
+						}}
+					>
+						For Agents
+					</div>
+					<div
+						className={category === 'membership' ? 'active' : ''}
+						onClick={() => {
+							changeCategoryHandler('membership');
+						}}
+					>
+						Membership
+					</div>
+					<div
+						className={category === 'community' ? 'active' : ''}
+						onClick={() => {
+							changeCategoryHandler('community');
+						}}
+					>
+						Community
+					</div>
+					<div
+						className={category === 'other' ? 'active' : ''}
+						onClick={() => {
+							changeCategoryHandler('other');
+						}}
+					>
+						Other
+					</div>
+				</Box>
+				<Box className={'wrap'} component={'div'}>
+					{data[category] &&
+						data[category].map((ele: any) => (
+							<Accordion expanded={expanded === ele?.id} onChange={handleChange(ele?.id)} key={ele?.subject}>
+								<AccordionSummary id="panel1d-header" className="question" aria-controls="panel1d-content">
+									<Typography className="badge" variant={'h4'}>
+										Q
+									</Typography>
+									<Typography> {ele?.subject}</Typography>
+								</AccordionSummary>
+								<AccordionDetails>
+									<Stack className={'answer flex-box'}>
+										<Typography className="badge" variant={'h4'} color={'primary'}>
+											A
+										</Typography>
+										<Typography> {ele?.content}</Typography>
+									</Stack>
+								</AccordionDetails>
+							</Accordion>
+						))}
+				</Box>
+			</Stack>
+		);
 	} else {
 		return (
 			<Stack className={'faq-content'}>

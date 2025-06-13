@@ -23,12 +23,15 @@
 						width: 100%;
 						flex-direction: row;
 						gap: 11px;
+
 						img {
 							width: 80px;
 							height: 80px;
 							border-radius: 50%;
 							background-size: cover;
 							background-position: center;
+							object-position: center;
+							object-fit: contain;
 						}
 						.community-name {
 							.name {

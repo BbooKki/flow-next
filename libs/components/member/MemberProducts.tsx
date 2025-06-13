@@ -53,7 +53,53 @@ const MyProducts: NextPage = ({ initialInput, ...props }: any) => {
 	};
 
 	if (device === 'mobile') {
-		return <div>NESTAR PROducts MOBILE</div>;
+		return (
+			<div id="member-products-page">
+				<Stack className="main-title-box">
+					<Stack className="right-box">
+						<Typography className="main-title">Products</Typography>
+					</Stack>
+				</Stack>
+				<Stack className="products-list-box">
+					<Stack className="list-box">
+						{agentProducts?.length > 0 && (
+							<Stack className="listing-title-box">
+								<Typography className="title-text">Listing title</Typography>
+								<Typography className="title-text">Date Published</Typography>
+								<Typography className="title-text">Status</Typography>
+								<Typography className="title-text">View</Typography>
+							</Stack>
+						)}
+						{agentProducts?.length === 0 && (
+							<div className={'no-data'}>
+								<img src="/img/icons/icoAlert.svg" alt="" />
+								<p>No Product found!</p>
+							</div>
+						)}
+						{agentProducts?.map((product: Product) => {
+							return <ProductCard product={product} memberPage={true} key={product?._id} />;
+						})}
+
+						{agentProducts.length !== 0 && (
+							<Stack className="pagination-config">
+								<Stack className="pagination-box">
+									<Pagination
+										count={Math.ceil(total / searchFilter.limit)}
+										page={searchFilter.page}
+										shape="circular"
+										color="primary"
+										onChange={paginationHandler}
+									/>
+								</Stack>
+								<Stack className="total-result">
+									<Typography>{total} product available</Typography>
+								</Stack>
+							</Stack>
+						)}
+					</Stack>
+				</Stack>
+			</div>
+		);
 	} else {
 		return (
 			<div id="member-products-page">
