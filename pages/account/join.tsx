@@ -65,13 +65,13 @@ const Join: NextPage = () => {
 
 	if (device === 'mobile') {
 		return (
-			<Stack className={'join-page'}>
+			<Stack className={'join-page-mobile'}>
 				<Stack className={'container'}>
 					<Stack className={'main'}>
-						<Stack className={'left'}>
+						<Stack className={'left-mobile'}>
 							{/* @ts-ignore */}
 							<Box className={'logo'}>
-								<img src="/img/logo/logoText.svg" alt="" />
+								<img src="/img/logo/logo-70.svg" alt="" />
 								<span>Nestar</span>
 							</Box>
 							<Box className={'info'}>
@@ -167,7 +167,7 @@ const Join: NextPage = () => {
 								{loginView ? (
 									<Button
 										variant="contained"
-										endIcon={<img src="/img/icons/rightup.svg" alt="" />}
+										// endIcon={<img src="/img/icons/rightup.svg" alt="" />}
 										disabled={input.nick == '' || input.password == ''}
 										onClick={doLogin}
 									>
@@ -187,7 +187,7 @@ const Join: NextPage = () => {
 							<Box className={'ask-info'}>
 								{loginView ? (
 									<p>
-										Not registered yet?
+										No account?
 										<b
 											onClick={() => {
 												viewChangeHandler(false);
@@ -204,7 +204,6 @@ const Join: NextPage = () => {
 								)}
 							</Box>
 						</Stack>
-						<Stack className={'right'}></Stack>
 					</Stack>
 				</Stack>
 			</Stack>

@@ -49,8 +49,7 @@ const MyMenu = () => {
 							</a>
 						) : (
 							<Typography className={'view-list'}>
-								{/* {user?.memberType} */}
-								VENDOR
+								{user?.memberType === 'AGENT' ? 'Vendor' : user?.memberType}
 							</Typography>
 						)}
 					</Stack>

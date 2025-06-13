@@ -161,7 +161,7 @@ const MobileTop = () => {
 								{user?.memberNick || 'User'}
 							</Typography>
 							<Typography variant="caption" color="default">
-								{user?.memberType}
+								{user?.memberType === 'AGENT' ? 'Vendor' : user?.memberType}
 							</Typography>
 						</Box>
 					</Stack>
