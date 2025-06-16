@@ -8,13 +8,13 @@ export default function Document() {
 				<link rel="icon" type="image/png" href="/img/logo/logo-70.svg" />
 
 				{/* SEO */}
-				<meta name="keyword" content={'nestar, nestar.uz, devex mern, mern nestjs fullstack'} />
+				<meta name="keyword" content={'flow, flow.uz, devex mern, mern nestjs fullstack'} />
 				<meta
 					name={'description'}
 					content={
-						'Buy and sell products anywhere anytime in South Korea. Best Products at Best prices on nestar.uz | ' +
-						'Покупайте и продавайте недвижимость в любой точке Южной Кореи в любое время. Лучшая недвижимость по лучшим ценам на nestar.uz | ' +
-						'대한민국 언제 어디서나 부동산을 사고팔 수 있습니다. Nestar.uz에서 최적의 가격으로 최고의 부동산을 만나보세요'
+						'Buy and sell products anywhere anytime in South Korea. Best Products at Best prices on flow.uz | ' +
+						'Покупайте и продавайте в любой точке Южной Кореи в любое время. по лучшим ценам на flow.uz | ' +
+						'대한민국 언제 어디서나 부동산을 사고팔 수 있습니다. Flow.uz에서 최적의 가격으로 최고의 부동산을 만나보세요'
 					}
 				/>
 			</Head>
