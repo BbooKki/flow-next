@@ -20,6 +20,7 @@ import {
 	MenuItem,
 	Avatar,
 	Divider,
+	ListItemAvatar,
 } from '@mui/material';
 import {
 	Menu as MenuIcon,
@@ -53,6 +54,10 @@ const MobileTop = () => {
 	const [langAnchor, setLangAnchor] = useState(null);
 	const [userMenuAnchor, setUserMenuAnchor] = useState(null);
 	const [lang, setLang] = useState('en');
+
+	// Notification popup state for mobile
+	const [notificationAnchor, setNotificationAnchor] = useState<null | HTMLElement>(null);
+	const notificationOpen = Boolean(notificationAnchor);
 
 	// Computed values
 	const getTotalItems = () => basketItems.reduce((total, item) => total + item.quantity, 0);
@@ -116,6 +121,14 @@ const MobileTop = () => {
 	const handleLogout = () => {
 		logOut();
 		setUserMenuAnchor(null);
+	};
+
+	// Notification handlers
+	const handleNotificationClick = (event: React.MouseEvent<HTMLElement>) => {
+		setNotificationAnchor(event.currentTarget);
+	};
+	const handleNotificationClose = () => {
+		setNotificationAnchor(null);
 	};
 
 	// Navigation items
@@ -256,11 +269,37 @@ const MobileTop = () => {
 					<Stack direction="row" alignItems="center" spacing={1}>
 						{/* Notifications */}
 						{user?._id && (
-							<IconButton color="inherit" size="small">
-								<NotificationsIcon />
-							</IconButton>
+							<>
+								<IconButton color="inherit" size="small" onClick={handleNotificationClick}>
+									<NotificationsIcon />
+								</IconButton>
+								<Menu
+									anchorEl={notificationAnchor}
+									open={notificationOpen}
+									onClose={handleNotificationClose}
+									PaperProps={{
+										sx: { width: 320, maxHeight: 400, mt: 1 },
+									}}
+									anchorOrigin={{
+										vertical: 'bottom',
+										horizontal: 'right',
+									}}
+									transformOrigin={{
+										vertical: 'top',
+										horizontal: 'right',
+									}}
+								>
+									<Box sx={{ p: 2 }}>
+										<Typography variant="h6">{t('Notifications')}</Typography>
+									</Box>
+									<Divider />
+									<List sx={{ minWidth: 300 }}>
+										{/* Placeholder notifications */}
+										<div style={{ padding: '20px 20px' }}>Your notifications </div>
+									</List>
+								</Menu>
+							</>
 						)}
-
 						{/* Shopping Cart */}
 						{user?.memberType === MemberType.USER && <BasketDropdown user={user} />}
 

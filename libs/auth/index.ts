@@ -4,6 +4,7 @@ import { userVar } from '../../apollo/store';
 import { CustomJwtPayload } from '../types/customJwtPayload';
 import { sweetMixinErrorAlert } from '../sweetAlert';
 import { LOGIN, SIGN_UP } from '../../apollo/user/mutation';
+import { GOOGLE_AUTH } from '../../apollo/user/mutation';
 
 export function getJwtToken(): any {
 	if (typeof window !== 'undefined') {
@@ -76,6 +77,43 @@ export const signUp = async (nick: string, password: string, phone: string, type
 		console.warn('login err', err);
 		logOut();
 		// throw new Error('Login Err');
+	}
+};
+
+export const googleAuth = async (googleToken: string): Promise<void> => {
+	try {
+		console.log('Starting Google authentication...');
+		console.log('Google token (first 50 chars):', googleToken?.substring(0, 50) + '...');
+
+		const apolloClient = await initializeApollo();
+		const result = await apolloClient.mutate({
+			mutation: GOOGLE_AUTH,
+			variables: { googleToken },
+			fetchPolicy: 'network-only',
+		});
+
+		console.log('GraphQL mutation result:', result);
+
+		const { accessToken } = result?.data?.googleAuth;
+		if (accessToken) {
+			console.log('Access token received, updating storage...');
+			updateStorage({ jwtToken: accessToken });
+			updateUserInfo(accessToken);
+			console.log('Google authentication successful!');
+		} else {
+			console.error('No access token in response:', result?.data);
+			throw new Error('No access token received from server');
+		}
+	} catch (err) {
+		const error = err as Error;
+		console.error('Google auth error details:', {
+			message: error.message,
+			// graphQLErrors: error.graphQLErrors,
+			// networkError: error.networkError,
+			stack: error.stack,
+		});
+		logOut();
+		throw new Error(`Google authentication failed: ${error.message}`);
 	}
 };
 

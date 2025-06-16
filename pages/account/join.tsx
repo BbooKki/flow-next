@@ -4,9 +4,10 @@ import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
 import { Box, Button, Checkbox, FormControlLabel, FormGroup, Stack } from '@mui/material';
 import { useRouter } from 'next/router';
-import { logIn, signUp } from '../../libs/auth';
+import { googleAuth, logIn, signUp } from '../../libs/auth';
 import { sweetMixinErrorAlert } from '../../libs/sweetAlert';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GoogleLogin } from '@react-oauth/google';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -219,6 +220,26 @@ const Join: NextPage = () => {
 								<img src="/img/logo/logo-70.svg" alt="" />
 								<span>FLOW</span>
 							</Box>
+							<Stack spacing={2}>
+								<GoogleLogin
+									onSuccess={async (credentialResponse) => {
+										if (!credentialResponse.credential) {
+											await sweetMixinErrorAlert('Google credential not found');
+											return;
+										}
+										try {
+											await googleAuth(credentialResponse.credential);
+											await router.push(`${router.query.referrer ?? '/'}`);
+										} catch (err: any) {
+											await sweetMixinErrorAlert(err.message);
+										}
+									}}
+									onError={() => {
+										sweetMixinErrorAlert('Google Login Failed');
+									}}
+									useOneTap
+								/>
+							</Stack>
 							<Box className={'info'}>
 								<span>{loginView ? 'login' : 'signup'}</span>
 								<p>{loginView ? 'Login' : 'Sign'} in with this account across the following sites.</p>

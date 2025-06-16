@@ -15,9 +15,9 @@ import {
 	ListItemText,
 	ListItemAvatar,
 	Avatar,
+	MenuItem,
+	Button,
 } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
 import { alpha, styled } from '@mui/material/styles';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
@@ -25,21 +25,17 @@ import { CaretDown } from 'phosphor-react';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import Link from 'next/link';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import { useReactiveVar } from '@apollo/client';
-import { userVar, basketVar, BasketItem } from '../../apollo/store';
+import { userVar } from '../../apollo/store';
 import { Logout } from '@mui/icons-material';
 import { REACT_APP_API_URL } from '../config';
 import { MemberType } from '../enums/member.enum';
 import MobileTop from './homepage/MobileTop';
 import BasketDropdown from './BasketDropdown';
+
 const Top = () => {
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
-	const basketItems = useReactiveVar(basketVar);
 	const { t, i18n } = useTranslation('common');
 	const router = useRouter();
 
@@ -54,9 +50,9 @@ const Top = () => {
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
 
-	// // Basket dropdown state
-	// const [basketAnchor, setBasketAnchor] = useState<null | HTMLElement>(null);
-	// const basketOpen = Boolean(basketAnchor);
+	// Notification popup state
+	const [notificationAnchor, setNotificationAnchor] = useState<null | HTMLElement>(null);
+	const notificationOpen = Boolean(notificationAnchor);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -82,11 +78,6 @@ const Top = () => {
 		const jwt = getJwtToken();
 		if (jwt) updateUserInfo(jwt);
 	}, []);
-
-	// // Save basket to localStorage whenever it changes
-	// useEffect(() => {
-	// 	localStorage.setItem('basket', JSON.stringify(basketItems));
-	// }, [basketItems]);
 
 	/** HANDLERS **/
 	const langClick = (e: any) => {
@@ -127,41 +118,6 @@ const Top = () => {
 		}
 	};
 
-	// Basket handlers
-	// const handleBasketClick = (event: React.MouseEvent<HTMLElement>) => {
-	// 	setBasketAnchor(event.currentTarget);
-	// };
-
-	// const handleBasketClose = () => {
-	// 	setBasketAnchor(null);
-	// };
-
-	// const updateItemQuantity = (itemId: string, newQuantity: number) => {
-	// 	const currentBasket = basketVar();
-	// 	if (newQuantity <= 0) {
-	// 		basketVar(currentBasket.filter((item) => item._id !== itemId));
-	// 	} else {
-	// 		basketVar(currentBasket.map((item) => (item._id === itemId ? { ...item, quantity: newQuantity } : item)));
-	// 	}
-	// };
-
-	// const removeItem = (itemId: string) => {
-	// 	const currentBasket = basketVar();
-	// 	basketVar(currentBasket.filter((item) => item._id !== itemId));
-	// };
-
-	// const getTotalPrice = () => {
-	// 	return basketItems.reduce((total, item) => total + item.productPrice * item.quantity, 0);
-	// };
-
-	// const getTotalItems = () => {
-	// 	return basketItems.reduce((total, item) => total + item.quantity, 0);
-	// };
-
-	// const clearBasket = () => {
-	// 	basketVar([]);
-	// };
-
 	const StyledMenu = styled((props: MenuProps) => (
 		<Menu
 			elevation={0}
@@ -199,6 +155,14 @@ const Top = () => {
 			},
 		},
 	}));
+
+	// Notification handlers
+	const handleNotificationClick = (event: React.MouseEvent<HTMLElement>) => {
+		setNotificationAnchor(event.currentTarget);
+	};
+	const handleNotificationClose = () => {
+		setNotificationAnchor(null);
+	};
 
 	if (typeof window !== 'undefined') {
 		window.addEventListener('scroll', changeNavbarColor);
@@ -277,7 +241,43 @@ const Top = () => {
 							)}
 
 							<div className={'top-box'}>
-								{user?._id && <NotificationsOutlinedIcon className={'notification-icon'} />}
+								{user?._id && (
+									<>
+										<IconButton
+											className={'notification-icon'}
+											onClick={handleNotificationClick}
+											size="large"
+											color="inherit"
+										>
+											<NotificationsOutlinedIcon />
+										</IconButton>
+										<Menu
+											anchorEl={notificationAnchor}
+											open={notificationOpen}
+											onClose={handleNotificationClose}
+											PaperProps={{
+												sx: { width: 320, maxHeight: 400, mt: 1 },
+											}}
+											anchorOrigin={{
+												vertical: 'bottom',
+												horizontal: 'right',
+											}}
+											transformOrigin={{
+												vertical: 'top',
+												horizontal: 'right',
+											}}
+										>
+											<Box sx={{ p: 2 }}>
+												<Typography variant="h6">{t('Notifications')}</Typography>
+											</Box>
+											<Divider />
+											<List sx={{ minWidth: 300 }}>
+												{/* Placeholder notifications */}
+												<div style={{ padding: '20px 20px' }}>Your notifications </div>
+											</List>
+										</Menu>
+									</>
+								)}
 								{user?.memberType === MemberType.USER && (
 									<>
 										<BasketDropdown user={user} />
@@ -315,7 +315,7 @@ const Top = () => {
 											className="img-flag"
 											src={'/img/flag/langkr.png'}
 											onClick={langChoice}
-											id="uz"
+											id="kr"
 											alt={'koreanFlag'}
 										/>
 										{t('Korean')}
