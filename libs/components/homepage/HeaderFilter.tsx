@@ -242,32 +242,6 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<img src="/img/icons/search_white.svg" alt="" />
 						</Box>
 					</Stack>
-
-					{/*MENU */}
-					{/* <div className={`filter-gender ${openGender ? 'on' : ''}`} ref={genderRef}>
-						{productGender.map((gender: string) => {
-							return (
-								<div onClick={() => productGenderSelectHandler(gender)} key={gender}>
-									<img src={`img/banner/cities/${gender}.webp`} alt="" />
-									<span>{gender}</span>
-								</div>
-							);
-						})}
-					</div>
-
-					<div className={`filter-type ${openType ? 'on' : ''}`} ref={typeRef}>
-						{productType.map((type: string) => {
-							return (
-								<div
-									style={{ backgroundImage: `url(/img/banner/types/${type.toLowerCase()}.webp)` }}
-									onClick={() => productTypeSelectHandler(type)}
-									key={type}
-								>
-									<span>{type}</span>
-								</div>
-							);
-						})}
-					</div> */}
 				</Stack>
 
 				{/* ADVANCED FILTER MODAL */}

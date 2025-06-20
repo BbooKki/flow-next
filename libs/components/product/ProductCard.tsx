@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack, Typography, Box } from '@mui/material';
+import { Stack, Typography, Box, Button } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -101,9 +101,16 @@ const ProductCard = (props: ProductCardType) => {
 								<Typography className="view-cnt">{product?.productLikes}</Typography>
 							</Stack>
 						)}
-						<Box className={'buy-btn'} color={'default'} onClick={handleBuyClick} disabled={isAddingToCart}>
+						<Button
+							className={'buy-btn'}
+							variant="contained"
+							color="primary"
+							onClick={handleBuyClick}
+							disabled={isAddingToCart}
+							size="small"
+						>
 							Buy
-						</Box>
+						</Button>
 					</Stack>
 				</Stack>
 			</Stack>
@@ -127,10 +134,7 @@ const ProductCard = (props: ProductCardType) => {
 						</Box>
 					)}
 					<Box component={'div'} className={'price-box'}>
-						<Typography>
-							${formatterStr(product?.productPrice)}
-							{console.log('Product price:', product?.productPrice)}
-						</Typography>
+						<Typography>${formatterStr(product?.productPrice)}</Typography>
 					</Box>
 				</Stack>
 				<Stack className="bottom">
@@ -171,9 +175,16 @@ const ProductCard = (props: ProductCardType) => {
 								<Typography className="view-cnt">{product?.productLikes}</Typography>
 							</Stack>
 						)}
-						<Box className={'buy-btn'} color={'default'} onClick={handleBuyClick} disabled={isAddingToCart}>
+						<Button
+							className={'buy-btn'}
+							variant="contained"
+							color="primary"
+							onClick={handleBuyClick}
+							disabled={isAddingToCart}
+							size="small"
+						>
 							Buy
-						</Box>
+						</Button>
 					</Stack>
 				</Stack>
 			</Stack>

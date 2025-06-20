@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack, Box, Divider, IconButton, Typography } from '@mui/material';
+import { Stack, Box, Divider, IconButton, Typography, Button } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Product } from '../../types/product/product';
@@ -89,9 +89,16 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 							</IconButton>
 							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
-						<Box className={'buy-btn'} color={'default'} onClick={handleBuyClick} disabled={isAddingToCart}>
+						<Button
+							className={'buy-btn'}
+							variant="contained"
+							color="primary"
+							onClick={handleBuyClick}
+							disabled={isAddingToCart}
+							size="small"
+						>
 							Buy
-						</Box>
+						</Button>
 					</div>
 				</Box>
 			</Stack>
@@ -135,9 +142,16 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 							</IconButton>
 							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
-						<Box className={'buy-btn'} color={'default'} onClick={handleBuyClick} disabled={isAddingToCart}>
+						<Button
+							className={'buy-btn'}
+							variant="contained"
+							color="primary"
+							onClick={handleBuyClick}
+							disabled={isAddingToCart}
+							size="small"
+						>
 							Buy
-						</Box>
+						</Button>
 					</div>
 				</Box>
 			</Stack>

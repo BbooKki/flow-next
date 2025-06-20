@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack, Box, Divider, Typography } from '@mui/material';
+import { Stack, Box, Divider, Typography, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -87,9 +87,16 @@ const TopProductCard = (props: TopProductCardProps) => {
 							</IconButton>
 							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
-						<Box className={'buy-btn'} color={'default'} onClick={handleBuyClick} disabled={isAddingToCart}>
-							Buy
-						</Box>
+						<Button 
+    className={'buy-btn'} 
+    variant="contained" 
+    color="primary" 
+    onClick={handleBuyClick} 
+    disabled={isAddingToCart}
+    size="small"
+>
+    Buy
+</Button>
 					</div>
 				</Box>
 			</Stack>
@@ -125,9 +132,16 @@ const TopProductCard = (props: TopProductCardProps) => {
 							</IconButton>
 							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
-						<Box className={'buy-btn'} color={'default'} onClick={handleBuyClick} disabled={isAddingToCart}>
-							Buy
-						</Box>
+						<Button 
+    className={'buy-btn'} 
+    variant="contained" 
+    color="primary" 
+    onClick={handleBuyClick} 
+    disabled={isAddingToCart}
+    size="small"
+>
+    Buy
+</Button>
 					</div>
 				</Box>
 			</Stack>

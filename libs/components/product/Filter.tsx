@@ -343,9 +343,7 @@ const Filter = (props: FilterType) => {
 								},
 							}}
 						>
-							<Typography className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
-								Gender
-							</Typography>
+							<Typography className={'title'}>Gender</Typography>
 						</Button>
 						<Collapse in={genderExpanded}>
 							<Stack className={`product-gender`}>
@@ -455,9 +453,7 @@ const Filter = (props: FilterType) => {
 					</Stack>
 				</Stack>
 				<Stack className={'find-your-product'} mb={'30px'}>
-					<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
-						Gender
-					</p>
+					<p className={'title'}>Gender</p>
 					<Stack className={`product-gender`}>
 						{productGender.map((gender: string) => {
 							return (
