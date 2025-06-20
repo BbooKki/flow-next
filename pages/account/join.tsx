@@ -75,6 +75,25 @@ const Join: NextPage = () => {
 								<img src="/img/logo/logo-70.svg" alt="" />
 								<span>Flow</span>
 							</Box>
+							<Stack spacing={2}>
+								<GoogleLogin
+									onSuccess={async (credentialResponse) => {
+										if (!credentialResponse.credential) {
+											await sweetMixinErrorAlert('Google credential not found');
+											return;
+										}
+										try {
+											await googleAuth(credentialResponse.credential);
+											await router.push(`${router.query.referrer ?? '/'}`);
+										} catch (err: any) {
+											await sweetMixinErrorAlert(err.message);
+										}
+									}}
+									onError={() => {
+										sweetMixinErrorAlert('Google Login Failed');
+									}}
+								/>
+							</Stack>
 							<Box className={'info'}>
 								<span>{loginView ? 'login' : 'signup'}</span>
 								<p>{loginView ? 'Login' : 'Sign'} in with this account across the following sites.</p>
@@ -237,7 +256,6 @@ const Join: NextPage = () => {
 									onError={() => {
 										sweetMixinErrorAlert('Google Login Failed');
 									}}
-									useOneTap
 								/>
 							</Stack>
 							<Box className={'info'}>
