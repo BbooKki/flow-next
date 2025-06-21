@@ -1,5 +1,3 @@
-version: '3.3'
-
 services:
   flow-next:
     container_name: flow-next
