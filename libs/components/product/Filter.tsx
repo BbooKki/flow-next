@@ -37,80 +37,83 @@ const Filter = (props: FilterType) => {
 	const [productType, setProductType] = useState<ProductType[]>(Object.values(ProductType));
 	const [searchText, setSearchText] = useState<string>('');
 	const [genderMenuAnchor, setGenderMenuAnchor] = useState<null | HTMLElement>(null);
+	const [typeMenuAnchor, setTypeMenuAnchor] = useState<null | HTMLElement>(null);
+	const [showMore, setShowMore] = useState<boolean>(false);
 
 	//FOR COLLAPSING SECTION
 	const [genderExpanded, setGenderExpanded] = useState<boolean>(false);
 	const [typeExpanded, setTypeExpanded] = useState<boolean>(false);
+
 	/** LIFECYCLES **/
-	// useEffect(() => {
-	// 	if (searchFilter?.search?.genderList?.length == 0) {
-	// 		delete searchFilter.search.genderList;
-	// 		setShowMore(false);
-	// 		router
-	// 			.push(
-	// 				`/product?input=${JSON.stringify({
-	// 					...searchFilter,
-	// 					search: {
-	// 						...searchFilter.search,
-	// 					},
-	// 				})}`,
-	// 				`/product?input=${JSON.stringify({
-	// 					...searchFilter,
-	// 					search: {
-	// 						...searchFilter.search,
-	// 					},
-	// 				})}`,
-	// 				{ scroll: false },
-	// 			)
-	// 			.then();
-	// 	}
+	useEffect(() => {
+		if (searchFilter?.search?.genderList?.length == 0) {
+			delete searchFilter.search.genderList;
+			setShowMore(false);
+			router
+				.push(
+					`/product?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					`/product?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					{ scroll: false },
+				)
+				.then();
+		}
 
-	// 	if (searchFilter?.search?.typeList?.length == 0) {
-	// 		delete searchFilter.search.typeList;
-	// 		router
-	// 			.push(
-	// 				`/product?input=${JSON.stringify({
-	// 					...searchFilter,
-	// 					search: {
-	// 						...searchFilter.search,
-	// 					},
-	// 				})}`,
-	// 				`/product?input=${JSON.stringify({
-	// 					...searchFilter,
-	// 					search: {
-	// 						...searchFilter.search,
-	// 					},
-	// 				})}`,
-	// 				{ scroll: false },
-	// 			)
-	// 			.then();
-	// 	}
+		if (searchFilter?.search?.typeList?.length == 0) {
+			delete searchFilter.search.typeList;
+			router
+				.push(
+					`/product?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					`/product?input=${JSON.stringify({
+						...searchFilter,
+						search: {
+							...searchFilter.search,
+						},
+					})}`,
+					{ scroll: false },
+				)
+				.then();
+		}
 
-	// 	// HERE IMPLEMENT THE PRODUCT SIZE RANGE FILTER
+		// HERE IMPLEMENT THE PRODUCT SIZE RANGE FILTER
 
-	// 	// if (searchFilter?.search?.options?.length == 0) {
-	// 	// 	delete searchFilter.search.options;
-	// 	// 	router
-	// 	// 		.push(
-	// 	// 			`/product?input=${JSON.stringify({
-	// 	// 				...searchFilter,
-	// 	// 				search: {
-	// 	// 					...searchFilter.search,
-	// 	// 				},
-	// 	// 			})}`,
-	// 	// 			`/product?input=${JSON.stringify({
-	// 	// 				...searchFilter,
-	// 	// 				search: {
-	// 	// 					...searchFilter.search,
-	// 	// 				},
-	// 	// 			})}`,
-	// 	// 			{ scroll: false },
-	// 	// 		)
-	// 	// 		.then();
-	// 	// }
+		// if (searchFilter?.search?.options?.length == 0) {
+		// 	delete searchFilter.search.options;
+		// 	router
+		// 		.push(
+		// 			`/product?input=${JSON.stringify({
+		// 				...searchFilter,
+		// 				search: {
+		// 					...searchFilter.search,
+		// 				},
+		// 			})}`,
+		// 			`/product?input=${JSON.stringify({
+		// 				...searchFilter,
+		// 				search: {
+		// 					...searchFilter.search,
+		// 				},
+		// 			})}`,
+		// 			{ scroll: false },
+		// 		)
+		// 		.then();
+		// }
 
-	// 	if (searchFilter?.search?.genderList) setShowMore(true);
-	// }, [searchFilter]);
+		if (searchFilter?.search?.genderList) setShowMore(true);
+	}, [searchFilter]);
 
 	/** HANDLERS **/
 	const handleGenderMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
