@@ -228,9 +228,9 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 										type="text"
 										className="description-input"
 										placeholder={'Price'}
-										value={insertProductData.productPrice}
+										value={insertProductData.productPrice || ''}
 										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productPrice: parseInt(value) })
+											setInsertProductData({ ...insertProductData, productPrice: parseInt(value) || 0 })
 										}
 									/>
 								</Stack>
@@ -466,9 +466,9 @@ const AddProduct = ({ initialValues, ...props }: any) => {
 										type="text"
 										className="description-input"
 										placeholder={'Price'}
-										value={insertProductData.productPrice}
+										value={insertProductData.productPrice || ''}
 										onChange={({ target: { value } }) =>
-											setInsertProductData({ ...insertProductData, productPrice: parseInt(value) })
+											setInsertProductData({ ...insertProductData, productPrice: parseInt(value) || 0 })
 										}
 									/>
 								</Stack>
