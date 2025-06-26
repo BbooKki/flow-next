@@ -97,7 +97,7 @@ const MyMenu = () => {
 												{category === 'myProducts' ? (
 													<img className={'com-icon'} src={'/img/icons/homeWhite.svg'} alt={'com-icon'} />
 												) : (
-													<img className={'com-icon'} src={'/img/icons/home.svg'} alt={'com-icon'} />
+													<img className={'com-icon'} src={'/img/icons/home-50.png'} alt={'com-icon'} />
 												)}
 												<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
 													My Products
@@ -405,7 +405,7 @@ const MyMenu = () => {
 												{category === 'myProducts' ? (
 													<img className={'com-icon'} src={'/img/icons/homeWhite.svg'} alt={'com-icon'} />
 												) : (
-													<img className={'com-icon'} src={'/img/icons/home.svg'} alt={'com-icon'} />
+													<img className={'com-icon'} src={'/img/icons/home-50.png'} alt={'com-icon'} />
 												)}
 												<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
 													My Products

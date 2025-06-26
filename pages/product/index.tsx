@@ -79,13 +79,26 @@ const ProductList: NextPage = ({ ...props }: any) => {
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (router.query.input) {
-			const inputObj = JSON.parse(router?.query?.input as string);
-			setSearchFilter(inputObj);
+		const currentInput = router.query.input;
+		if (currentInput) {
+			try {
+				const inputObj = JSON.parse(currentInput as string);
+				// Only update if the parsed input is different to avoid unnecessary re-renders
+				if (JSON.stringify(inputObj) !== JSON.stringify(searchFilter)) {
+					setSearchFilter(inputObj);
+				}
+				setCurrentPage(inputObj.page || 1);
+			} catch (e) {
+				console.error('Failed to parse router query input:', e);
+				// Fallback to initial input if parsing fails
+				setSearchFilter(initialInput);
+				setCurrentPage(initialInput.page);
+			}
+		} else {
+			setSearchFilter(initialInput);
+			setCurrentPage(initialInput.page);
 		}
-
-		setCurrentPage(searchFilter.page === undefined ? 1 : searchFilter.page);
-	}, [router]);
+	}, [router.query.input]);
 
 	useEffect(() => {
 		console.log('searchFilter: ', searchFilter);
@@ -94,15 +107,16 @@ const ProductList: NextPage = ({ ...props }: any) => {
 
 	/** HANDLERS **/
 	const handlePaginationChange = async (event: ChangeEvent<unknown>, value: number) => {
-		searchFilter.page = value;
+		const newSearchFilter = { ...searchFilter, page: value }; // Create a new object for immutable update
+		setSearchFilter(newSearchFilter); // Update the state
+		setCurrentPage(value); // Update current page for Pagination component
 		await router.push(
-			`/product?input=${JSON.stringify(searchFilter)}`,
-			`/product?input=${JSON.stringify(searchFilter)}`,
+			`/product?input=${JSON.stringify(newSearchFilter)}`, // Use the new object for router.push
+			`/product?input=${JSON.stringify(newSearchFilter)}`,
 			{
 				scroll: false,
 			},
 		);
-		setCurrentPage(value);
 	};
 
 	const likeProductHandler = async (user: T, id: string) => {

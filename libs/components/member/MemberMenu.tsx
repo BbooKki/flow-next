@@ -103,7 +103,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 											{category === 'products' ? (
 												<img className={'com-icon'} src={'/img/icons/homeWhite.svg'} alt={'com-icon'} />
 											) : (
-												<img className={'com-icon'} src={'/img/icons/home.svg'} alt={'com-icon'} />
+												<img className={'com-icon'} src={'/img/icons/home-50.png'} alt={'com-icon'} />
 											)}
 											<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
 												Products
@@ -319,7 +319,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 											{category === 'products' ? (
 												<img className={'com-icon'} src={'/img/icons/homeWhite.svg'} alt={'com-icon'} />
 											) : (
-												<img className={'com-icon'} src={'/img/icons/home.svg'} alt={'com-icon'} />
+												<img className={'com-icon'} src={'/img/icons/home-50.png'} alt={'com-icon'} />
 											)}
 											<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
 												Products
