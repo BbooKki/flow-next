@@ -2,12 +2,14 @@ import React, { useCallback, useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import { Box, Button, Checkbox, FormControlLabel, FormGroup, Stack } from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel, FormGroup, Stack, InputAdornment, IconButton } from '@mui/material';
 import { useRouter } from 'next/router';
 import { googleAuth, logIn, signUp } from '../../libs/auth';
 import { sweetMixinErrorAlert } from '../../libs/sweetAlert';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GoogleLogin } from '@react-oauth/google';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
@@ -20,6 +22,7 @@ const Join: NextPage = () => {
 	const device = useDeviceDetect();
 	const [input, setInput] = useState({ nick: '', password: '', phone: '', type: 'USER' });
 	const [loginView, setLoginView] = useState<boolean>(true);
+	const [showPassword, setShowPassword] = useState<boolean>(false);
 
 	/** HANDLERS **/
 	const viewChangeHandler = (state: boolean) => {
@@ -62,7 +65,47 @@ const Join: NextPage = () => {
 		}
 	}, [input]);
 
+	const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+	const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+	};
+
 	console.log('+input: ', input);
+
+	const PasswordInput = (
+		<div className={'input-box'}>
+			<span>Password</span>
+			<Box sx={{ display: 'flex', alignItems: 'center' }}>
+				<input
+					type={showPassword ? 'text' : 'password'}
+					placeholder={'Enter Password'}
+					onChange={(e) => handleInput('password', e.target.value)}
+					required={true}
+					value={input.password}
+					style={{ flex: 1, paddingRight: 36 }}
+					onKeyDown={(event) => {
+						if (event.key == 'Enter' && loginView) doLogin();
+						if (event.key == 'Enter' && !loginView) doSignUp();
+					}}
+				/>
+				<IconButton
+					aria-label={showPassword ? 'Hide password' : 'Show password'}
+					onClick={handleClickShowPassword}
+					onMouseDown={handleMouseDownPassword}
+					edge="end"
+					size="small"
+					sx={{
+						position: 'absolute',
+						right: 8,
+					}}
+					tabIndex={-1}
+				>
+					{showPassword ? <Visibility fontSize="small" /> : <VisibilityOff fontSize="small" />}
+				</IconButton>
+			</Box>
+		</div>
+	);
 
 	if (device === 'mobile') {
 		return (
@@ -106,25 +149,15 @@ const Join: NextPage = () => {
 										placeholder={'Enter Nickname'}
 										onChange={(e) => handleInput('nick', e.target.value)}
 										required={true}
+										value={input.nick}
 										onKeyDown={(event) => {
 											if (event.key == 'Enter' && loginView) doLogin();
 											if (event.key == 'Enter' && !loginView) doSignUp();
 										}}
 									/>
 								</div>
-								<div className={'input-box'}>
-									<span>Password</span>
-									<input
-										type="text"
-										placeholder={'Enter Password'}
-										onChange={(e) => handleInput('password', e.target.value)}
-										required={true}
-										onKeyDown={(event) => {
-											if (event.key == 'Enter' && loginView) doLogin();
-											if (event.key == 'Enter' && !loginView) doSignUp();
-										}}
-									/>
-								</div>
+								{/* Password input with show/hide */}
+								<Box sx={{ position: 'relative' }}>{PasswordInput}</Box>
 								{!loginView && (
 									<div className={'input-box'}>
 										<span>Phone</span>
@@ -133,6 +166,7 @@ const Join: NextPage = () => {
 											placeholder={'Enter Phone'}
 											onChange={(e) => handleInput('phone', e.target.value)}
 											required={true}
+											value={input.phone}
 											onKeyDown={(event) => {
 												if (event.key == 'Enter') doSignUp();
 											}}
@@ -270,25 +304,15 @@ const Join: NextPage = () => {
 										placeholder={'Enter Nickname'}
 										onChange={(e) => handleInput('nick', e.target.value)}
 										required={true}
+										value={input.nick}
 										onKeyDown={(event) => {
 											if (event.key == 'Enter' && loginView) doLogin();
 											if (event.key == 'Enter' && !loginView) doSignUp();
 										}}
 									/>
 								</div>
-								<div className={'input-box'}>
-									<span>Password</span>
-									<input
-										type="text"
-										placeholder={'Enter Password'}
-										onChange={(e) => handleInput('password', e.target.value)}
-										required={true}
-										onKeyDown={(event) => {
-											if (event.key == 'Enter' && loginView) doLogin();
-											if (event.key == 'Enter' && !loginView) doSignUp();
-										}}
-									/>
-								</div>
+								{/* Password input with show/hide */}
+								<Box sx={{ position: 'relative' }}>{PasswordInput}</Box>
 								{!loginView && (
 									<div className={'input-box'}>
 										<span>Phone</span>
@@ -297,6 +321,7 @@ const Join: NextPage = () => {
 											placeholder={'Enter Phone'}
 											onChange={(e) => handleInput('phone', e.target.value)}
 											required={true}
+											value={input.phone}
 											onKeyDown={(event) => {
 												if (event.key == 'Enter') doSignUp();
 											}}
