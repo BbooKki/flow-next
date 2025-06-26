@@ -41,7 +41,7 @@ const ProductBigCard = (props: ProductBigCardProps) => {
 							<span>top</span>
 						</div>
 					)}
-					<div className={'price'}>${formatterStr(product?.productPrice)}</div>
+					<div className={'price'}>₩{formatterStr(product?.productPrice)}</div>
 				</Box>
 			</Stack>
 		);
@@ -59,7 +59,7 @@ const ProductBigCard = (props: ProductBigCardProps) => {
 							<span>top</span>
 						</div>
 					)}
-					<div className={'price'}>${formatterStr(product?.productPrice)}</div>
+					<div className={'price'}>₩{formatterStr(product?.productPrice)}</div>
 				</Box>
 			</Stack>
 		);

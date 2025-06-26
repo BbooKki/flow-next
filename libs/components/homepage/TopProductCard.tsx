@@ -59,7 +59,7 @@ const TopProductCard = (props: TopProductCardProps) => {
 						pushDetailHandler(product._id);
 					}}
 				>
-					<div>${product.productPrice}</div>
+					<div>₩{product.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong
@@ -87,16 +87,16 @@ const TopProductCard = (props: TopProductCardProps) => {
 							</IconButton>
 							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
-						<Button 
-    className={'buy-btn'} 
-    variant="contained" 
-    color="primary" 
-    onClick={handleBuyClick} 
-    disabled={isAddingToCart}
-    size="small"
->
-    Buy
-</Button>
+						<Button
+							className={'buy-btn'}
+							variant="contained"
+							color="primary"
+							onClick={handleBuyClick}
+							disabled={isAddingToCart}
+							size="small"
+						>
+							Buy
+						</Button>
 					</div>
 				</Box>
 			</Stack>
@@ -110,7 +110,7 @@ const TopProductCard = (props: TopProductCardProps) => {
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${product?.productImages[0]})` }}
 					onClick={() => pushDetailHandler(product._id)}
 				>
-					<div>${product?.productPrice}</div>
+					<div>₩{product?.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(product._id)}>
@@ -132,16 +132,16 @@ const TopProductCard = (props: TopProductCardProps) => {
 							</IconButton>
 							<Typography className="view-cnt">{product?.productLikes}</Typography>
 						</div>
-						<Button 
-    className={'buy-btn'} 
-    variant="contained" 
-    color="primary" 
-    onClick={handleBuyClick} 
-    disabled={isAddingToCart}
-    size="small"
->
-    Buy
-</Button>
+						<Button
+							className={'buy-btn'}
+							variant="contained"
+							color="primary"
+							onClick={handleBuyClick}
+							disabled={isAddingToCart}
+							size="small"
+						>
+							Buy
+						</Button>
 					</div>
 				</Box>
 			</Stack>

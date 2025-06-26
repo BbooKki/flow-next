@@ -61,7 +61,7 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 						pushDetailHandler(product._id);
 					}}
 				>
-					<div>${product.productPrice}</div>
+					<div>₩{product.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong
@@ -114,7 +114,7 @@ const TrendProductCard = (props: TrendProductCardProps) => {
 						pushDetailHandler(product._id);
 					}}
 				>
-					<div>${product.productPrice}</div>
+					<div>₩{product.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong

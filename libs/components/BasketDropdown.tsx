@@ -119,7 +119,7 @@ const BasketDropdown: React.FC<BasketDropdownProps> = ({ user }) => {
 										}
 										secondary={
 											<Typography variant="caption" color="default">
-												${item.productPrice}
+												₩{item.productPrice}
 											</Typography>
 										}
 									/>

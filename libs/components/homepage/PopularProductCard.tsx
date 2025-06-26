@@ -60,7 +60,7 @@ const PopularProductCard = (props: PopularProductCardProps) => {
 						pushDetailHandler(product._id);
 					}}
 				>
-					<div>${product.productPrice}</div>
+					<div>₩{product.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong
@@ -111,7 +111,7 @@ const PopularProductCard = (props: PopularProductCardProps) => {
 					style={{ backgroundImage: `url(${REACT_APP_API_URL}/${product?.productImages[0]})` }}
 					onClick={() => pushDetailHandler(product._id)}
 				>
-					<div>${product?.productPrice}</div>
+					<div>₩{product?.productPrice}</div>
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'} onClick={() => pushDetailHandler(product._id)}>

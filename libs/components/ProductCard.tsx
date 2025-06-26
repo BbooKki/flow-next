@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 		<div className="product-card">
 			<img src={product.productImage} alt={product.productName} />
 			<h3>{product.productName}</h3>
-			<p>${product.productPrice}</p>
+			<p>₩{product.productPrice}</p>
 			<Button onClick={handleBuyClick}>{t('Add to Cart')}</Button>
 		</div>
 	);
