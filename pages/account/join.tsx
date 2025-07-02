@@ -118,7 +118,7 @@ const Join: NextPage = () => {
 								<img src="/img/logo/logo-70.svg" alt="" />
 								<span>Flow</span>
 							</Box>
-							<Stack spacing={2}>
+							{/* <Stack spacing={2}>
 								<GoogleLogin
 									onSuccess={async (credentialResponse) => {
 										if (!credentialResponse.credential) {
@@ -136,7 +136,7 @@ const Join: NextPage = () => {
 										sweetMixinErrorAlert('Google Login Failed');
 									}}
 								/>
-							</Stack>
+							</Stack> */}
 							<Box className={'info'}>
 								<span>{loginView ? 'login' : 'signup'}</span>
 								<p>{loginView ? 'Login' : 'Sign'} in with this account across the following sites.</p>
@@ -273,7 +273,7 @@ const Join: NextPage = () => {
 								<img src="/img/logo/logo-70.svg" alt="" />
 								<span>FLOW</span>
 							</Box>
-							<Stack spacing={2}>
+							{/* <Stack spacing={2}>
 								<GoogleLogin
 									onSuccess={async (credentialResponse) => {
 										if (!credentialResponse.credential) {
@@ -291,7 +291,7 @@ const Join: NextPage = () => {
 										sweetMixinErrorAlert('Google Login Failed');
 									}}
 								/>
-							</Stack>
+							</Stack> */}
 							<Box className={'info'}>
 								<span>{loginView ? 'login' : 'signup'}</span>
 								<p>{loginView ? 'Login' : 'Sign'} in with this account across the following sites.</p>
