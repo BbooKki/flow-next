@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+// import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import React, { useState } from 'react';
@@ -15,24 +15,24 @@ const App = ({ Component, pageProps }: AppProps) => {
 	// @ts-ignore
 	const [theme, setTheme] = useState(createTheme(light));
 	const client = useApollo(pageProps.initialApolloState);
-	const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+	// const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 	//error debugging
-	if (!CLIENT_ID) {
-		console.error(
-			'Google Client ID is missing. Make sure NEXT_PUBLIC_GOOGLE_CLIENT_ID is set in your environment variables.',
-		);
-	}
+	// if (!CLIENT_ID) {
+	// 	console.error(
+	// 		'Google Client ID is missing. Make sure NEXT_PUBLIC_GOOGLE_CLIENT_ID is set in your environment variables.',
+	// 	);
+	// }
 
 	return (
-		<GoogleOAuthProvider clientId={CLIENT_ID || ''}>
-			<ApolloProvider client={client}>
-				<ThemeProvider theme={theme}>
-					<CssBaseline />
-					<Component {...pageProps} />
-				</ThemeProvider>
-			</ApolloProvider>
-		</GoogleOAuthProvider>
+		// <GoogleOAuthProvider clientId={CLIENT_ID || ''}>
+		<ApolloProvider client={client}>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				<Component {...pageProps} />
+			</ThemeProvider>
+		</ApolloProvider>
+		// </GoogleOAuthProvider>
 	);
 };
 

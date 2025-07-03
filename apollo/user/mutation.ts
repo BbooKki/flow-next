@@ -4,34 +4,34 @@ import { gql } from '@apollo/client';
  *         MEMBER         *
  *************************/
 
-export const GOOGLE_AUTH = gql`
-	mutation GoogleAuth($googleToken: String!) {
-		googleAuth(googleToken: $googleToken) {
-			_id
-			memberType
-			memberStatus
-			memberAuthType
-			memberPhone
-			memberNick
-			memberFullName
-			memberImage
-			memberAddress
-			memberDesc
-			memberWarnings
-			memberBlocks
-			memberProducts
-			memberRank
-			memberArticles
-			memberPoints
-			memberLikes
-			memberViews
-			deletedAt
-			createdAt
-			updatedAt
-			accessToken
-		}
-	}
-`;
+// export const GOOGLE_AUTH = gql`
+// 	mutation GoogleAuth($googleToken: String!) {
+// 		googleAuth(googleToken: $googleToken) {
+// 			_id
+// 			memberType
+// 			memberStatus
+// 			memberAuthType
+// 			memberPhone
+// 			memberNick
+// 			memberFullName
+// 			memberImage
+// 			memberAddress
+// 			memberDesc
+// 			memberWarnings
+// 			memberBlocks
+// 			memberProducts
+// 			memberRank
+// 			memberArticles
+// 			memberPoints
+// 			memberLikes
+// 			memberViews
+// 			deletedAt
+// 			createdAt
+// 			updatedAt
+// 			accessToken
+// 		}
+// 	}
+// `;
 
 export const SIGN_UP = gql`
 	mutation Signup($input: MemberInput!) {
