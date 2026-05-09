@@ -8,8 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "changelog": "standard-version --skip.tag",
-    "preinstall": "node preinstall.js"
+    "changelog": "standard-version --skip.tag"
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",
