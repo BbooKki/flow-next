@@ -1,0 +1,24 @@
+name: Deploy to Hostinger VPS
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          script: |
+            cd /home/flow-project/flow-next
+            git fetch origin develop
+            git reset --hard origin/develop
+            yarn install --frozen-lockfile
+            yarn build
+            pm2 describe flow-next >/dev/null 2>&1 && pm2 restart flow-next || pm2 start yarn --name flow-next -- start
