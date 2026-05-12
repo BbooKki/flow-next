@@ -1,4 +1,4 @@
-name: Deploy Flow to VPS
+name: Deploy to Hostinger VPS
 
 on:
   push:
@@ -21,8 +21,8 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
             
             cd /home/flow-project/flow-next
-            git pull origin main
-            npm install
+            git pull origin master
+            npm install --legacy-peer-deps
             npm run build
             
             # Restart the application
