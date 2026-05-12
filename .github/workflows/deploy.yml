@@ -22,7 +22,7 @@ jobs:
             
             cd /home/flow-project/flow-next
             git pull origin master
-            npm install --legacy-peer-deps
+            npm ci
             npm run build
             
             # Restart the application
