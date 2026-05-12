@@ -1,24 +1,32 @@
-name: Deploy to Hostinger VPS
+name: Deploy Flow to VPS
 
 on:
   push:
-    branches: [ develop ]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOSTINGER_HOST }}
-          username: ${{ secrets.HOSTINGER_USER }}
-          password: ${{ secrets.HOSTINGER_PASSWORD }}
-          port: ${{ secrets.HOSTINGER_PORT }}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            export NVM_DIR="/root/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            
             cd /home/flow-project/flow-next
-            git fetch origin develop
-            git reset --hard origin/develop
-            yarn install --frozen-lockfile
-            yarn build
-            pm2 describe flow-next >/dev/null 2>&1 && pm2 restart flow-next || pm2 start yarn --name flow-next -- start
+            git pull origin main
+            npm install
+            npm run build
+            
+            # Restart the application
+            pkill -f 'next start' || true
+            nohup npm run start > flow.log 2>&1 &
+            
+            echo "Flow deployment completed!"
